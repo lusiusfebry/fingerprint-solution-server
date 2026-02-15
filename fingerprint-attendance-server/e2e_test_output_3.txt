@@ -1,0 +1,333 @@
+FAIL test/app.e2e-spec.ts (16.237 s)
+  ΓùÅ AppController (e2e) ΓÇ║ / (GET)
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      20 |     return request(app.getHttpServer())
+      21 |       .get('/')
+    > 22 |       .expect(200)
+         |        ^
+      23 |       .expect('Hello World!');
+      24 |   });
+      25 | });
+
+      at Object.<anonymous> (app.e2e-spec.ts:22:8)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+FAIL test/devices.e2e-spec.ts (16.494 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜí∩╕Å secrets for agents: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should register a new device
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should fail with invalid IP address
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (GET) ΓÇ║ should return a list of devices
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices/:id/test-connection (POST) ΓÇ║ should test connection successfully
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      46 |
+      47 |   afterAll(async () => {
+    > 48 |     await app.close();
+         |               ^
+      49 |     await teardownTestDatabase();
+      50 |   });
+      51 |
+
+      at Object.<anonymous> (devices.e2e-spec.ts:48:15)
+
+FAIL test/employees.e2e-spec.ts (16.449 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should create a new employee
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should fail if NIK is duplicate
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (GET) ΓÇ║ should list all employees
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees/:id/fingerprint (POST) ΓÇ║ should upload fingerprint template
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      44 |
+      45 |   afterAll(async () => {
+    > 46 |     await app.close();
+         |               ^
+      47 |     await teardownTestDatabase();
+      48 |   });
+      49 |
+
+      at Object.<anonymous> (employees.e2e-spec.ts:46:15)
+
+FAIL test/attendance.e2e-spec.ts (16.561 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/logs (GET) ΓÇ║ should return attendance logs
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (attendance.e2e-spec.ts:22:5)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/summary (GET) ΓÇ║ should return attendance summary
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (attendance.e2e-spec.ts:22:5)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/calculate (GET) ΓÇ║ should return calculated results
+
+    QueryFailedError: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+
+      at PostgresQueryRunner.query (../src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at PostgresQueryRunner.executeQueries (../src/query-runner/BaseQueryRunner.ts:681:13)
+      at PostgresQueryRunner.createTable (../src/driver/postgres/PostgresQueryRunner.ts:616:9)
+      at RdbmsSchemaBuilder.createNewTables (../src/schema-builder/RdbmsSchemaBuilder.ts:635:13)
+      at RdbmsSchemaBuilder.executeSchemaSyncOperationsInProperOrder (../src/schema-builder/RdbmsSchemaBuilder.ts:225:9)
+      at RdbmsSchemaBuilder.build (../src/schema-builder/RdbmsSchemaBuilder.ts:95:13)
+      at DataSource.synchronize (../src/data-source/DataSource.ts:340:9)
+      at DataSource.initialize (../src/data-source/DataSource.ts:278:43)
+      at setupTestDatabase (test-db.config.ts:45:5)
+      at Object.<anonymous> (attendance.e2e-spec.ts:22:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      67 |
+      68 |   afterAll(async () => {
+    > 69 |     await app.close();
+         |               ^
+      70 |     await teardownTestDatabase();
+      71 |   });
+      72 |
+
+      at Object.<anonymous> (attendance.e2e-spec.ts:69:15)
+
+FAIL test/auth.e2e-spec.ts (17.52 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒñû agentic secret storage: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should login successfully with correct credentials
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      67 |           password: 'admin123',
+      68 |         })
+    > 69 |         .expect(200);
+         |          ^
+      70 |
+      71 |       expect(response.body).toHaveProperty('access_token');
+      72 |       expect(response.body).toHaveProperty('refresh_token');
+
+      at Object.<anonymous> (auth.e2e-spec.ts:69:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return profile for authenticated user
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+       99 |         .get('/api/auth/profile')
+      100 |         .set('Authorization', `Bearer ${token}`)
+    > 101 |         .expect(200);
+          |          ^
+      102 |
+      103 |       expect(response.body.username).toBe('admin_test');
+      104 |       expect(response.body).not.toHaveProperty('password');
+
+      at Object.<anonymous> (auth.e2e-spec.ts:101:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/refresh-token (POST) ΓÇ║ should return new tokens with valid refresh token
+
+    expected 200 "OK", got 400 "Bad Request"
+
+      124 |         .post('/api/auth/refresh-token')
+      125 |         .send({ refresh_token: refreshToken })
+    > 126 |         .expect(200);
+          |          ^
+      127 |
+      128 |       expect(response.body).toHaveProperty('access_token');
+      129 |       expect(response.body).toHaveProperty('refresh_token');
+
+      at Object.<anonymous> (auth.e2e-spec.ts:126:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+Test Suites: 5 failed, 5 total
+Tests:       15 failed, 2 passed, 17 total
+Snapshots:   0 total
+Time:        20.203 s
+Ran all test suites.

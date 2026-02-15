@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AttendanceLogsService } from './attendance-logs.service';
 import { AttendanceLogsController } from './attendance-logs.controller';
 
@@ -12,7 +12,7 @@ import { ShiftsModule } from '../shifts/shifts.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([AttendanceLog, Employee, Device]),
-    DevicesModule,
+    forwardRef(() => DevicesModule),
     ShiftsModule,
   ],
   controllers: [AttendanceLogsController],

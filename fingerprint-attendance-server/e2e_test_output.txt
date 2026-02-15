@@ -1,0 +1,273 @@
+
+> fingerprint-attendance-server@0.0.1 test:e2e
+> jest --config ./test/jest-e2e.json
+
+FAIL test/employees.e2e-spec.ts (15.599 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should create a new employee
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should fail if NIK is duplicate
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (GET) ΓÇ║ should list all employees
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees/:id/fingerprint (POST) ΓÇ║ should upload fingerprint template
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      44 |
+      45 |   afterAll(async () => {
+    > 46 |     await app.close();
+         |               ^
+      47 |     await teardownTestDatabase();
+      48 |   });
+      49 |
+
+      at Object.<anonymous> (employees.e2e-spec.ts:46:15)
+
+FAIL test/attendance.e2e-spec.ts (15.997 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/logs (GET) ΓÇ║ should return attendance logs
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/summary (GET) ΓÇ║ should return attendance summary
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/calculate (GET) ΓÇ║ should return calculated results
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      67 |
+      68 |   afterAll(async () => {
+    > 69 |     await app.close();
+         |               ^
+      70 |     await teardownTestDatabase();
+      71 |   });
+      72 |
+
+      at Object.<anonymous> (attendance.e2e-spec.ts:69:15)
+
+FAIL test/app.e2e-spec.ts (15.903 s)
+  ΓùÅ AppController (e2e) ΓÇ║ / (GET)
+
+    Nest cannot create the AttendanceLogsModule instance.
+    The module at index [1] of the AttendanceLogsModule "imports" array is undefined.
+
+    Potential causes:
+    - A circular dependency between modules. Use forwardRef() to avoid it. Read more: https://docs.nestjs.com/fundamentals/circular-dependency
+    - The module at index [1] is of type "undefined". Check your import statements and the type of the module.
+
+    Scope [RootTestModule -> AppModule -> DevicesModule]
+
+       9 |
+      10 |   beforeEach(async () => {
+    > 11 |     const moduleFixture: TestingModule = await Test.createTestingModule({
+         |                                          ^
+      12 |       imports: [AppModule],
+      13 |     }).compile();
+      14 |
+
+      at DependenciesScanner.scanForModules (../node_modules/@nestjs/core/scanner.js:64:23)
+      at DependenciesScanner.scanForModules (../node_modules/@nestjs/core/scanner.js:72:32)
+      at DependenciesScanner.scanForModules (../node_modules/@nestjs/core/scanner.js:72:32)
+      at DependenciesScanner.scanForModules (../node_modules/@nestjs/core/scanner.js:72:32)
+      at DependenciesScanner.scan (../node_modules/@nestjs/core/scanner.js:28:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:70:9)
+      at Object.<anonymous> (app.e2e-spec.ts:11:42)
+
+FAIL test/devices.e2e-spec.ts (16.449 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should register a new device
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should fail with invalid IP address
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (GET) ΓÇ║ should return a list of devices
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices/:id/test-connection (POST) ΓÇ║ should test connection successfully
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      46 |
+      47 |   afterAll(async () => {
+    > 48 |     await app.close();
+         |               ^
+      49 |     await teardownTestDatabase();
+      50 |   });
+      51 |
+
+      at Object.<anonymous> (devices.e2e-spec.ts:48:15)
+
+FAIL test/auth.e2e-spec.ts (16.383 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should login successfully with correct credentials
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should fail with incorrect password
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return profile for authenticated user
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return 401 for unauthenticated user
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/refresh-token (POST) ΓÇ║ should return new tokens with valid refresh token
+
+    error: database "fingerprint_attendance_test" does not exist
+
+      at parseErrorMessage (../node_modules/pg-protocol/src/parser.ts:394:9)
+      at Parser.handlePacket (../node_modules/pg-protocol/src/parser.ts:212:19)
+      at Parser.parse (../node_modules/pg-protocol/src/parser.ts:105:30)
+      at Socket.<anonymous> (../node_modules/pg-protocol/src/index.ts:7:48)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      55 |
+      56 |   afterAll(async () => {
+    > 57 |     await app.close();
+         |               ^
+      58 |     await teardownTestDatabase();
+      59 |   });
+      60 |
+
+      at Object.<anonymous> (auth.e2e-spec.ts:57:15)
+
+Test Suites: 5 failed, 5 total
+Tests:       17 failed, 17 total
+Snapshots:   0 total
+Time:        19.874 s, estimated 27 s
+Ran all test suites.

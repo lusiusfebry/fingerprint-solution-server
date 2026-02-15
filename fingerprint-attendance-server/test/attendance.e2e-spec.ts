@@ -8,6 +8,7 @@ import { AppModule } from '../src/app.module';
 import {
   testDataSource,
   setupTestDatabase,
+  seedTestData,
   teardownTestDatabase,
 } from './test-db.config';
 import { Employee } from '../src/database/entities/employee.entity';
@@ -20,12 +21,14 @@ describe('AttendanceLogsController (e2e)', () => {
 
   beforeAll(async () => {
     await setupTestDatabase();
+    await seedTestData();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
 

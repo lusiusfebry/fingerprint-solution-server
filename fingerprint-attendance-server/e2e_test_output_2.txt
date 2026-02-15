@@ -1,0 +1,545 @@
+FAIL test/app.e2e-spec.ts (9.796 s)
+  ΓùÅ AppController (e2e) ΓÇ║ / (GET)
+
+    Nest can't resolve dependencies of the DevicesService (DeviceRepository, FingerprintDeviceService, DevicesGateway, NetworkScannerService, AttendanceLogsService, EmployeesService, ?). Please make sure that the argument SyncEngineService at index [6] is available in the DevicesModule context.
+
+    Potential solutions:
+    - Is DevicesModule a valid NestJS module?
+    - If SyncEngineService is a provider, is it part of the current DevicesModule?
+    - If SyncEngineService is exported from a separate @Module, is that module imported within DevicesModule?
+      @Module({
+        imports: [ /* the Module containing SyncEngineService */ ]
+      })
+
+    For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+
+       9 |
+      10 |   beforeEach(async () => {
+    > 11 |     const moduleFixture: TestingModule = await Test.createTestingModule({
+         |                                          ^
+      12 |       imports: [AppModule],
+      13 |     }).compile();
+      14 |
+
+      at TestingInjector.lookupComponentInParentModules (../node_modules/@nestjs/core/injector/injector.js:290:19)
+      at TestingInjector.resolveComponentWrapper (../node_modules/@nestjs/testing/testing-injector.js:19:45)
+      at resolveParam (../node_modules/@nestjs/core/injector/injector.js:140:38)
+          at async Promise.all (index 6)
+      at TestingInjector.resolveConstructorParams (../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadProvider (../node_modules/@nestjs/core/injector/injector.js:103:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:56:13
+          at async Promise.all (index 3)
+      at TestingInstanceLoader.createInstancesOfProviders (../node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:40:13
+          at async Promise.all (index 19)
+      at TestingInstanceLoader.createInstances (../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (app.e2e-spec.ts:11:42)
+
+FAIL test/auth.e2e-spec.ts (10.274 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should login successfully with correct credentials
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (auth.e2e-spec.ts:21:5)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should fail with incorrect password
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (auth.e2e-spec.ts:21:5)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return profile for authenticated user
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (auth.e2e-spec.ts:21:5)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return 401 for unauthenticated user
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (auth.e2e-spec.ts:21:5)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/refresh-token (POST) ΓÇ║ should return new tokens with valid refresh token
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (auth.e2e-spec.ts:21:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      55 |
+      56 |   afterAll(async () => {
+    > 57 |     await app.close();
+         |               ^
+      58 |     await teardownTestDatabase();
+      59 |   });
+      60 |
+
+      at Object.<anonymous> (auth.e2e-spec.ts:57:15)
+
+FAIL test/devices.e2e-spec.ts (10.318 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should register a new device
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should fail with invalid IP address
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (GET) ΓÇ║ should return a list of devices
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices/:id/test-connection (POST) ΓÇ║ should test connection successfully
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (devices.e2e-spec.ts:24:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      46 |
+      47 |   afterAll(async () => {
+    > 48 |     await app.close();
+         |               ^
+      49 |     await teardownTestDatabase();
+      50 |   });
+      51 |
+
+      at Object.<anonymous> (devices.e2e-spec.ts:48:15)
+
+FAIL test/attendance.e2e-spec.ts (10.337 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/logs (GET) ΓÇ║ should return attendance logs
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (attendance.e2e-spec.ts:22:5)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/summary (GET) ΓÇ║ should return attendance summary
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (attendance.e2e-spec.ts:22:5)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/calculate (GET) ΓÇ║ should return calculated results
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (attendance.e2e-spec.ts:22:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      67 |
+      68 |   afterAll(async () => {
+    > 69 |     await app.close();
+         |               ^
+      70 |     await teardownTestDatabase();
+      71 |   });
+      72 |
+
+      at Object.<anonymous> (attendance.e2e-spec.ts:69:15)
+
+(node:23336) [JEST-01] DeprecationWarning: 'entitySubscribers' property was accessed on [MetadataArgsStorage] after it was soft deleted
+  Jest deletes objects that were set on the global scope between test files to reduce memory leaks.
+  Currently it only "soft" deletes them and emits this warning if those objects were accessed after their deletion.
+  In future versions of Jest, this behavior will change to "on", which will likely fail tests.
+  You can change the behavior in your test configuration now to reduce memory usage.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+FAIL test/employees.e2e-spec.ts (10.445 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should create a new employee
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should fail if NIK is duplicate
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (GET) ΓÇ║ should list all employees
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees/:id/fingerprint (POST) ΓÇ║ should upload fingerprint template
+
+    TypeORMError: Entity metadata for Role#permissions was not found. Check if you specified a correct entity object and if it's connected in the connection options.
+
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:1128:23
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.computeInverseProperties (../src/metadata-builder/EntityMetadataBuilder.ts:1118:34)
+      at ../src/metadata-builder/EntityMetadataBuilder.ts:160:18
+          at Array.forEach (<anonymous>)
+      at EntityMetadataBuilder.build (../src/metadata-builder/EntityMetadataBuilder.ts:159:25)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:106:11)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+      at setupTestDatabase (test-db.config.ts:43:5)
+      at Object.<anonymous> (employees.e2e-spec.ts:22:5)
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      44 |
+      45 |   afterAll(async () => {
+    > 46 |     await app.close();
+         |               ^
+      47 |     await teardownTestDatabase();
+      48 |   });
+      49 |
+
+      at Object.<anonymous> (employees.e2e-spec.ts:46:15)
+
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 0)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 1)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 2)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 3)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 4)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 5)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 6)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 7)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 8)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 9)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 10)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 11)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+
+ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From app.e2e-spec.ts.
+
+      at tryToRequire (../src/util/ImportUtils.ts:22:17)
+      at importOrRequireFile (../src/util/ImportUtils.ts:36:25)
+      at ../src/util/DirectoryExportedClassesLoader.ts:57:45
+          at async Promise.all (index 12)
+      at importClassesFromDirectories (../src/util/DirectoryExportedClassesLoader.ts:63:18)
+      at ConnectionMetadataBuilder.buildEntityMetadatas (../src/connection/ConnectionMetadataBuilder.ts:92:17)
+      at DataSource.buildMetadatas (../src/data-source/DataSource.ts:733:13)
+      at DataSource.initialize (../src/data-source/DataSource.ts:264:13)
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+Test Suites: 5 failed, 5 total
+Tests:       17 failed, 17 total
+Snapshots:   0 total
+Time:        13.177 s
+Ran all test suites.

@@ -6,7 +6,13 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { FingerprintDeviceService } from '../src/modules/devices/services/fingerprint-device.service';
-import { setupTestDatabase, teardownTestDatabase } from './test-db.config';
+import {
+  setupTestDatabase,
+  seedTestData,
+  teardownTestDatabase,
+  testDataSource,
+} from './test-db.config';
+import { Device } from '../src/database/entities/device.entity';
 
 describe('EmployeesController (e2e)', () => {
   let app: INestApplication;
@@ -20,6 +26,7 @@ describe('EmployeesController (e2e)', () => {
 
   beforeAll(async () => {
     await setupTestDatabase();
+    await seedTestData();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -29,6 +36,7 @@ describe('EmployeesController (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
 
@@ -40,6 +48,17 @@ describe('EmployeesController (e2e)', () => {
         password: 'admin123',
       });
     authToken = loginRes.body.access_token;
+
+    // Seed an online device
+    const devRepo = testDataSource.getRepository(Device);
+    await devRepo.save(
+      devRepo.create({
+        name: 'Test Device',
+        serial_number: 'SN-TEST',
+        ip_address: '1.2.3.4',
+        status: 'online',
+      }),
+    );
   });
 
   afterAll(async () => {

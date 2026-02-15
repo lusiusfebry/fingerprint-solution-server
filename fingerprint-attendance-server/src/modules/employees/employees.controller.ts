@@ -31,7 +31,7 @@ import { ShiftsService } from '../shifts/shifts.service';
 import { AssignShiftDto } from '../shifts/dto/assign-shift.dto';
 
 @ApiTags('Employees')
-@Controller('api/employees')
+@Controller('employees')
 @ApiBearerAuth('JWT-auth')
 export class EmployeesController {
   constructor(

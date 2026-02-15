@@ -6,7 +6,11 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { FingerprintDeviceService } from '../src/modules/devices/services/fingerprint-device.service';
-import { setupTestDatabase, teardownTestDatabase } from './test-db.config';
+import {
+  setupTestDatabase,
+  seedTestData,
+  teardownTestDatabase,
+} from './test-db.config';
 
 describe('DevicesController (e2e)', () => {
   let app: INestApplication;
@@ -22,6 +26,7 @@ describe('DevicesController (e2e)', () => {
 
   beforeAll(async () => {
     await setupTestDatabase();
+    await seedTestData();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -31,6 +36,7 @@ describe('DevicesController (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
 
@@ -100,7 +106,7 @@ describe('DevicesController (e2e)', () => {
       const devId = devicesRes.body[0].id;
 
       await request(app.getHttpServer())
-        .post(`/api/devices/${devId}/test-connection`)
+        .post(`/api/devices/${devId}/test`)
         .set('Authorization', `Bearer ${authToken}`)
         .expect(201);
 

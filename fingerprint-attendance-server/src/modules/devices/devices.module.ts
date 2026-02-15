@@ -11,12 +11,14 @@ import { NetworkScannerService } from './services/network-scanner.service';
 
 import { AttendanceLogsModule } from '../attendance-logs/attendance-logs.module';
 import { EmployeesModule } from '../employees/employees.module';
+import { SyncHistoryModule } from '../sync-history/sync-history.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Device]),
-    AttendanceLogsModule,
+    forwardRef(() => AttendanceLogsModule),
     forwardRef(() => EmployeesModule),
+    forwardRef(() => SyncHistoryModule),
   ],
   controllers: [DevicesController],
   providers: [

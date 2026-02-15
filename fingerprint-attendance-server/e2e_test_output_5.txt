@@ -1,0 +1,478 @@
+FAIL test/auth.e2e-spec.ts (8.588 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should login successfully with correct credentials
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      68 |           password: 'admin123',
+      69 |         })
+    > 70 |         .expect(200);
+         |          ^
+      71 |
+      72 |       expect(response.body).toHaveProperty('access_token');
+      73 |       expect(response.body).toHaveProperty('refresh_token');
+
+      at Object.<anonymous> (auth.e2e-spec.ts:70:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return profile for authenticated user
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      100 |         .get('/api/auth/profile')
+      101 |         .set('Authorization', `Bearer ${token}`)
+    > 102 |         .expect(200);
+          |          ^
+      103 |
+      104 |       expect(response.body.username).toBe('admin_test');
+      105 |       expect(response.body).not.toHaveProperty('password');
+
+      at Object.<anonymous> (auth.e2e-spec.ts:102:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/refresh-token (POST) ΓÇ║ should return new tokens with valid refresh token
+
+    expected 200 "OK", got 400 "Bad Request"
+
+      125 |         .post('/api/auth/refresh-token')
+      126 |         .send({ refresh_token: refreshToken })
+    > 127 |         .expect(200);
+          |          ^
+      128 |
+      129 |       expect(response.body).toHaveProperty('access_token');
+      130 |       expect(response.body).toHaveProperty('refresh_token');
+
+      at Object.<anonymous> (auth.e2e-spec.ts:127:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+FAIL test/employees.e2e-spec.ts (5.703 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should create a new employee
+
+    expected 201 "Created", got 401 "Unauthorized"
+
+      60 |           status: 'aktif',
+      61 |         })
+    > 62 |         .expect(201);
+         |          ^
+      63 |
+      64 |       expect(response.body.nik).toBe('E001');
+      65 |     });
+
+      at Object.<anonymous> (employees.e2e-spec.ts:62:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (POST) ΓÇ║ should fail if NIK is duplicate
+
+    expected 400 "Bad Request", got 401 "Unauthorized"
+
+      73 |           nama: 'Employee Duplicate',
+      74 |         })
+    > 75 |         .expect(400);
+         |          ^
+      76 |     });
+      77 |   });
+      78 |
+
+      at Object.<anonymous> (employees.e2e-spec.ts:75:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees (GET) ΓÇ║ should list all employees
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      82 |         .get('/api/employees')
+      83 |         .set('Authorization', `Bearer ${authToken}`)
+    > 84 |         .expect(200);
+         |          ^
+      85 |
+      86 |       expect(Array.isArray(response.body)).toBe(true);
+      87 |       expect(response.body.length).toBeGreaterThan(0);
+
+      at Object.<anonymous> (employees.e2e-spec.ts:84:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees/:id/fingerprint (POST) ΓÇ║ should upload fingerprint template
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+      94 |         .get('/api/employees')
+      95 |         .set('Authorization', `Bearer ${authToken}`);
+    > 96 |       const empId = employeesRes.body[0].id;
+         |                                          ^
+      97 |
+      98 |       await request(app.getHttpServer())
+      99 |         .post(`/api/employees/${empId}/fingerprint`)
+
+      at Object.<anonymous> (employees.e2e-spec.ts:96:42)
+
+FAIL test/attendance.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢í∩╕Å auth for agents: https://vestauth.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/logs (GET) ΓÇ║ should return attendance logs
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      77 |         .get('/api/attendance/logs')
+      78 |         .set('Authorization', `Bearer ${authToken}`)
+    > 79 |         .expect(200);
+         |          ^
+      80 |
+      81 |       expect(response.body).toHaveProperty('data');
+      82 |       expect(Array.isArray(response.body.data)).toBe(true);
+
+      at Object.<anonymous> (attendance.e2e-spec.ts:79:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/summary (GET) ΓÇ║ should return attendance summary
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      89 |         .get('/api/attendance/summary')
+      90 |         .set('Authorization', `Bearer ${authToken}`)
+    > 91 |         .expect(200);
+         |          ^
+      92 |     });
+      93 |   });
+      94 |
+
+      at Object.<anonymous> (attendance.e2e-spec.ts:91:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/calculate (GET) ΓÇ║ should return calculated results
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+       99 |         .set('Authorization', `Bearer ${authToken}`)
+      100 |         .query({ start_date: '2024-01-01', end_date: '2024-12-31' })
+    > 101 |         .expect(200);
+          |          ^
+      102 |
+      103 |       expect(response.body).toHaveProperty('data');
+      104 |     });
+
+      at Object.<anonymous> (attendance.e2e-spec.ts:101:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+FAIL test/devices.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜí∩╕Å secrets for agents: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should register a new device
+
+    expected 201 "Created", got 401 "Unauthorized"
+
+      62 |           port: 4370,
+      63 |         })
+    > 64 |         .expect(201);
+         |          ^
+      65 |
+      66 |       expect(response.body).toHaveProperty('id');
+      67 |       expect(response.body.name).toBe('Test Device 1');
+
+      at Object.<anonymous> (devices.e2e-spec.ts:64:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should fail with invalid IP address
+
+    expected 400 "Bad Request", got 401 "Unauthorized"
+
+      78 |           port: 4370,
+      79 |         })
+    > 80 |         .expect(400); // Validation pipe should catch this if class-validator is used
+         |          ^
+      81 |     });
+      82 |   });
+      83 |
+
+      at Object.<anonymous> (devices.e2e-spec.ts:80:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (GET) ΓÇ║ should return a list of devices
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      87 |         .get('/api/devices')
+      88 |         .set('Authorization', `Bearer ${authToken}`)
+    > 89 |         .expect(200);
+         |          ^
+      90 |
+      91 |       expect(Array.isArray(response.body)).toBe(true);
+      92 |       expect(response.body.length).toBeGreaterThan(0);
+
+      at Object.<anonymous> (devices.e2e-spec.ts:89:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices/:id/test-connection (POST) ΓÇ║ should test connection successfully
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+       99 |         .get('/api/devices')
+      100 |         .set('Authorization', `Bearer ${authToken}`);
+    > 101 |       const devId = devicesRes.body[0].id;
+          |                                        ^
+      102 |
+      103 |       await request(app.getHttpServer())
+      104 |         .post(`/api/devices/${devId}/test-connection`)
+
+      at Object.<anonymous> (devices.e2e-spec.ts:101:40)
+
+FAIL test/app.e2e-spec.ts
+  ΓùÅ AppController (e2e) ΓÇ║ /api (GET)
+
+    expected 200 "OK", got 401 "Unauthorized"
+
+      21 |     return request(app.getHttpServer())
+      22 |       .get('/api')
+    > 23 |       .expect(200)
+         |        ^
+      24 |       .expect((res) => {
+      25 |         expect(res.body).toHaveProperty('status', 'ok');
+      26 |         expect(res.body).toHaveProperty('timestamp');
+
+      at Object.<anonymous> (app.e2e-spec.ts:23:8)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+Test Suites: 5 failed, 5 total
+Tests:       15 failed, 2 passed, 17 total
+Snapshots:   0 total
+Time:        27.072 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
+[Nest] 2356  - 02/15/2026, 9:14:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:14:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:15:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:15:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:16:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:16:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:17:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:17:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:18:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:18:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:19:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:19:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:20:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:20:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:21:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:21:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:22:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:22:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:23:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:23:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:24:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:24:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:25:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:25:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:26:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:26:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:27:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:27:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:28:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:28:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:29:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:29:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:30:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:30:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:31:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:31:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:32:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:32:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:33:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:33:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:34:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:34:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:35:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:35:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:36:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:36:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:37:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:37:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:38:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:38:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:39:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:39:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:40:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:40:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:41:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:41:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:42:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:42:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:43:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:43:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:44:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:44:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:45:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:45:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:46:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:46:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:47:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 2356  - 02/15/2026, 9:47:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist

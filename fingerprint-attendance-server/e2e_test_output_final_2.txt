@@ -1,0 +1,164 @@
+FAIL test/employees.e2e-spec.ts (13.191 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢í∩╕Å auth for agents: https://vestauth.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ EmployeesController (e2e) ΓÇ║ /api/employees/:id/fingerprint (POST) ΓÇ║ should upload fingerprint template
+
+    expect(jest.fn()).toHaveBeenCalled()
+
+    Expected number of calls: >= 1
+    Received number of calls:    0
+
+      108 |       expect(
+      109 |         mockFingerprintService.uploadFingerprintTemplate,
+    > 110 |       ).toHaveBeenCalled();
+          |         ^
+      111 |     });
+      112 |   });
+      113 | });
+
+      at Object.<anonymous> (employees.e2e-spec.ts:110:9)
+
+FAIL test/attendance.e2e-spec.ts (8.837 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒñû agentic secret storage: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/logs (GET) ΓÇ║ should return attendance logs
+
+
+
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/summary (GET) ΓÇ║ should return attendance summary
+
+
+
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/calculate (GET) ΓÇ║ should return calculated results
+
+
+
+
+
+  ΓùÅ Test suite failed to run
+
+    Connection terminated
+
+FAIL test/devices.e2e-spec.ts (8.103 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices/:id/test-connection (POST) ΓÇ║ should test connection successfully
+
+    expected 201 "Created", got 404 "Not Found"
+
+      105 |         .post(`/api/devices/${devId}/test-connection`)
+      106 |         .set('Authorization', `Bearer ${authToken}`)
+    > 107 |         .expect(201);
+          |          ^
+      108 |
+      109 |       expect(mockFingerprintService.testConnection).toHaveBeenCalled();
+      110 |     });
+
+      at Object.<anonymous> (devices.e2e-spec.ts:107:10)
+      ----
+      at Test._assertStatus (../node_modules/supertest/lib/test.js:309:14)
+      at ../node_modules/supertest/lib/test.js:365:13
+      at Test._assertFunction (../node_modules/supertest/lib/test.js:342:13)
+      at Test.assert (../node_modules/supertest/lib/test.js:195:23)
+      at localAssert (../node_modules/supertest/lib/test.js:138:14)
+      at Server.<anonymous> (../node_modules/supertest/lib/test.js:152:11)
+
+PASS test/auth.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/app.e2e-spec.ts
+
+Test Suites: 3 failed, 2 passed, 5 total
+Tests:       5 failed, 12 passed, 17 total
+Snapshots:   0 total
+Time:        40.563 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
+[Nest] 17452  - 02/15/2026, 9:32:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:32:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:33:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:33:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:34:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:34:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:35:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:35:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:36:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:36:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:37:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:37:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:38:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:38:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:39:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:39:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:40:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:40:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:41:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:41:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:42:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:42:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:43:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:43:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:44:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:44:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:45:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:45:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:46:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:46:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:47:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 17452  - 02/15/2026, 9:47:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
