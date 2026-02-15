@@ -10,57 +10,90 @@ import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class AttendanceLogFilterDto {
-  @ApiPropertyOptional({ type: Date })
+  @ApiPropertyOptional({
+    description: 'Tanggal mulai filter (YYYY-MM-DD)',
+    type: Date,
+    example: '2024-01-01',
+  })
   @IsOptional()
   @Type(() => Date)
   @IsDate()
   startDate?: Date;
 
-  @ApiPropertyOptional({ type: Date })
+  @ApiPropertyOptional({
+    description: 'Tanggal akhir filter (YYYY-MM-DD)',
+    type: Date,
+    example: '2024-01-31',
+  })
   @IsOptional()
   @Type(() => Date)
   @IsDate()
   endDate?: Date;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'ID Karyawan (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
   @IsOptional()
   @IsUUID()
   employeeId?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'ID Perangkat (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
   @IsOptional()
   @IsUUID()
   deviceId?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Tipe verifikasi (0: Password, 1: Fingerprint, 2: Card)',
+    example: 1,
+  })
   @IsOptional()
   @IsNumber()
   verifyType?: number;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Mode In/Out (0: Check-In, 1: Check-Out)',
+    example: 0,
+  })
   @IsOptional()
   @IsNumber()
   inOutMode?: number;
 
-  @ApiPropertyOptional({ default: 1 })
+  @ApiPropertyOptional({ description: 'Nomor halaman', default: 1, example: 1 })
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
   @Min(1)
   page?: number = 1;
 
-  @ApiPropertyOptional({ default: 50 })
+  @ApiPropertyOptional({
+    description: 'Jumlah data per halaman',
+    default: 50,
+    example: 50,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
   @Min(1)
   limit?: number = 50;
 
-  @ApiPropertyOptional({ default: 'timestamp' })
+  @ApiPropertyOptional({
+    description: 'Kolom pengurutan',
+    default: 'timestamp',
+    example: 'timestamp',
+  })
   @IsOptional()
   sortBy?: string = 'timestamp';
 
-  @ApiPropertyOptional({ enum: ['ASC', 'DESC'], default: 'DESC' })
+  @ApiPropertyOptional({
+    description: 'Arah pengurutan',
+    enum: ['ASC', 'DESC'],
+    default: 'DESC',
+    example: 'DESC',
+  })
   @IsOptional()
   @IsEnum(['ASC', 'DESC'])
   sortOrder?: 'ASC' | 'DESC' = 'DESC';

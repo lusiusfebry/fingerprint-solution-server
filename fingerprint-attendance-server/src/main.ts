@@ -27,9 +27,43 @@ async function bootstrap() {
   // Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('Fingerprint Attendance Server API')
-    .setDescription('API untuk sistem sinkronisasi mesin fingerprint X105D')
+    .setDescription(
+      'Dokumentasi API untuk sistem manajemen mesin fingerprint dan absensi karyawan. ' +
+        'Mendukung sinkronisasi data mesin X105D, manajemen shift, dan laporan absensi.',
+    )
     .setVersion('1.0')
-    .addBearerAuth()
+    .setContact(
+      'Support Team',
+      'https://primasaranagemilang.com',
+      'support@primasaranagemilang.com',
+    )
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
+    .addServer('http://localhost:3000', 'Local Development')
+    .addTag('Auth', 'Otentikasi dan manajemen token')
+    .addTag('Devices', 'Manajemen perangkat fingerprint dan sinkronisasi')
+    .addTag('Employees', 'Manajemen data karyawan dan profil')
+    .addTag('Attendance', 'Log absensi dan kalkulasi waktu kerja')
+    .addTag('Shifts', 'Pengaturan jadwal kerja dan shift')
+    .addTag('Users', 'Manajemen user sistem')
+    .addTag('Roles', 'Manajemen role dan hak akses (RBAC)')
+    .addTag('Settings', 'Pengaturan konfigurasi sistem')
+    .addTag('Backup', 'Backup dan restore database')
+    .addTag('System Info', 'Informasi kesehatan dan status sistem')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Masukkan token JWT (access token)',
+        in: 'header',
+      },
+      'JWT-auth', // This name should match the one used in @ApiBearerAuth()
+    )
+    .setExternalDoc(
+      'Dokumentasi Lengkap',
+      'https://github.com/itpsg/fingerprint-solution-server/docs',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);

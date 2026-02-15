@@ -12,10 +12,17 @@ import { RolesService } from './roles.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiBody,
+  ApiResponse,
+} from '@nestjs/swagger';
 
-@ApiTags('Roles Management')
-@ApiBearerAuth()
+@ApiTags('Roles')
+@ApiBearerAuth('JWT-auth')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('api/roles')
 export class RolesController {
@@ -23,21 +30,68 @@ export class RolesController {
 
   @Get()
   @Roles('Super Admin')
-  @ApiOperation({ summary: 'List all roles with permissions' })
+  @ApiOperation({
+    summary: 'Daftar semua role',
+    description:
+      'Mendapatkan daftar seluruh role beserta permission yang terkait.',
+  })
+  @ApiResponse({ status: 200, description: 'Daftar role berhasil diambil' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   async getRoles() {
     return this.rolesService.findAllWithPermissions();
   }
 
   @Post()
   @Roles('Super Admin')
-  @ApiOperation({ summary: 'Create new role' })
+  @ApiOperation({
+    summary: 'Buat role baru',
+    description: 'Menambahkan tipe peran (role) baru ke dalam sistem.',
+  })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', example: 'Manager HR' },
+        description: { type: 'string', example: 'Role untuk manajemen SDM' },
+      },
+      required: ['name'],
+    },
+  })
+  @ApiResponse({ status: 201, description: 'Role berhasil dibuat' })
+  @ApiResponse({ status: 400, description: 'Nama role sudah ada' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   async createRole(@Body() body: { name: string; description: string }) {
     return this.rolesService.createRole(body.name, body.description);
   }
 
   @Put(':id')
   @Roles('Super Admin')
-  @ApiOperation({ summary: 'Update role details' })
+  @ApiOperation({
+    summary: 'Update detail role',
+    description: 'Memperbarui nama atau deskripsi dari role yang sudah ada.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID Role (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', example: 'Manager HR Senior' },
+        description: {
+          type: 'string',
+          example: 'Role untuk manajemen SDM level senior',
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: 200, description: 'Role berhasil diperbarui' })
+  @ApiResponse({ status: 404, description: 'Role tidak ditemukan' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async updateRole(
     @Param('id') id: string,
     @Body() body: { name: string; description: string },
@@ -47,7 +101,35 @@ export class RolesController {
 
   @Put(':id/permissions')
   @Roles('Super Admin')
-  @ApiOperation({ summary: 'Update role permissions' })
+  @ApiOperation({
+    summary: 'Update hak akses (permissions)',
+    description:
+      'Mengatur ulang daftar modul dan aksi yang dapat diakses oleh role tertentu.',
+  })
+  @ApiParam({ name: 'id', description: 'ID Role (UUID)' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        permissions: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              module: { type: 'string', example: 'Devices' },
+              actions: {
+                type: 'array',
+                items: { type: 'string' },
+                example: ['create', 'read', 'update'],
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: 200, description: 'Permissions berhasil diperbarui' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async updatePermissions(
     @Param('id') id: string,
     @Body() body: { permissions: { module: string; actions: string[] }[] },
@@ -57,7 +139,15 @@ export class RolesController {
 
   @Delete(':id')
   @Roles('Super Admin')
-  @ApiOperation({ summary: 'Delete role' })
+  @ApiOperation({
+    summary: 'Hapus role',
+    description:
+      'Menghapus role dari sistem (pastikan tidak ada user yang menggunakan role ini).',
+  })
+  @ApiParam({ name: 'id', description: 'ID Role (UUID)' })
+  @ApiResponse({ status: 200, description: 'Role berhasil dihapus' })
+  @ApiResponse({ status: 404, description: 'Role tidak ditemukan' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async deleteRole(@Param('id') id: string) {
     return this.rolesService.deleteRole(id);
   }

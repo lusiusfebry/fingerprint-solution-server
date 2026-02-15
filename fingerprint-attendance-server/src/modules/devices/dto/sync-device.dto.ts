@@ -10,11 +10,19 @@ export enum SyncType {
 }
 
 export class SyncDeviceDto {
-  @ApiProperty({ enum: SyncType })
+  @ApiProperty({
+    enum: SyncType,
+    description: 'Tipe sinkronisasi',
+    example: SyncType.FULL,
+  })
   @IsEnum(SyncType)
   sync_type: SyncType;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({
+    description: 'Paksa sinkronisasi meskipun tidak ada perubahan',
+    required: false,
+    example: false,
+  })
   @IsBoolean()
   @IsOptional()
   force?: boolean;

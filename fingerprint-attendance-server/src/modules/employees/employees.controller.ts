@@ -19,6 +19,8 @@ import {
   ApiResponse,
   ApiConsumes,
   ApiBody,
+  ApiBearerAuth,
+  ApiParam,
 } from '@nestjs/swagger';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -30,6 +32,7 @@ import { AssignShiftDto } from '../shifts/dto/assign-shift.dto';
 
 @ApiTags('Employees')
 @Controller('api/employees')
+@ApiBearerAuth('JWT-auth')
 export class EmployeesController {
   constructor(
     private readonly employeesService: EmployeesService,
@@ -37,7 +40,10 @@ export class EmployeesController {
   ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Tambah karyawan baru' })
+  @ApiOperation({
+    summary: 'Tambah karyawan baru',
+    description: 'Mendaftarkan karyawan baru ke dalam sistem basis data.',
+  })
   @ApiResponse({
     status: 201,
     description: 'Karyawan berhasil ditambahkan',
@@ -45,43 +51,63 @@ export class EmployeesController {
   })
   @ApiResponse({
     status: 400,
-    description: 'Data tidak valid atau NIK sudah ada',
+    description: 'Data tidak valid atau NIK sudah terdaftar',
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Ambil semua data karyawan' })
+  @ApiOperation({
+    summary: 'Ambil semua data karyawan',
+    description: 'Mendapatkan daftar lengkap profil karyawan yang terdaftar.',
+  })
   @ApiResponse({
     status: 200,
-    description: 'List karyawan',
+    description: 'Daftar profil karyawan berhasil diambil',
     type: [EmployeeResponseDto],
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async findAll() {
     return this.employeesService.findAll();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Ambil detail karyawan by ID' })
+  @ApiOperation({
+    summary: 'Ambil detail karyawan',
+    description:
+      'Mendapatkan informasi profil lengkap satu karyawan berdasarkan ID.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID Karyawan (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
   @ApiResponse({
     status: 200,
-    description: 'Detail karyawan',
+    description: 'Profil karyawan ditemukan',
     type: EmployeeResponseDto,
   })
   @ApiResponse({ status: 404, description: 'Karyawan tidak ditemukan' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async findOne(@Param('id') id: string) {
     return this.employeesService.findOne(id);
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Update data karyawan' })
+  @ApiOperation({
+    summary: 'Update data karyawan',
+    description: 'Memperbarui informasi profil karyawan yang sudah ada.',
+  })
+  @ApiParam({ name: 'id', description: 'ID Karyawan (UUID)' })
   @ApiResponse({
     status: 200,
-    description: 'Karyawan berhasil diupdate',
+    description: 'Data karyawan berhasil diperbarui',
     type: EmployeeResponseDto,
   })
   @ApiResponse({ status: 404, description: 'Karyawan tidak ditemukan' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Param('id') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
@@ -91,20 +117,34 @@ export class EmployeesController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiOperation({ summary: 'Hapus karyawan' })
+  @ApiOperation({
+    summary: 'Hapus karyawan',
+    description: 'Menghapus data karyawan secara permanen dari sistem.',
+  })
+  @ApiParam({ name: 'id', description: 'ID Karyawan (UUID)' })
   @ApiResponse({ status: 204, description: 'Karyawan berhasil dihapus' })
   @ApiResponse({ status: 404, description: 'Karyawan tidak ditemukan' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async remove(@Param('id') id: string) {
     await this.employeesService.remove(id);
   }
 
   @Post(':id/fingerprint')
-  @ApiOperation({ summary: 'Upload template sidik jari karyawan' })
-  @ApiResponse({ status: 201, description: 'Template berhasil diupload' })
+  @ApiOperation({
+    summary: 'Upload sidik jari',
+    description:
+      'Mengunggah template sidik jari karyawan untuk kemudian dikirimkan ke mesin.',
+  })
+  @ApiParam({ name: 'id', description: 'ID Karyawan (UUID)' })
+  @ApiResponse({
+    status: 201,
+    description: 'Template sidik jari berhasil diunggah',
+  })
   @ApiResponse({
     status: 400,
-    description: 'Template sudah ada atau data tidak valid',
+    description: 'Template sudah ada atau format data tidak valid',
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async uploadFingerprint(
     @Param('id') id: string,
     @Body() uploadDto: UploadFingerprintDto,
@@ -117,7 +157,11 @@ export class EmployeesController {
   @Post('import')
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Import karyawan dari Excel' })
+  @ApiOperation({
+    summary: 'Import dari Excel',
+    description:
+      'Mengunggah file Excel untuk mendaftarkan banyak karyawan sekaligus.',
+  })
   @ApiBody({
     schema: {
       type: 'object',
@@ -125,12 +169,20 @@ export class EmployeesController {
         file: {
           type: 'string',
           format: 'binary',
+          description: 'File Excel (.xlsx)',
         },
       },
     },
   })
-  @ApiResponse({ status: 201, description: 'Import berhasil' })
-  @ApiResponse({ status: 400, description: 'File tidak valid' })
+  @ApiResponse({
+    status: 201,
+    description: 'Proses import berhasil diselesaikan',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'File tidak ditemukan atau format tidak valid',
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async importExcel(@UploadedFile() file: Express.Multer.File) {
     if (!file || !file.buffer) {
       throw new BadRequestException('File Excel wajib diunggah');
@@ -141,9 +193,18 @@ export class EmployeesController {
   }
 
   @Post(':id/shifts')
-  @ApiOperation({ summary: 'Assign shift to employee' })
-  @ApiResponse({ status: 201, description: 'Shift assigned successfully' })
-  @ApiResponse({ status: 400, description: 'Invalid data or shift' })
+  @ApiOperation({
+    summary: 'Assign shift ke karyawan',
+    description:
+      'Menentukan jadwal kerja (shift) tertentu untuk seorang karyawan.',
+  })
+  @ApiParam({ name: 'id', description: 'ID Karyawan (UUID)' })
+  @ApiResponse({ status: 201, description: 'Shift berhasil ditetapkan' })
+  @ApiResponse({
+    status: 400,
+    description: 'Data tidak valid atau shift tidak ditemukan',
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async assignShift(
     @Param('id') employeeId: string,
     @Body() dto: AssignShiftDto,
@@ -152,9 +213,18 @@ export class EmployeesController {
   }
 
   @Delete(':id/shifts/:shiftId')
-  @ApiOperation({ summary: 'Remove shift assignment from employee' })
-  @ApiResponse({ status: 200, description: 'Shift assignment removed' })
-  @ApiResponse({ status: 404, description: 'Assignment not found' })
+  @ApiOperation({
+    summary: 'Hapus penugasan shift',
+    description: 'Menghapus keterkaitan penugasan shift dari seorang karyawan.',
+  })
+  @ApiParam({ name: 'id', description: 'ID Karyawan (UUID)' })
+  @ApiParam({ name: 'shiftId', description: 'ID Shift (UUID)' })
+  @ApiResponse({ status: 200, description: 'Penugasan shift berhasil dihapus' })
+  @ApiResponse({
+    status: 404,
+    description: 'Karyawan atau penugasan tidak ditemukan',
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async removeShift(
     @Param('id') employeeId: string,
     @Param('shiftId') shiftId: string,

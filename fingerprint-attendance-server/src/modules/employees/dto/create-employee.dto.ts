@@ -8,27 +8,37 @@ import {
 } from 'class-validator';
 
 export class CreateEmployeeDto {
-  @ApiProperty({ description: 'NIK Karyawan', example: 'EMP001' })
+  @ApiProperty({
+    description: 'Nomor Induk Karyawan (Unique)',
+    example: 'EMP001',
+  })
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
   nik: string;
 
-  @ApiProperty({ description: 'Nama Karyawan', example: 'John Doe' })
+  @ApiProperty({
+    description: 'Nama Lengkap Karyawan',
+    example: 'Yusuf Maulana',
+  })
   @IsString()
   @IsNotEmpty()
   @MaxLength(200)
   nama: string;
 
-  @ApiProperty({ description: 'Departemen', example: 'IT', required: false })
+  @ApiProperty({
+    description: 'Nama Departemen',
+    example: 'IT Support',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   @MaxLength(100)
   departemen?: string;
 
   @ApiProperty({
-    description: 'Jabatan',
-    example: 'Software Engineer',
+    description: 'Jabatan Karyawan',
+    example: 'Senior Developer',
     required: false,
   })
   @IsString()
@@ -37,9 +47,10 @@ export class CreateEmployeeDto {
   jabatan?: string;
 
   @ApiProperty({
-    description: 'Status',
+    description: 'Status Kepegawaian',
     enum: ['aktif', 'nonaktif'],
     default: 'aktif',
+    example: 'aktif',
   })
   @IsEnum(['aktif', 'nonaktif'])
   @IsOptional()

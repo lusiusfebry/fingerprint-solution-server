@@ -10,7 +10,7 @@ import {
 
 export class UploadFingerprintDto {
   @ApiProperty({
-    description: 'Finger Index (0-9)',
+    description: 'Indeks jari (0-9)',
     example: 0,
     minimum: 0,
     maximum: 9,
@@ -21,14 +21,19 @@ export class UploadFingerprintDto {
   finger_index: number;
 
   @ApiProperty({
-    description: 'Template Data (base64 encoded)',
-    example: 'BASE64_ENCODED_TEMPLATE_DATA',
+    description: 'Data template sidik jari (base64 encoded)',
+    example: 'dGhpcyBpcyBhIGZpbmdlcnByaW50IHRlbXBsYXRl...',
   })
   @IsString()
   @IsNotEmpty()
   template_data: string;
 
-  @ApiProperty({ description: 'Target Device ID (Optional)', required: false })
+  @ApiProperty({
+    description:
+      'ID Perangkat target (Opsional, jika ingin langsung kirim ke mesin)',
+    required: false,
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
   @IsString()
   @IsOptional()
   device_id?: string;
