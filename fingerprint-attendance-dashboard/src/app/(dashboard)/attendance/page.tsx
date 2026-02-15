@@ -28,7 +28,8 @@ export default function AttendancePage() {
         resetFilters,
         fetchLogs,
         fetchSummary,
-        exportToExcel
+        exportToExcel,
+        handleSort
     } = useAttendance();
 
     const [isExporting, setIsExporting] = useState(false);
@@ -146,6 +147,9 @@ export default function AttendancePage() {
                         logs={logs}
                         isLoading={loading}
                         pagination={pagination}
+                        onSort={handleSort}
+                        sortBy={filters.sortBy}
+                        sortOrder={filters.sortOrder}
                     />
                 </div>
 

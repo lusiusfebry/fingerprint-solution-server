@@ -16,22 +16,38 @@ interface AttendanceLogTableProps {
         onPageChange: (page: number) => void;
     };
     onSort?: (column: string, direction: 'asc' | 'desc') => void;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
 }
 
 export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
     logs,
     isLoading,
     pagination,
-    // onSort
+    onSort,
+    sortBy,
+    sortOrder
 }) => {
+    const renderHeader = (label: string, key: string) => (
+        <div
+            className="flex items-center cursor-pointer hover:text-primary transition-colors"
+            onClick={() => onSort?.(key, sortBy === key && sortOrder === 'asc' ? 'desc' : 'asc')}
+        >
+            {label}
+            <span className="ml-1 material-icons-outlined text-[10px] text-gray-400">
+                {sortBy === key ? (sortOrder === 'asc' ? 'north' : 'south') : 'unfold_more'}
+            </span>
+        </div>
+    );
+
     const columns: Column<AttendanceLog>[] = [
         {
-            header: 'Log ID',
+            header: renderHeader('Log ID', 'id'),
             accessorKey: 'log_id',
             cell: (log) => <span className="text-gray-400 text-xs font-mono">#{log.id.slice(0, 6)}</span>
         },
         {
-            header: 'Date & Time',
+            header: renderHeader('Date & Time', 'timestamp'),
             accessorKey: 'timestamp',
             cell: (log) => (
                 <div className="flex flex-col">
@@ -45,7 +61,7 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
             )
         },
         {
-            header: 'Employee',
+            header: renderHeader('Employee', 'employee_name'),
             accessorKey: 'employee_name',
             cell: (log) => (
                 <div className="flex items-center">
@@ -87,7 +103,7 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
             cell: (log) => <span className="text-gray-500 text-xs capitalize">{log.verify_type?.toLowerCase() || 'Fingerprint'}</span>
         },
         {
-            header: 'Status',
+            header: renderHeader('Status', 'status'),
             accessorKey: 'status',
             cell: (log) => {
                 const status = log.status || 'present';

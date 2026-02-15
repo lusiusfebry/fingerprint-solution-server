@@ -22,6 +22,10 @@ export function useAttendance() {
     const [device, setDevice] = useState('all');
     const [status, setStatus] = useState('all');
 
+    // Sorting State
+    const [sortBy, setSortBy] = useState('timestamp');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
     const [debouncedSearch, setDebouncedSearch] = useState(search);
 
     // Debounce search
@@ -38,8 +42,8 @@ export function useAttendance() {
         const filters: AttendanceFilters = {
             page: currentPage,
             limit: 10,
-            sortBy: 'timestamp',
-            sortOrder: 'desc'
+            sortBy,
+            sortOrder
         };
 
         if (debouncedSearch) filters.search = debouncedSearch;
@@ -50,7 +54,7 @@ export function useAttendance() {
         if (status && status !== 'all') filters.status = status;
 
         return filters;
-    }, [currentPage, debouncedSearch, startDate, endDate, department, device, status]);
+    }, [currentPage, debouncedSearch, startDate, endDate, department, device, status, sortBy, sortOrder]);
 
     const fetchLogs = useCallback(async () => {
         try {
@@ -97,11 +101,26 @@ export function useAttendance() {
 
     // Real-time updates
     useAttendanceUpdates((newLog: AttendanceLog) => {
-        // Only update if on first page and filters match (simple text matching for now)
-        if (currentPage === 1 && !debouncedSearch) {
-            setLogs(prev => [newLog, ...prev.slice(0, 9)]);
-            fetchSummary(); // Refresh summary on new log
+        // Only update if on first page
+        if (currentPage !== 1) return;
+
+        // Check if log matches current filters
+        if (debouncedSearch && !newLog.employee_name?.toLowerCase().includes(debouncedSearch.toLowerCase())) return;
+        if (department !== 'all' && newLog.department !== department) return;
+        if (device !== 'all' && newLog.device_name !== device) return; // Assuming device filter matches name or needs ID check. Using simple equality for now.
+        if (status !== 'all' && newLog.status !== status) return;
+
+        // Date check (if start/end date are set)
+        const logDate = new Date(newLog.timestamp);
+        if (startDate && logDate < new Date(startDate)) return;
+        if (endDate) {
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+            if (logDate > end) return;
         }
+
+        setLogs(prev => [newLog, ...prev.slice(0, 9)]);
+        fetchSummary(); // Refresh summary on new log
     });
 
     const resetFilters = () => {
@@ -111,18 +130,28 @@ export function useAttendance() {
         setDepartment('all');
         setDevice('all');
         setStatus('all');
+        setSortBy('timestamp');
+        setSortOrder('desc');
         setCurrentPage(1);
     };
 
     const handleExport = async () => {
         try {
             const filters = getFilters();
-            const blob = await attendanceService.exportToExcel(filters);
+            // Remove pagination for export to get all data
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { page, limit, ...exportFilters } = filters;
+            const blob = await attendanceService.exportToExcel(exportFilters);
             return blob;
         } catch (error) {
             console.error(error);
             throw error;
         }
+    };
+
+    const handleSort = (column: string, direction: 'asc' | 'desc') => {
+        setSortBy(column);
+        setSortOrder(direction);
     };
 
     return {
@@ -141,7 +170,9 @@ export function useAttendance() {
             endDate,
             department,
             device,
-            status
+            status,
+            sortBy,
+            sortOrder
         },
         setSearch,
         setStartDate,
@@ -149,6 +180,9 @@ export function useAttendance() {
         setDepartment,
         setDevice,
         setStatus,
+        setSortBy,
+        setSortOrder,
+        handleSort,
         resetFilters,
         fetchLogs,
         fetchSummary,
