@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import { AttendanceLog, AttendanceSummary, AttendanceFilters } from '@/types/attendance.types';
 import { format } from 'date-fns';
 

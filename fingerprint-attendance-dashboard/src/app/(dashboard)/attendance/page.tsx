@@ -34,11 +34,11 @@ export default function AttendancePage() {
     const [isExporting, setIsExporting] = useState(false);
     const printRef = useRef<HTMLDivElement>(null);
 
-    // @ts-ignore - Content prop is valid in react-to-print but types might be outdated or strict
     const handlePrint = useReactToPrint({
         content: () => printRef.current,
         documentTitle: `Attendance_Report_${filters.startDate || 'all'}_${filters.endDate || 'all'}`,
-    });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
 
     const handleExport = async () => {
         setIsExporting(true);
@@ -53,7 +53,7 @@ export default function AttendancePage() {
             link.click();
             link.remove();
             toast.success('Export successful');
-        } catch (error) {
+        } catch {
             toast.error('Export failed');
         } finally {
             setIsExporting(false);

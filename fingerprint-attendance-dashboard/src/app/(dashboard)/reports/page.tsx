@@ -105,25 +105,25 @@ export default function ReportsPage() {
                         title="Avg Attendance Rate"
                         value={stats?.avg_attendance_rate ? `${stats.avg_attendance_rate}%` : '0%'}
                         icon="trending_up"
-                        color="blue"
+                        color="info"
                     />
                     <KPICard
                         title="Total Late Arrivals"
                         value={stats?.total_late_arrivals || 0}
                         icon="timer_off"
-                        color="amber"
+                        color="warning"
                     />
                     <KPICard
                         title="Overtime Hours"
                         value={stats?.total_overtime_hours || 0}
                         icon="schedule"
-                        color="purple"
+                        color="primary"
                     />
                     <KPICard
                         title="Top Performing Dept"
                         value={stats?.top_performing_dept || '-'}
                         icon="emoji_events"
-                        color="green"
+                        color="success"
                     />
                 </div>
 

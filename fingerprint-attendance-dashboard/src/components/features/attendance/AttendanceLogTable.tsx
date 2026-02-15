@@ -22,7 +22,7 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
     logs,
     isLoading,
     pagination,
-    onSort: _onSort
+    // onSort
 }) => {
     const columns: Column<AttendanceLog>[] = [
         {
@@ -90,16 +90,17 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
             header: 'Status',
             accessorKey: 'status',
             cell: (log) => {
-                const colors = {
-                    present: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-                    late: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-                    absent: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
-                };
                 const status = log.status || 'present';
+                const variantMap: Record<string, 'success' | 'warning' | 'error'> = {
+                    present: 'success',
+                    late: 'warning',
+                    absent: 'error'
+                };
                 return (
-                    <Badge className={colors[status]}>
-                        {status.toUpperCase()}
-                    </Badge>
+                    <Badge
+                        label={status.toUpperCase()}
+                        variant={variantMap[status] || 'neutral'}
+                    />
                 );
             }
         }
