@@ -1,84 +1,56 @@
+# Fingerprint Attendance Server
+
 ## Deskripsi
-Fingerprint Attendance Server adalah backend API yang mengelola interaksi dengan mesin fingerprint Solution/ZKTeco, pengolahan data absensi, dan manajemen karyawan.
+Fingerprint Attendance Server adalah sistem backend berbasis NestJS yang dirancang untuk mengelola mesin absensi fingerprint (Solution/ZKTeco). Sistem ini menyediakan API untuk sinkronisasi data karyawan, penarikan log absensi secara real-time, manajemen shift kerja, dan integrasi dengan sistem HR pihak ketiga.
 
-## Dokumentasi (Bahasa Indonesia)
-Daftar panduan lengkap tersedia di folder `docs/`:
-- [Skema Basis Data](docs/database-schema.md)
-- [Panduan Integrasi Perangkat](docs/integration-guide.md)
-- [Referensi API & Swagger](docs/api-reference.md)
-- [Dokumentasi WebSocket](docs/websocket-events.md)
-- [Panduan Deployment](docs/deployment-guide.md)
-- [Troubleshooting](docs/troubleshooting-guide.md)
-- [Strategi Versi API](docs/api-versioning.md)
+## Fitur Utama
+- **Manajemen Perangkat**: Monitoring status, sinkronisasi waktu, dan restart mesin secara remote.
+- **Sinkronisasi Data**: Penarikan log absensi otomatis dan pengiriman data karyawan ke mesin.
+- **WebSocket Real-time**: Notifikasi instan saat terjadi pemindaian jari di mesin.
+- **Kalkulasi Kehadiran**: Perhitungan jam kerja, keterlambatan, dan status kehadiran berdasarkan shift.
+- **Integrasi HR**: REST API yang mudah diintegrasikan dengan sistem HR/ERP eksternal.
 
-## Persiapan Proyek
+## Panduan & Dokumentasi (Bahasa Indonesia)
+Daftar panduan lengkap tersedia di dalam folder `docs/`:
+- [Skema Basis Data](docs/database-schema.md) - ER Diagram dan deskripsi tabel.
+- [Panduan Integrasi HR](docs/integration-guide.md) - Contoh kode Node.js, PHP, dan Python.
+- [Referensi API (Swagger)](docs/api-reference.md) - Cara mengakses dokumentasi interaktif.
+- [Dokumentasi WebSocket](docs/websocket-events.md) - Event yang tersedia untuk real-time update.
+- [Panduan Deployment Windows](docs/deployment-guide.md) - Langkah instalasi di Windows Server dengan IIS & PM2.
+- [Troubleshooting](docs/troubleshooting.md) - Solusi masalah umum koneksi dan sinkronisasi.
+- [Strategi Versi API](docs/api-versioning.md) - Kebijakan perubahan versi API.
+- [Postman Collection](docs/postman-collection.json) - Koleksi endpoint untuk pengujian cepat.
 
+## Cara Menjalankan Proyek
+
+### Persyaratan
+- Node.js (v18+)
+- PostgreSQL (v14+)
+- Redis (Untuk antrian sinkronisasi)
+
+### Instalasi
 ```bash
 $ npm install
 ```
 
-## Compile and run the project
-
+### Pengembangan (Development)
 ```bash
-# development
-$ npm run start
+# Salin file environment
+$ cp .env.example .env
 
-# watch mode
+# Jalankan server
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Run tests
-
+### Produksi (Production)
 ```bash
-# unit tests
-$ npm run test
+# Build aplikasi
+$ npm run build
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Jalankan dengan PM2
+$ pm2 start dist/main.js --name fingerprint-server
 ```
 
-## Deployment
+## Lisensi
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

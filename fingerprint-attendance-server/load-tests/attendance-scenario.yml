@@ -1,0 +1,29 @@
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 300
+      arrivalRate: 20
+      name: Query load
+  defaults:
+    headers:
+      Authorization: "Bearer {{ token }}"
+
+scenarios:
+  - name: "Attendance Queries"
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            username: "admin_test"
+            password: "admin123"
+          capture:
+            - json: "$.access_token"
+              as: "token"
+      - get:
+          url: "/attendance/logs?startDate=2024-01-01&endDate=2024-01-31"
+      - think: 2
+      - get:
+          url: "/attendance/calculate?start_date=2024-01-01&end_date=2024-01-31"
+      - think: 2
+      - get:
+          url: "/attendance/summary"

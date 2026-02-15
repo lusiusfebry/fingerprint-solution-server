@@ -1,0 +1,38 @@
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 300
+      arrivalRate: 10
+      rampTo: 50
+      name: Sustained load
+  defaults:
+    headers:
+      Authorization: "Bearer {{ token }}"
+
+scenarios:
+  - name: "Device Sync Operations"
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            username: "admin_test"
+            password: "admin123"
+          capture:
+            - json: "$.access_token"
+              as: "token"
+      - post:
+          url: "/devices/{{ deviceId }}/sync"
+          json:
+            sync_type: "pull_logs"
+          headers:
+            Authorization: "Bearer {{ token }}"
+      - think: 5
+      - post:
+          url: "/devices/{{ deviceId }}/sync"
+          json:
+            sync_type: "push_employees"
+          headers:
+            Authorization: "Bearer {{ token }}"
