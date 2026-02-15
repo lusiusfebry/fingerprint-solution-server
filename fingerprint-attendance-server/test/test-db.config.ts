@@ -47,6 +47,9 @@ export const testDataSource = new DataSource({
 export const setupTestDatabase = async () => {
   if (!testDataSource.isInitialized) {
     await testDataSource.initialize();
+  } else {
+    // If already initialized, synchronize(true) drops and recreates everything
+    await testDataSource.synchronize(true);
   }
 };
 

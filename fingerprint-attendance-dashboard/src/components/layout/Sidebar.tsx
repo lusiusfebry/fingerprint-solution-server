@@ -47,7 +47,7 @@ const Sidebar = () => {
                     })}
 
                     {/* Admin Section */}
-                    {(user?.role === 'Super Admin' || user?.role === 'Admin' || (user?.role as any)?.name === 'Super Admin' || (user?.role as any)?.name === 'Admin') && (
+                    {(user?.role === 'Super Admin' || user?.role === 'Admin' || (user?.role as { name: string })?.name === 'Super Admin' || (user?.role as { name: string })?.name === 'Admin') && (
                         <>
                             <li className="px-4 pt-4 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
                                 Administration
@@ -99,7 +99,7 @@ const Sidebar = () => {
                     <div className="ml-3 flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user?.username || 'User'}</p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                            {typeof user?.role === 'string' ? user.role : (user?.role as any)?.name || 'Admin'}
+                            {typeof user?.role === 'string' ? user.role : (user?.role as { name: string })?.name || 'Admin'}
                         </p>
                     </div>
                     <button onClick={logout} className="p-2 text-gray-400 hover:text-red-500 transition-colors" title="Logout">
