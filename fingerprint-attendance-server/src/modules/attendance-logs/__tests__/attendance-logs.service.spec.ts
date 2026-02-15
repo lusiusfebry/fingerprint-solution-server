@@ -96,7 +96,7 @@ describe('AttendanceLogsService', () => {
       mockEmployeeRepo.find.mockResolvedValue([employee]);
       mockDeviceRepo.findOne.mockResolvedValue({ id: 'dev-uuid' });
       mockLogRepo.findOne.mockResolvedValue(null); // No duplicate
-      mockLogRepo.create.mockImplementation((dto) => dto as any);
+      mockLogRepo.create.mockImplementation((dto) => dto as AttendanceLog);
       mockLogRepo.save.mockResolvedValue({});
 
       await service.saveLogs(rawLogs as any);
