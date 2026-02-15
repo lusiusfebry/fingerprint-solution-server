@@ -3,6 +3,7 @@
 import React from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { KPICard } from '@/components/ui/KPICard';
+import { SystemInfoCard } from '@/components/features/SystemInfoCard';
 import { DeviceStatusTable } from '@/components/features/devices/DeviceStatusTable';
 import { Timeline } from '@/components/ui/Timeline';
 import { useDevices } from '@/hooks/useDevices';
@@ -100,14 +101,15 @@ export default function DashboardPage() {
                         />
                     </div>
 
-                    {/* Recent Activity Timeline */}
-                    <div className="lg:col-span-1">
+                    {/* Recent Activity Timeline & System Info */}
+                    <div className="lg:col-span-1 space-y-6">
                         {historyLoading ? <Skeleton variant="rectangular" rows={5} /> : (
                             <Timeline
                                 items={timelineItems}
                                 viewAllLink="/attendance" // Or a specific logs page
                             />
                         )}
+                        <SystemInfoCard />
                     </div>
                 </div>
             </div>

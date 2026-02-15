@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Permission } from './permission.entity';
 
 @Entity('roles')
 export class Role {
@@ -17,8 +19,13 @@ export class Role {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({ type: 'jsonb' })
-  permissions: object; // { devices: ['read', 'write'], employees: ['read', 'write'], ... }
+  // @Column({ type: 'jsonb' })
+  // permissions: object; // Deprecated in favor of relation
+
+  @OneToMany(() => Permission, (permission) => permission.role, {
+    cascade: true,
+  })
+  permissions: Permission[];
 
   @CreateDateColumn()
   created_at: Date;

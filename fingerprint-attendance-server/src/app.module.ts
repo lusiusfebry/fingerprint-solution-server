@@ -16,6 +16,10 @@ import { FingerprintTemplatesModule } from './modules/fingerprint-templates/fing
 import { AttendanceLogsModule } from './modules/attendance-logs/attendance-logs.module';
 import { SyncHistoryModule } from './modules/sync-history/sync-history.module';
 import { ShiftsModule } from './modules/shifts/shifts.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { SystemSettingsModule } from './modules/system-settings/system-settings.module';
+import { BackupModule } from './modules/backup/backup.module';
+import { SystemInfoModule } from './modules/system-info/system-info.module';
 
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { AuditInterceptor } from './common/interceptors/audit.interceptor';
@@ -55,6 +59,10 @@ import { AuditInterceptor } from './common/interceptors/audit.interceptor';
     AttendanceLogsModule,
     SyncHistoryModule,
     ShiftsModule,
+    RolesModule,
+    SystemSettingsModule,
+    BackupModule,
+    SystemInfoModule,
   ],
   controllers: [AppController],
   providers: [
