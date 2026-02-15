@@ -16,6 +16,7 @@ import { CryptoUtil } from '../src/common/utils/crypto.util';
 
 config();
 // Ensure the application uses the test database during E2E tests
+process.env.NODE_ENV = 'test';
 process.env.DB_DATABASE =
   process.env.DB_DATABASE_TEST || 'fingerprint_attendance_test';
 
@@ -84,7 +85,11 @@ export const seedTestData = async () => {
 };
 
 export const teardownTestDatabase = async () => {
-  if (testDataSource.isInitialized) {
-    await testDataSource.destroy();
+  try {
+    if (testDataSource.isInitialized) {
+      await testDataSource.destroy();
+    }
+  } catch (error) {
+    // Ignore errors during teardown
   }
 };

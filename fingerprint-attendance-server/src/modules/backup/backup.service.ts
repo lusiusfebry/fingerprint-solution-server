@@ -41,6 +41,9 @@ export class BackupService {
 
   @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
     try {
       const settings = await this.systemSettingsService.getSettings();
 

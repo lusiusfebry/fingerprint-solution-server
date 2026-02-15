@@ -1,0 +1,75 @@
+
+> fingerprint-attendance-server@0.0.1 test:e2e
+> jest --config ./test/jest-e2e.json --runInBand --forceExit
+
+PASS test/auth.e2e-spec.ts (11.773 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜí∩╕Å secrets for agents: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/app.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/attendance.e2e-spec.ts (6.001 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/employees.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+FAIL test/devices.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should register a new device
+
+
+
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (POST) ΓÇ║ should fail with invalid IP address
+
+
+
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices (GET) ΓÇ║ should return a list of devices
+
+
+
+
+  ΓùÅ DevicesController (e2e) ΓÇ║ /devices/:id/test-connection (POST) ΓÇ║ should test connection successfully
+
+
+
+
+
+  ΓùÅ Test suite failed to run
+
+    Connection terminated
+
+Test Suites: 1 failed, 4 passed, 5 total
+Tests:       4 failed, 13 passed, 17 total
+Snapshots:   0 total
+Time:        30.543 s, estimated 36 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

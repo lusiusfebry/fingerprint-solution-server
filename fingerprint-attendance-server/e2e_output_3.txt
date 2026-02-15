@@ -1,0 +1,81 @@
+
+> fingerprint-attendance-server@0.0.1 test:e2e
+> jest --config ./test/jest-e2e.json --runInBand --forceExit
+
+PASS test/devices.e2e-spec.ts (6.534 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢í∩╕Å auth for agents: https://vestauth.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+FAIL test/auth.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should login successfully with correct credentials
+
+
+
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/login (POST) ΓÇ║ should fail with incorrect password
+
+
+
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return profile for authenticated user
+
+
+
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/profile (GET) ΓÇ║ should return 401 for unauthenticated user
+
+
+
+
+  ΓùÅ AuthController (e2e) ΓÇ║ /api/auth/refresh-token (POST) ΓÇ║ should return new tokens with valid refresh token
+
+
+
+
+
+  ΓùÅ Test suite failed to run
+
+    Connection terminated
+
+PASS test/attendance.e2e-spec.ts (5.918 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/app.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/employees.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+
+Test Suites: 1 failed, 4 passed, 5 total
+Tests:       5 failed, 12 passed, 17 total
+Snapshots:   0 total
+Time:        25.639 s, estimated 30 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
