@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:3001"
+  target: "http://localhost:3000"
   phases:
     - duration: 300
       arrivalRate: 20
@@ -20,10 +20,10 @@ scenarios:
             - json: "$.access_token"
               as: "token"
       - get:
-          url: "/attendance/logs?startDate=2024-01-01&endDate=2024-01-31"
+          url: "/api/attendance/logs?startDate=2024-01-01&endDate=2024-01-31"
       - think: 2
       - get:
-          url: "/attendance/calculate?start_date=2024-01-01&end_date=2024-01-31"
+          url: "/api/attendance/calculate?start_date=2024-01-01&end_date=2024-01-31"
       - think: 2
       - get:
-          url: "/attendance/summary"
+          url: "/api/attendance/summary"

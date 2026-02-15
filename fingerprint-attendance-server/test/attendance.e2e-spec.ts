@@ -73,7 +73,7 @@ describe('AttendanceLogsController (e2e)', () => {
   describe('/attendance/logs (GET)', () => {
     it('should return attendance logs', async () => {
       const response = await request(app.getHttpServer())
-        .get('/attendance/logs')
+        .get('/api/attendance/logs')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200);
 
@@ -85,7 +85,7 @@ describe('AttendanceLogsController (e2e)', () => {
   describe('/attendance/summary (GET)', () => {
     it('should return attendance summary', async () => {
       await request(app.getHttpServer())
-        .get('/attendance/summary')
+        .get('/api/attendance/summary')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200);
     });
@@ -94,7 +94,7 @@ describe('AttendanceLogsController (e2e)', () => {
   describe('/attendance/calculate (GET)', () => {
     it('should return calculated results', async () => {
       const response = await request(app.getHttpServer())
-        .get('/attendance/calculate')
+        .get('/api/attendance/calculate')
         .set('Authorization', `Bearer ${authToken}`)
         .query({ start_date: '2024-01-01', end_date: '2024-12-31' })
         .expect(200);

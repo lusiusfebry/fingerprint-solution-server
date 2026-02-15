@@ -9,7 +9,7 @@ import { UsersService } from '../../users/users.service';
 import { AuditLogsService } from '../../audit-logs/audit-logs.service';
 import { CryptoUtil } from '../../../common/utils/crypto.util';
 
-jest.mock('../../common/utils/crypto.util');
+jest.mock('../../../common/utils/crypto.util');
 
 describe('AuthService', () => {
   let service: AuthService;

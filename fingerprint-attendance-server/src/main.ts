@@ -3,11 +3,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { CustomLoggerService } from './common/logger/custom-logger.service';
+import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new CustomLoggerService(),
   });
+
+  app.useGlobalInterceptors(new MetricsInterceptor());
 
   // Global prefix untuk semua routes
   app.setGlobalPrefix('api');

@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigService } from '@nestjs/config';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SyncEngineService } from '../sync-engine.service';
 import { Device } from '../../../../database/entities/device.entity';
@@ -53,6 +54,10 @@ describe('SyncEngineService', () => {
     updateJob: jest.fn(),
   };
 
+  const mockConfigService = {
+    get: jest.fn().mockReturnValue(3000),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -64,6 +69,10 @@ describe('SyncEngineService', () => {
         {
           provide: getRepositoryToken(Employee),
           useValue: mockEmployeeRepo,
+        },
+        {
+          provide: ConfigService,
+          useValue: mockConfigService,
         },
         {
           provide: FingerprintDeviceService,

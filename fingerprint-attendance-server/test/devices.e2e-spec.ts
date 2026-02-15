@@ -52,7 +52,7 @@ describe('DevicesController (e2e)', () => {
   describe('/devices (POST)', () => {
     it('should register a new device', async () => {
       const response = await request(app.getHttpServer())
-        .post('/devices')
+        .post('/api/devices')
         .set('Authorization', `Bearer ${authToken}`)
         .send({
           name: 'Test Device 1',
@@ -68,7 +68,7 @@ describe('DevicesController (e2e)', () => {
 
     it('should fail with invalid IP address', async () => {
       await request(app.getHttpServer())
-        .post('/devices')
+        .post('/api/devices')
         .set('Authorization', `Bearer ${authToken}`)
         .send({
           name: 'Bad Device',
@@ -83,7 +83,7 @@ describe('DevicesController (e2e)', () => {
   describe('/devices (GET)', () => {
     it('should return a list of devices', async () => {
       const response = await request(app.getHttpServer())
-        .get('/devices')
+        .get('/api/devices')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200);
 
@@ -95,12 +95,12 @@ describe('DevicesController (e2e)', () => {
   describe('/devices/:id/test-connection (POST)', () => {
     it('should test connection successfully', async () => {
       const devicesRes = await request(app.getHttpServer())
-        .get('/devices')
+        .get('/api/devices')
         .set('Authorization', `Bearer ${authToken}`);
       const devId = devicesRes.body[0].id;
 
       await request(app.getHttpServer())
-        .post(`/devices/${devId}/test-connection`)
+        .post(`/api/devices/${devId}/test-connection`)
         .set('Authorization', `Bearer ${authToken}`)
         .expect(201);
 

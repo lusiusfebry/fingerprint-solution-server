@@ -1,0 +1,222 @@
+FAIL src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts
+  SyncEngineService
+    ├ù should be defined (29 ms)
+    syncDevice
+      ├ù should add a job to the queue and return jobId (13 ms)
+    pullLogsFromDevice
+      ├ù should pull logs and save them (15 ms)
+    pushEmployeesToDevice
+      ├ù should push active employees to device (9 ms)
+    retryFailedSync
+      ├ù should retry a failed sync by creating a new job (6 ms)
+
+  ΓùÅ SyncEngineService ΓÇ║ should be defined
+
+    Nest can't resolve dependencies of the SyncEngineService (DeviceRepository, EmployeeRepository, ?, FingerprintDeviceService, AttendanceLogsService, EmployeesService, DevicesGateway, SyncHistoryService, SyncQueueService). Please make sure that the argument ConfigService at index [2] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+
+      55 |
+      56 |   beforeEach(async () => {
+    > 57 |     const module: TestingModule = await Test.createTestingModule({
+         |                                   ^
+      58 |       providers: [
+      59 |         SyncEngineService,
+      60 |         {
+
+      at TestingInjector.lookupComponentInParentModules (../node_modules/@nestjs/core/injector/injector.js:290:19)
+      at TestingInjector.resolveComponentWrapper (../node_modules/@nestjs/testing/testing-injector.js:19:45)
+      at resolveParam (../node_modules/@nestjs/core/injector/injector.js:140:38)
+          at async Promise.all (index 2)
+      at TestingInjector.resolveConstructorParams (../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadProvider (../node_modules/@nestjs/core/injector/injector.js:103:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:56:13
+          at async Promise.all (index 3)
+      at TestingInstanceLoader.createInstancesOfProviders (../node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:40:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:57:35)
+
+  ΓùÅ SyncEngineService ΓÇ║ syncDevice ΓÇ║ should add a job to the queue and return jobId
+
+    Nest can't resolve dependencies of the SyncEngineService (DeviceRepository, EmployeeRepository, ?, FingerprintDeviceService, AttendanceLogsService, EmployeesService, DevicesGateway, SyncHistoryService, SyncQueueService). Please make sure that the argument ConfigService at index [2] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+
+      55 |
+      56 |   beforeEach(async () => {
+    > 57 |     const module: TestingModule = await Test.createTestingModule({
+         |                                   ^
+      58 |       providers: [
+      59 |         SyncEngineService,
+      60 |         {
+
+      at TestingInjector.lookupComponentInParentModules (../node_modules/@nestjs/core/injector/injector.js:290:19)
+      at TestingInjector.resolveComponentWrapper (../node_modules/@nestjs/testing/testing-injector.js:19:45)
+      at resolveParam (../node_modules/@nestjs/core/injector/injector.js:140:38)
+          at async Promise.all (index 2)
+      at TestingInjector.resolveConstructorParams (../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadProvider (../node_modules/@nestjs/core/injector/injector.js:103:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:56:13
+          at async Promise.all (index 3)
+      at TestingInstanceLoader.createInstancesOfProviders (../node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:40:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:57:35)
+
+  ΓùÅ SyncEngineService ΓÇ║ pullLogsFromDevice ΓÇ║ should pull logs and save them
+
+    Nest can't resolve dependencies of the SyncEngineService (DeviceRepository, EmployeeRepository, ?, FingerprintDeviceService, AttendanceLogsService, EmployeesService, DevicesGateway, SyncHistoryService, SyncQueueService). Please make sure that the argument ConfigService at index [2] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+
+      55 |
+      56 |   beforeEach(async () => {
+    > 57 |     const module: TestingModule = await Test.createTestingModule({
+         |                                   ^
+      58 |       providers: [
+      59 |         SyncEngineService,
+      60 |         {
+
+      at TestingInjector.lookupComponentInParentModules (../node_modules/@nestjs/core/injector/injector.js:290:19)
+      at TestingInjector.resolveComponentWrapper (../node_modules/@nestjs/testing/testing-injector.js:19:45)
+      at resolveParam (../node_modules/@nestjs/core/injector/injector.js:140:38)
+          at async Promise.all (index 2)
+      at TestingInjector.resolveConstructorParams (../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadProvider (../node_modules/@nestjs/core/injector/injector.js:103:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:56:13
+          at async Promise.all (index 3)
+      at TestingInstanceLoader.createInstancesOfProviders (../node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:40:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:57:35)
+
+  ΓùÅ SyncEngineService ΓÇ║ pushEmployeesToDevice ΓÇ║ should push active employees to device
+
+    Nest can't resolve dependencies of the SyncEngineService (DeviceRepository, EmployeeRepository, ?, FingerprintDeviceService, AttendanceLogsService, EmployeesService, DevicesGateway, SyncHistoryService, SyncQueueService). Please make sure that the argument ConfigService at index [2] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+
+      55 |
+      56 |   beforeEach(async () => {
+    > 57 |     const module: TestingModule = await Test.createTestingModule({
+         |                                   ^
+      58 |       providers: [
+      59 |         SyncEngineService,
+      60 |         {
+
+      at TestingInjector.lookupComponentInParentModules (../node_modules/@nestjs/core/injector/injector.js:290:19)
+      at TestingInjector.resolveComponentWrapper (../node_modules/@nestjs/testing/testing-injector.js:19:45)
+      at resolveParam (../node_modules/@nestjs/core/injector/injector.js:140:38)
+          at async Promise.all (index 2)
+      at TestingInjector.resolveConstructorParams (../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadProvider (../node_modules/@nestjs/core/injector/injector.js:103:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:56:13
+          at async Promise.all (index 3)
+      at TestingInstanceLoader.createInstancesOfProviders (../node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:40:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:57:35)
+
+  ΓùÅ SyncEngineService ΓÇ║ retryFailedSync ΓÇ║ should retry a failed sync by creating a new job
+
+    Nest can't resolve dependencies of the SyncEngineService (DeviceRepository, EmployeeRepository, ?, FingerprintDeviceService, AttendanceLogsService, EmployeesService, DevicesGateway, SyncHistoryService, SyncQueueService). Please make sure that the argument ConfigService at index [2] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+
+      55 |
+      56 |   beforeEach(async () => {
+    > 57 |     const module: TestingModule = await Test.createTestingModule({
+         |                                   ^
+      58 |       providers: [
+      59 |         SyncEngineService,
+      60 |         {
+
+      at TestingInjector.lookupComponentInParentModules (../node_modules/@nestjs/core/injector/injector.js:290:19)
+      at TestingInjector.resolveComponentWrapper (../node_modules/@nestjs/testing/testing-injector.js:19:45)
+      at resolveParam (../node_modules/@nestjs/core/injector/injector.js:140:38)
+          at async Promise.all (index 2)
+      at TestingInjector.resolveConstructorParams (../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadProvider (../node_modules/@nestjs/core/injector/injector.js:103:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:56:13
+          at async Promise.all (index 3)
+      at TestingInstanceLoader.createInstancesOfProviders (../node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+      at ../node_modules/@nestjs/core/injector/instance-loader.js:40:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:57:35)
+
+Test Suites: 1 failed, 1 total
+Tests:       5 failed, 5 total
+Snapshots:   0 total
+Time:        4.718 s, estimated 5 s
+Ran all test suites matching src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts.

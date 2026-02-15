@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:3001"
+  target: "http://localhost:3000"
   phases:
     - duration: 60
       arrivalRate: 5
@@ -23,15 +23,22 @@ scenarios:
           capture:
             - json: "$.access_token"
               as: "token"
+      - get:
+          url: "/api/devices"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          capture:
+            - json: "$[0].id"
+              as: "deviceId"
       - post:
-          url: "/devices/{{ deviceId }}/sync"
+          url: "/api/devices/{{ deviceId }}/sync"
           json:
             sync_type: "pull_logs"
           headers:
             Authorization: "Bearer {{ token }}"
       - think: 5
       - post:
-          url: "/devices/{{ deviceId }}/sync"
+          url: "/api/devices/{{ deviceId }}/sync"
           json:
             sync_type: "push_employees"
           headers:

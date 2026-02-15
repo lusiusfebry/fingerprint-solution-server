@@ -1,0 +1,98 @@
+[Nest] 4496  - 02/15/2026, 8:06:39 PM   ERROR [AttendanceLogsService] Failed to save logs: this.employeeRepository.find is not a function
+[Nest] 4496  - 02/15/2026, 8:06:39 PM   ERROR [AttendanceLogsService] Failed to save logs: this.employeeRepository.find is not a function
+FAIL src/modules/attendance-logs/__tests__/attendance-logs.service.spec.ts
+  AttendanceLogsService
+    ΓêÜ should be defined (27 ms)
+    saveLogs
+      ├ù should validate and save logs if employee and device exist (17 ms)
+      ├ù should ignore log if employee not found (16 ms)
+    validateLog
+      ├ù should return valid true if employee and device exist (11 ms)
+      ├ù should return errors if employee not found (10 ms)
+    calculateAttendance
+      ├ù should return calculated results for a given filter (7 ms)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ saveLogs ΓÇ║ should validate and save logs if employee and device exist
+
+    TypeError: this.employeeRepository.find is not a function
+
+      111 |
+      112 |       const uniquePins = [...new Set(logs.map((log) => log.pin))];
+    > 113 |       const employees = await this.employeeRepository.find({
+          |                                                       ^
+      114 |         where: uniquePins.map((pin) => ({ nik: pin })),
+      115 |       });
+      116 |       const employeeMap = new Map(employees.map((emp) => [emp.nik, emp.id]));
+
+      at AttendanceLogsService.saveLogs (modules/attendance-logs/attendance-logs.service.ts:113:55)
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:88:21)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ saveLogs ΓÇ║ should ignore log if employee not found
+
+    TypeError: this.employeeRepository.find is not a function
+
+      111 |
+      112 |       const uniquePins = [...new Set(logs.map((log) => log.pin))];
+    > 113 |       const employees = await this.employeeRepository.find({
+          |                                                       ^
+      114 |         where: uniquePins.map((pin) => ({ nik: pin })),
+      115 |       });
+      116 |       const employeeMap = new Map(employees.map((emp) => [emp.nik, emp.id]));
+
+      at AttendanceLogsService.saveLogs (modules/attendance-logs/attendance-logs.service.ts:113:55)
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:97:21)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ validateLog ΓÇ║ should return valid true if employee and device exist
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      111 |       } as any);
+      112 |
+    > 113 |       expect(result.valid).toBe(true);
+          |                            ^
+      114 |     });
+      115 |
+      116 |     it('should return errors if employee not found', async () => {
+
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:113:28)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ validateLog ΓÇ║ should return errors if employee not found
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: "Employee with NIK EMP1 not found"
+    Received array: ["Karyawan dengan NIK undefined tidak ditemukan", "Format waktu tidak valid", "Tipe verifikasi tidak valid"]
+
+      124 |
+      125 |       expect(result.valid).toBe(false);
+    > 126 |       expect(result.errors).toContain('Employee with NIK EMP1 not found');
+          |                             ^
+      127 |     });
+      128 |   });
+      129 |
+
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:126:29)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ calculateAttendance ΓÇ║ should return calculated results for a given filter
+
+    TypeError: this.employeeRepository.createQueryBuilder is not a function
+
+      436 |
+      437 |     const employeesQuery = this.employeeRepository
+    > 438 |       .createQueryBuilder('employee')
+          |        ^
+      439 |       .leftJoinAndSelect('employee.employee_shifts', 'es') // Load all history
+      440 |       .leftJoinAndSelect('es.shift', 'shift');
+      441 |
+
+      at AttendanceLogsService.calculateAttendance (modules/attendance-logs/attendance-logs.service.ts:438:8)
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:139:36)
+
+Test Suites: 1 failed, 1 total
+Tests:       5 failed, 1 passed, 6 total
+Snapshots:   0 total
+Time:        3.59 s, estimated 6 s
+Ran all test suites matching src/modules/attendance-logs/__tests__/attendance-logs.service.spec.ts.
