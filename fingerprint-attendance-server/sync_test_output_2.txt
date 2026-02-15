@@ -1,0 +1,93 @@
+[Nest] 9340  - 02/15/2026, 8:27:46 PM   ERROR [SyncEngineService] Error processing sync job [object Object]: this.syncQueueService.markJobProcessing is not a function
+[Nest] 9340  - 02/15/2026, 8:27:46 PM   ERROR [SyncEngineService] Error processing sync job [object Object]: this.syncQueueService.markJobProcessing is not a function
+FAIL src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts
+  SyncEngineService
+    ΓêÜ should be defined (36 ms)
+    syncDevice
+      ├ù should add a job to the queue and return jobId (33 ms)
+    pullLogsFromDevice
+      ├ù should pull logs and save them (15 ms)
+    pushEmployeesToDevice
+      ├ù should push active employees to device (7 ms)
+    retryFailedSync
+      ├ù should retry a failed sync by creating a new job (8 ms)
+
+  ΓùÅ SyncEngineService ΓÇ║ syncDevice ΓÇ║ should add a job to the queue and return jobId
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 0
+    + Received  + 3
+
+      Object {
+    +   "jobId": Object {
+          "jobId": "job-1",
+    +     "status": "queued",
+    +   },
+        "status": "queued",
+      }
+
+      132 |       const result = await service.syncDevice(deviceId, 'pull_logs');
+      133 |
+    > 134 |       expect(result).toEqual({ jobId: 'job-1', status: 'queued' });
+          |                      ^
+      135 |       expect(mockSyncQueueService.addJob).toHaveBeenCalled();
+      136 |     });
+      137 |   });
+
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:134:22)
+
+  ΓùÅ SyncEngineService ΓÇ║ pullLogsFromDevice ΓÇ║ should pull logs and save them
+
+    expect(jest.fn()).toHaveBeenCalled()
+
+    Expected number of calls: >= 1
+    Received number of calls:    0
+
+      156 |
+      157 |       expect(result.count).toBe(1);
+    > 158 |       expect(mockDeviceCommService.getLogs).toHaveBeenCalled();
+          |                                             ^
+      159 |       expect(mockAttendanceLogsService.saveLogs).toHaveBeenCalledWith(
+      160 |         device.id,
+      161 |         mockLogs,
+
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:158:45)
+
+  ΓùÅ SyncEngineService ΓÇ║ pushEmployeesToDevice ΓÇ║ should push active employees to device
+
+    TypeError: Cannot read properties of undefined (reading 'filter')
+
+      228 |
+      229 |     // Filter only active employees
+    > 230 |     const activeEmployees = employees.filter((e) => e.status === 'aktif');
+          |                                       ^
+      231 |
+      232 |     let success = 0;
+      233 |     let failed = 0;
+
+      at SyncEngineService.pushEmployeesToDevice (modules/sync-history/services/sync-engine.service.ts:230:39)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:174:22)
+
+  ΓùÅ SyncEngineService ΓÇ║ retryFailedSync ΓÇ║ should retry a failed sync by creating a new job
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "job-new"
+    Received: {"jobId": "job-new"}
+
+      195 |       const result = await service.retryFailedSync('hist-1');
+      196 |
+    > 197 |       expect(result.jobId).toBe('job-new');
+          |                            ^
+      198 |       expect(mockSyncQueueService.addJob).toHaveBeenCalledWith(
+      199 |         'dev-1',
+      200 |         'pull_logs',
+
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:197:28)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 1 passed, 5 total
+Snapshots:   0 total
+Time:        4.95 s, estimated 7 s
+Ran all test suites matching src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts.

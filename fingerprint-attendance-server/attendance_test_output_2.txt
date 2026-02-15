@@ -1,0 +1,68 @@
+FAIL src/modules/attendance-logs/__tests__/attendance-logs.service.spec.ts (5.595 s)
+  AttendanceLogsService
+    ΓêÜ should be defined (65 ms)
+    saveLogs
+      ├ù should validate and save logs if employee and device exist (36 ms)
+      ΓêÜ should ignore log if employee not found (15 ms)
+    validateLog
+      ├ù should return valid true if employee and device exist (18 ms)
+      ├ù should return errors if employee not found (17 ms)
+    calculateAttendance
+      ΓêÜ should return calculated results for a given filter (9 ms)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ saveLogs ΓÇ║ should validate and save logs if employee and device exist
+
+    expect(jest.fn()).toHaveBeenCalled()
+
+    Expected number of calls: >= 1
+    Received number of calls:    0
+
+       99 |       await service.saveLogs(rawLogs as any);
+      100 |
+    > 101 |       expect(mockLogRepo.save).toHaveBeenCalled();
+          |                                ^
+      102 |       expect(mockDevicesGateway.emitAttendanceLog).toHaveBeenCalled();
+      103 |     });
+      104 |
+
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:101:32)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ validateLog ΓÇ║ should return valid true if employee and device exist
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      122 |       } as any);
+      123 |
+    > 124 |       expect(result.valid).toBe(true);
+          |                            ^
+      125 |     });
+      126 |
+      127 |     it('should return errors if employee not found', async () => {
+
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:124:28)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ validateLog ΓÇ║ should return errors if employee not found
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: "Karyawan dengan NIK EMP1 tidak ditemukan"
+    Received array: ["Karyawan dengan NIK undefined tidak ditemukan", "Format waktu tidak valid", "Tipe verifikasi tidak valid"]
+
+      135 |
+      136 |       expect(result.valid).toBe(false);
+    > 137 |       expect(result.errors).toContain(
+          |                             ^
+      138 |         'Karyawan dengan NIK EMP1 tidak ditemukan',
+      139 |       );
+      140 |     });
+
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:137:29)
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 3 passed, 6 total
+Snapshots:   0 total
+Time:        7.071 s
+Ran all test suites matching src/modules/attendance-logs/__tests__/attendance-logs.service.spec.ts.

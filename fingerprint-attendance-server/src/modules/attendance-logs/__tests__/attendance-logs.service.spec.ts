@@ -16,10 +16,21 @@ describe('AttendanceLogsService', () => {
     create: jest.fn(),
     save: jest.fn(),
     count: jest.fn(),
+    upsert: jest.fn().mockResolvedValue({ identifiers: [] }),
   };
 
   const mockEmployeeRepo = {
     findOne: jest.fn(),
+    find: jest.fn().mockResolvedValue([]),
+    createQueryBuilder: jest.fn().mockReturnValue({
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      orderBy: jest.fn().mockReturnThis(),
+      skip: jest.fn().mockReturnThis(),
+      take: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockResolvedValue([]),
+    }),
   };
 
   const mockDeviceRepo = {
@@ -67,27 +78,30 @@ describe('AttendanceLogsService', () => {
   describe('saveLogs', () => {
     const rawLogs = [
       {
-        userSn: 'EMP1',
+        pin: 'EMP1',
         timestamp: new Date(),
+        time: new Date().toISOString(),
         device_id: 'dev-1',
-        verifyMode: 1,
-        ioMode: 0,
+        verified: '1',
+        status: '0',
       },
     ];
 
     it('should validate and save logs if employee and device exist', async () => {
-      mockEmployeeRepo.findOne.mockResolvedValue({
+      const employee = {
         id: 'emp-uuid',
         nik: 'EMP1',
-      });
+      };
+      mockEmployeeRepo.findOne.mockResolvedValue(employee);
+      mockEmployeeRepo.find.mockResolvedValue([employee]);
       mockDeviceRepo.findOne.mockResolvedValue({ id: 'dev-uuid' });
       mockLogRepo.findOne.mockResolvedValue(null); // No duplicate
-      mockLogRepo.create.mockReturnValue({});
+      mockLogRepo.create.mockImplementation((dto) => dto);
       mockLogRepo.save.mockResolvedValue({});
 
       await service.saveLogs(rawLogs as any);
 
-      expect(mockLogRepo.save).toHaveBeenCalled();
+      expect(mockLogRepo.upsert).toHaveBeenCalled();
       expect(mockDevicesGateway.emitAttendanceLog).toHaveBeenCalled();
     });
 
@@ -106,8 +120,11 @@ describe('AttendanceLogsService', () => {
       mockDeviceRepo.findOne.mockResolvedValue({ id: 'dev-1' });
 
       const result = await service.validateLog({
-        userSn: 'EMP1',
+        pin: 'EMP1',
         device_id: 'dev-1',
+        verified: '1',
+        status: '0',
+        time: new Date().toISOString(),
       } as any);
 
       expect(result.valid).toBe(true);
@@ -118,12 +135,17 @@ describe('AttendanceLogsService', () => {
       mockDeviceRepo.findOne.mockResolvedValue({ id: 'dev-1' });
 
       const result = await service.validateLog({
-        userSn: 'EMP1',
+        pin: 'EMP1',
         device_id: 'dev-1',
+        verified: '1',
+        status: '0',
+        time: new Date().toISOString(),
       } as any);
 
       expect(result.valid).toBe(false);
-      expect(result.errors).toContain('Employee with NIK EMP1 not found');
+      expect(result.errors).toContain(
+        'Karyawan dengan NIK EMP1 tidak ditemukan',
+      );
     });
   });
 

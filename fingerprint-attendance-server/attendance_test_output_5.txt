@@ -1,0 +1,34 @@
+FAIL src/modules/attendance-logs/__tests__/attendance-logs.service.spec.ts
+  AttendanceLogsService
+    ΓêÜ should be defined (55 ms)
+    saveLogs
+      ├ù should validate and save logs if employee and device exist (38 ms)
+      ΓêÜ should ignore log if employee not found (15 ms)
+    validateLog
+      ΓêÜ should return valid true if employee and device exist (15 ms)
+      ΓêÜ should return errors if employee not found (10 ms)
+    calculateAttendance
+      ΓêÜ should return calculated results for a given filter (10 ms)
+
+  ΓùÅ AttendanceLogsService ΓÇ║ saveLogs ΓÇ║ should validate and save logs if employee and device exist
+
+    expect(jest.fn()).toHaveBeenCalled()
+
+    Expected number of calls: >= 1
+    Received number of calls:    0
+
+      103 |
+      104 |       expect(mockLogRepo.upsert).toHaveBeenCalled();
+    > 105 |       expect(mockDevicesGateway.emitAttendanceLog).toHaveBeenCalled();
+          |                                                    ^
+      106 |     });
+      107 |
+      108 |     it('should ignore log if employee not found', async () => {
+
+      at Object.<anonymous> (modules/attendance-logs/__tests__/attendance-logs.service.spec.ts:105:52)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 5 passed, 6 total
+Snapshots:   0 total
+Time:        5.264 s, estimated 6 s
+Ran all test suites matching src/modules/attendance-logs/__tests__/attendance-logs.service.spec.ts.

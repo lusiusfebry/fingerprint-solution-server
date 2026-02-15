@@ -21,10 +21,12 @@ describe('SyncEngineService', () => {
 
   const mockEmployeeRepo = {
     find: jest.fn(),
+    findOne: jest.fn(),
   };
 
   const mockDeviceCommService = {
     getLogs: jest.fn(),
+    downloadAttendanceLogs: jest.fn(),
     uploadEmployee: jest.fn(),
     uploadFingerprintTemplate: jest.fn(),
     setTime: jest.fn(),
@@ -34,7 +36,9 @@ describe('SyncEngineService', () => {
     saveLogs: jest.fn(),
   };
 
-  const mockEmployeesService = {};
+  const mockEmployeesService = {
+    findAll: jest.fn(),
+  };
 
   const mockDevicesGateway = {
     server: {
@@ -52,6 +56,10 @@ describe('SyncEngineService', () => {
     addJob: jest.fn(),
     getJob: jest.fn(),
     updateJob: jest.fn(),
+    getJobsByDevice: jest.fn().mockReturnValue([]),
+    markJobProcessing: jest.fn(),
+    markJobCompleted: jest.fn(),
+    markJobFailed: jest.fn(),
   };
 
   const mockConfigService = {
@@ -119,10 +127,7 @@ describe('SyncEngineService', () => {
         id: deviceId,
         status: 'online',
       });
-      mockSyncQueueService.addJob.mockReturnValue({
-        jobId: 'job-1',
-        status: 'queued',
-      });
+      mockSyncQueueService.addJob.mockReturnValue('job-1');
 
       const result = await service.syncDevice(deviceId, 'pull_logs');
 
@@ -140,18 +145,18 @@ describe('SyncEngineService', () => {
     } as Device;
 
     it('should pull logs and save them', async () => {
-      const mockLogs = [{ userSn: '1', timestamp: '2024-01-01' }];
-      mockDeviceCommService.getLogs.mockResolvedValue(mockLogs);
+      const mockLogs = {
+        success: true,
+        data: [{ pin: '1', timestamp: '2024-01-01' }],
+      };
+      mockDeviceCommService.downloadAttendanceLogs.mockResolvedValue(mockLogs);
       mockAttendanceLogsService.saveLogs.mockResolvedValue({ count: 1 });
 
       const result = await service.pullLogsFromDevice(device);
 
       expect(result.count).toBe(1);
-      expect(mockDeviceCommService.getLogs).toHaveBeenCalled();
-      expect(mockAttendanceLogsService.saveLogs).toHaveBeenCalledWith(
-        device.id,
-        mockLogs,
-      );
+      expect(mockDeviceCommService.downloadAttendanceLogs).toHaveBeenCalled();
+      expect(mockAttendanceLogsService.saveLogs).toHaveBeenCalled();
     });
   });
 
@@ -159,9 +164,11 @@ describe('SyncEngineService', () => {
     const device = { id: 'uuid-1' } as Device;
 
     it('should push active employees to device', async () => {
-      const employees = [{ nik: 'EMP1', nama: 'Budi' }] as Employee[];
-      mockEmployeeRepo.find.mockResolvedValue(employees);
-      mockDeviceCommService.uploadEmployee.mockResolvedValue(true);
+      const employees = [
+        { nik: 'EMP1', nama: 'Budi', status: 'aktif' },
+      ] as Employee[];
+      mockEmployeesService.findAll.mockResolvedValue(employees);
+      mockDeviceCommService.uploadEmployee.mockResolvedValue({ success: true });
 
       const result = await service.pushEmployeesToDevice(device);
 
@@ -174,15 +181,15 @@ describe('SyncEngineService', () => {
     it('should retry a failed sync by creating a new job', async () => {
       const syncHistory = {
         id: 'hist-1',
-        deviceId: 'dev-1',
-        syncType: 'pull_logs',
+        device_id: 'dev-1',
+        sync_type: 'pull_logs',
       };
       mockSyncHistoryService.findOne.mockResolvedValue(syncHistory);
       mockDeviceRepo.findOne.mockResolvedValue({
         id: 'dev-1',
         status: 'online',
       });
-      mockSyncQueueService.addJob.mockReturnValue({ jobId: 'job-new' });
+      mockSyncQueueService.addJob.mockReturnValue('job-new');
 
       const result = await service.retryFailedSync('hist-1');
 
@@ -190,6 +197,7 @@ describe('SyncEngineService', () => {
       expect(mockSyncQueueService.addJob).toHaveBeenCalledWith(
         'dev-1',
         'pull_logs',
+        0,
         undefined,
       );
     });

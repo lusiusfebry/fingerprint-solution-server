@@ -1,0 +1,77 @@
+FAIL src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts
+  SyncEngineService
+    ΓêÜ should be defined (23 ms)
+    syncDevice
+      ├ù should add a job to the queue and return jobId (12 ms)
+    pullLogsFromDevice
+      ├ù should pull logs and save them (11 ms)
+    pushEmployeesToDevice
+      ├ù should push active employees to device (7 ms)
+    retryFailedSync
+      ├ù should retry a failed sync by creating a new job (7 ms)
+
+  ΓùÅ SyncEngineService ΓÇ║ syncDevice ΓÇ║ should add a job to the queue and return jobId
+
+    TypeError: this.syncQueueService.getJobsByDevice is not a function
+
+      65 |     if (
+      66 |       this.syncQueueService
+    > 67 |         .getJobsByDevice(deviceId)
+         |          ^
+      68 |         .some((j) => j.status === 'processing')
+      69 |     ) {
+      70 |       this.logger.warn(
+
+      at SyncEngineService.syncDevice (modules/sync-history/services/sync-engine.service.ts:67:10)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:127:22)
+
+  ΓùÅ SyncEngineService ΓÇ║ pullLogsFromDevice ΓÇ║ should pull logs and save them
+
+    TypeError: this.fingerprintDeviceService.downloadAttendanceLogs is not a function
+
+      188 |     const config = this.getDeviceConfig(device);
+      189 |     const response =
+    > 190 |       await this.fingerprintDeviceService.downloadAttendanceLogs(config);
+          |                                           ^
+      191 |
+      192 |     if (!response.success) {
+      193 |       throw new Error(response.message);
+
+      at SyncEngineService.pullLogsFromDevice (modules/sync-history/services/sync-engine.service.ts:190:43)
+      at SyncEngineService.descriptor.value (common/decorators/retry.decorator.ts:23:39)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:147:36)
+
+  ΓùÅ SyncEngineService ΓÇ║ pushEmployeesToDevice ΓÇ║ should push active employees to device
+
+    TypeError: this.employeesService.findAll is not a function
+
+      225 |     }
+      226 |
+    > 227 |     const employees = await this.employeesService.findAll();
+          |                                                   ^
+      228 |
+      229 |     // Filter only active employees
+      230 |     const activeEmployees = employees.filter((e) => e.status === 'aktif');
+
+      at SyncEngineService.pushEmployeesToDevice (modules/sync-history/services/sync-engine.service.ts:227:51)
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:166:36)
+
+  ΓùÅ SyncEngineService ΓÇ║ retryFailedSync ΓÇ║ should retry a failed sync by creating a new job
+
+    TypeError: this.syncQueueService.getJobsByDevice is not a function
+
+      65 |     if (
+      66 |       this.syncQueueService
+    > 67 |         .getJobsByDevice(deviceId)
+         |          ^
+      68 |         .some((j) => j.status === 'processing')
+      69 |     ) {
+      70 |       this.logger.warn(
+
+      at SyncEngineService.syncDevice (modules/sync-history/services/sync-engine.service.ts:67:10)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 1 passed, 5 total
+Snapshots:   0 total
+Time:        3.419 s, estimated 8 s
+Ran all test suites matching src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts.

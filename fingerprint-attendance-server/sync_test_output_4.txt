@@ -1,0 +1,38 @@
+[Nest] 22860  - 02/15/2026, 8:37:13 PM   ERROR [SyncEngineService] Error processing sync job job-1: Cannot read properties of undefined (reading 'get')
+[Nest] 22860  - 02/15/2026, 8:37:13 PM   ERROR [SyncEngineService] Error processing sync job job-new: Cannot read properties of undefined (reading 'get')
+FAIL src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts
+  SyncEngineService
+    ΓêÜ should be defined (43 ms)
+    syncDevice
+      ΓêÜ should add a job to the queue and return jobId (24 ms)
+    pullLogsFromDevice
+      ΓêÜ should pull logs and save them (10 ms)
+    pushEmployeesToDevice
+      ΓêÜ should push active employees to device (8 ms)
+    retryFailedSync
+      ├ù should retry a failed sync by creating a new job (17 ms)
+
+  ΓùÅ SyncEngineService ΓÇ║ retryFailedSync ΓÇ║ should retry a failed sync by creating a new job
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: "dev-1", "pull_logs", undefined
+    Received: "dev-1", "pull_logs", 0, undefined
+
+    Number of calls: 1
+
+      195 |
+      196 |       expect(result.jobId).toBe('job-new');
+    > 197 |       expect(mockSyncQueueService.addJob).toHaveBeenCalledWith(
+          |                                           ^
+      198 |         'dev-1',
+      199 |         'pull_logs',
+      200 |         undefined,
+
+      at Object.<anonymous> (modules/sync-history/services/__tests__/sync-engine.service.spec.ts:197:43)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 4 passed, 5 total
+Snapshots:   0 total
+Time:        4.064 s
+Ran all test suites matching src/modules/sync-history/services/__tests__/sync-engine.service.spec.ts.
