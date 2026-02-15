@@ -194,9 +194,25 @@ export default function SettingsPage() {
                                 </label>
                             </div>
                         </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Max Retry Attempts</label>
+                            <input
+                                type="number"
+                                min="0"
+                                max="10"
+                                value={settings.max_retry_attempts}
+                                onChange={(e) => setSettings({ ...settings, max_retry_attempts: Number(e.target.value) })}
+                                className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-darker px-3 py-2 text-sm focus:ring-primary focus:border-primary"
+                            />
+                            <p className="mt-1 text-xs text-gray-500">Number of times to retry failed sync operations (0-10)</p>
+                        </div>
                         <div className="flex justify-end">
                             <button
-                                onClick={() => handleSave({ sync_interval: settings.sync_interval, conflict_resolution_mode: settings.conflict_resolution_mode })}
+                                onClick={() => handleSave({
+                                    sync_interval: settings.sync_interval,
+                                    conflict_resolution_mode: settings.conflict_resolution_mode,
+                                    max_retry_attempts: settings.max_retry_attempts
+                                })}
                                 disabled={saving}
                                 className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors disabled:opacity-50"
                             >
@@ -223,13 +239,27 @@ export default function SettingsPage() {
                             />
                             <Toggle
                                 label="Auto Daily Backup"
-                                description="Backup database every day at midnight"
+                                description="Backup database according to schedule"
                                 checked={settings.auto_backup_enabled}
                                 onChange={(checked) => {
                                     setSettings({ ...settings, auto_backup_enabled: checked });
                                     handleSave({ auto_backup_enabled: checked });
                                 }}
                             />
+                            {settings.auto_backup_enabled && (
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Backup Schedule (Cron)</label>
+                                    <input
+                                        type="text"
+                                        value={settings.backup_schedule}
+                                        onChange={(e) => setSettings({ ...settings, backup_schedule: e.target.value })}
+                                        onBlur={() => handleSave({ backup_schedule: settings.backup_schedule })}
+                                        className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-darker px-3 py-2 text-sm focus:ring-primary focus:border-primary"
+                                        placeholder="0 0 * * *"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-500">Cron expression (e.g., '0 0 * * *' for daily at midnight)</p>
+                                </div>
+                            )}
                             <button
                                 onClick={handleCreateBackup}
                                 className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex justify-center items-center"
@@ -304,8 +334,17 @@ export default function SettingsPage() {
                                 handleSave({ email_notifications_enabled: checked });
                             }}
                         />
+                        <Toggle
+                            label="SMS Notifications"
+                            description="Receive critical alerts via SMS"
+                            checked={settings.sms_notifications_enabled}
+                            onChange={(checked) => {
+                                setSettings({ ...settings, sms_notifications_enabled: checked });
+                                handleSave({ sms_notifications_enabled: checked });
+                            }}
+                        />
                         <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alert Email Address</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alert Email Address (Primary)</label>
                             <input
                                 type="email"
                                 value={settings.notification_email || ''}
@@ -314,9 +353,23 @@ export default function SettingsPage() {
                                 placeholder="admin@example.com"
                             />
                         </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Additional Recipients</label>
+                            <textarea
+                                value={settings.notification_recipients?.join('\n') || ''}
+                                onChange={(e) => setSettings({ ...settings, notification_recipients: e.target.value.split('\n') })}
+                                className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-darker px-3 py-2 text-sm focus:ring-primary focus:border-primary"
+                                placeholder="one@example.com&#10;two@example.com"
+                                rows={3}
+                            />
+                            <p className="mt-1 text-xs text-gray-500">Enter email addresses separated by new lines</p>
+                        </div>
                         <div className="flex justify-end">
                             <button
-                                onClick={() => handleSave({ notification_email: settings.notification_email })}
+                                onClick={() => handleSave({
+                                    notification_email: settings.notification_email,
+                                    notification_recipients: settings.notification_recipients
+                                })}
                                 disabled={saving}
                                 className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors disabled:opacity-50"
                             >

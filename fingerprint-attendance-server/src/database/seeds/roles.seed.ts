@@ -51,7 +51,18 @@ export async function seedRoles(dataSource: DataSource) {
       where: { name: roleData.name },
     });
     if (!existingRole) {
-      const role = roleRepository.create(roleData);
+      const permissions: { module: string; action: string }[] = [];
+      for (const [module, actions] of Object.entries(roleData.permissions)) {
+        for (const action of actions) {
+          permissions.push({ module, action });
+        }
+      }
+
+      const role = roleRepository.create({
+        name: roleData.name,
+        description: roleData.description,
+        permissions: permissions,
+      });
       await roleRepository.save(role);
     }
   }

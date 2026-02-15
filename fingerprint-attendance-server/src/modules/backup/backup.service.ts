@@ -13,6 +13,9 @@ import * as fs from 'fs/promises';
 import { existsSync, createReadStream } from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { parseExpression } from 'cron-parser';
+import { SystemSettingsService } from '../system-settings/system-settings.service';
 
 const execAsync = promisify(exec);
 
@@ -25,6 +28,7 @@ export class BackupService {
     @InjectRepository(BackupHistory)
     private backupRepository: Repository<BackupHistory>,
     private configService: ConfigService,
+    private systemSettingsService: SystemSettingsService,
   ) {
     void this.ensureBackupDir();
   }
@@ -32,6 +36,52 @@ export class BackupService {
   private async ensureBackupDir() {
     if (!existsSync(this.backupDir)) {
       await fs.mkdir(this.backupDir, { recursive: true });
+    }
+  }
+
+  @Cron(CronExpression.EVERY_MINUTE)
+  async handleCron() {
+    try {
+      const settings = await this.systemSettingsService.getSettings();
+
+      if (!settings.auto_backup_enabled || !settings.backup_schedule) {
+        return;
+      }
+
+      // Check if we should run now
+      const options = { currentDate: new Date(), iterator: true };
+      const interval = parseExpression(settings.backup_schedule, options);
+
+      // Get the last scheduled time (prev) relative to now
+      const prev = interval.prev().value.toDate();
+      const now = new Date();
+
+      // Grace period: if we are within 5 minutes of the scheduled time
+      const diffMs = now.getTime() - prev.getTime();
+      const fiveMinutesMs = 5 * 60 * 1000;
+
+      if (diffMs > fiveMinutesMs) {
+        // Too late, skip
+        return;
+      }
+
+      // Check if we already ran a backup after the scheduled time
+      const lastAutoBackup = await this.backupRepository.findOne({
+        where: { type: 'auto' },
+        order: { created_at: 'DESC' },
+      });
+
+      if (lastAutoBackup && lastAutoBackup.created_at >= prev) {
+        // Already executed for this slot
+        return;
+      }
+
+      this.logger.log(
+        `Triggering auto-backup scheduled at ${prev.toISOString()}`,
+      );
+      await this.createBackup('system', 'auto');
+    } catch (error) {
+      this.logger.error('Error in auto-backup cron:', error);
     }
   }
 

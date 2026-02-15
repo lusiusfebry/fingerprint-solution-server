@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export const adminService = {
     // Users
-    async getUsers(page = 1, limit = 10, search = '', roleId = ''): Promise<{ data: User[], pagination: Pagination }> {
+    async getUsers(page = 1, limit = 10, search = '', roleId = ''): Promise<User[]> {
         const response = await axios.get(`${API_URL}/api/users`, {
             params: { page, limit, search, roleId },
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

@@ -44,12 +44,31 @@ export default function UserManagementPage() {
     const fetchUsers = React.useCallback(async (page = 1, searchQuery = search) => {
         setLoading(true);
         try {
-            const result = await adminService.getUsers(page, 10, searchQuery);
-            setUsers(result.data);
+            // Backend returns all users (User[])
+            const allUsers = await adminService.getUsers(page, 10, searchQuery);
+
+            // Client-side filtering
+            let filtered = allUsers;
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = allUsers.filter(u =>
+                    u.name.toLowerCase().includes(q) ||
+                    u.email.toLowerCase().includes(q)
+                );
+            }
+
+            // Client-side pagination
+            const itemsPerPage = 10;
+            const totalItems = filtered.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const startIndex = (page - 1) * itemsPerPage;
+            const paginatedUsers = filtered.slice(startIndex, startIndex + itemsPerPage);
+
+            setUsers(paginatedUsers);
             setPagination({
-                currentPage: Number(result.pagination.currentPage),
-                totalPages: result.pagination.totalPages,
-                totalItems: result.pagination.totalItems
+                currentPage: page,
+                totalPages: totalPages || 1,
+                totalItems: totalItems
             });
         } catch {
             showToast.error('Failed to load users');
@@ -102,12 +121,19 @@ export default function UserManagementPage() {
         e.preventDefault();
         setSaving(true);
         try {
+            // Prepare payload: map role object to role_id
+            const payload: any = { ...selectedUser };
+            if (selectedUser.role) {
+                payload.role_id = selectedUser.role.id;
+                delete payload.role;
+            }
+
             if (modalMode === 'create') {
-                await adminService.createUser(selectedUser);
+                await adminService.createUser(payload);
                 showToast.success('User created successfully');
             } else {
                 if (selectedUser.id) {
-                    await adminService.updateUser(selectedUser.id, selectedUser);
+                    await adminService.updateUser(selectedUser.id, payload);
                     showToast.success('User updated successfully');
                 }
             }
