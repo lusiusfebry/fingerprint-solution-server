@@ -122,18 +122,18 @@ export default function UserManagementPage() {
         setSaving(true);
         try {
             // Prepare payload: map role object to role_id
-            const payload: any = { ...selectedUser };
+            const payload: Record<string, unknown> = { ...selectedUser };
             if (selectedUser.role) {
-                payload.role_id = selectedUser.role.id;
+                payload.role_id = (selectedUser.role as Role).id;
                 delete payload.role;
             }
 
             if (modalMode === 'create') {
-                await adminService.createUser(payload);
+                await adminService.createUser(payload as Record<string, unknown>);
                 showToast.success('User created successfully');
             } else {
                 if (selectedUser.id) {
-                    await adminService.updateUser(selectedUser.id, payload);
+                    await adminService.updateUser(selectedUser.id, payload as Record<string, unknown>);
                     showToast.success('User updated successfully');
                 }
             }

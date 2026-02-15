@@ -13,14 +13,14 @@ export const adminService = {
         return response.data;
     },
 
-    async createUser(data: Partial<User>): Promise<User> {
+    async createUser(data: Record<string, unknown>): Promise<User> {
         const response = await axios.post(`${API_URL}/api/users`, data, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
         return response.data;
     },
 
-    async updateUser(id: string, data: Partial<User>): Promise<User> {
+    async updateUser(id: string, data: Record<string, unknown>): Promise<User> {
         const response = await axios.put(`${API_URL}/api/users/${id}`, data, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });

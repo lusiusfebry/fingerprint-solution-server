@@ -14,7 +14,7 @@ import { existsSync, createReadStream } from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { parseExpression } from 'cron-parser';
+import * as cronParser from 'cron-parser';
 import { SystemSettingsService } from '../system-settings/system-settings.service';
 
 const execAsync = promisify(exec);
@@ -49,11 +49,15 @@ export class BackupService {
       }
 
       // Check if we should run now
-      const options = { currentDate: new Date(), iterator: true };
-      const interval = parseExpression(settings.backup_schedule, options);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      const interval: any = (cronParser as any).parseExpression(
+        settings.backup_schedule,
+        { currentDate: new Date() },
+      );
 
       // Get the last scheduled time (prev) relative to now
-      const prev = interval.prev().value.toDate();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      const prev = interval.prev().toDate() as Date;
       const now = new Date();
 
       // Grace period: if we are within 5 minutes of the scheduled time
@@ -81,7 +85,8 @@ export class BackupService {
       );
       await this.createBackup('system', 'auto');
     } catch (error) {
-      this.logger.error('Error in auto-backup cron:', error);
+      const err = error as Error;
+      this.logger.error('Error in auto-backup cron:', err.message);
     }
   }
 

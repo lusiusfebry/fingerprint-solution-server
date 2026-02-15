@@ -57,7 +57,7 @@ export default function AuditTrailPage() {
         return () => clearTimeout(timer);
     }, [fetchLogs]);
 
-    const handleFilterChange = (key: keyof AuditLogFilters, value: any) => {
+    const handleFilterChange = (key: keyof AuditLogFilters, value: string | number | null) => {
         setFilters(prev => ({ ...prev, [key]: value, page: 1 }));
     };
 

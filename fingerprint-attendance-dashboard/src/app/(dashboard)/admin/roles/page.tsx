@@ -2,12 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { adminService } from '@/services/admin.service';
-import { Role, Permission } from '@/types/admin.types';
+import { Role } from '@/types/admin.types';
 import { showToast } from '@/components/ui/Toast';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
-import { Badge } from '@/components/ui/Badge';
 import { clsx } from 'clsx';
 
 const MODULES = ['devices', 'employees', 'attendance', 'users', 'roles', 'settings', 'audit'];
@@ -47,7 +46,7 @@ export default function RolesPage() {
 
     useEffect(() => {
         fetchRoles();
-    }, []);
+    }, [fetchRoles]);
 
     const handleRoleSelect = (role: Role) => {
         setSelectedRole(role);

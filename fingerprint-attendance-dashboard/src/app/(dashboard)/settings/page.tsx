@@ -257,7 +257,7 @@ export default function SettingsPage() {
                                         className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-darker px-3 py-2 text-sm focus:ring-primary focus:border-primary"
                                         placeholder="0 0 * * *"
                                     />
-                                    <p className="mt-1 text-xs text-gray-500">Cron expression (e.g., '0 0 * * *' for daily at midnight)</p>
+                                    <p className="mt-1 text-xs text-gray-500">Cron expression (e.g., &apos;0 0 * * *&apos; for daily at midnight)</p>
                                 </div>
                             )}
                             <button
