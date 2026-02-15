@@ -1,0 +1,59 @@
+[dotenv@17.3.1] injecting env (15) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+Seeding roles...
+QueryFailedError: relation "roles" does not exist
+    at PostgresQueryRunner.query (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\typeorm\src\driver\postgres\PostgresQueryRunner.ts:325:19)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async SelectQueryBuilder.loadRawResults (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:3868:25)
+    at async SelectQueryBuilder.executeEntitiesAndRawResults (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:3614:26)
+    at async SelectQueryBuilder.getRawAndEntities (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:1671:29)
+    at async SelectQueryBuilder.getOne (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:1698:25)
+    at async seedRoles (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\src\database\seeds\roles.seed.ts:50:26)
+    at async runSeeds (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\src\database\seeds\run-seed.ts:10:3) {
+  query: 'SELECT "Role"."id" AS "Role_id", "Role"."name" AS "Role_name", "Role"."description" AS "Role_description", "Role"."created_at" AS "Role_created_at", "Role"."updated_at" AS "Role_updated_at" FROM "roles" "Role" WHERE (("Role"."name" = $1)) LIMIT 1',
+  parameters: [ 'Super Admin' ],
+  driverError: error: relation "roles" does not exist
+      at C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\pg\lib\client.js:624:17
+      at processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async PostgresQueryRunner.query (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\typeorm\src\driver\postgres\PostgresQueryRunner.ts:254:25)
+      at async SelectQueryBuilder.loadRawResults (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:3868:25)
+      at async SelectQueryBuilder.executeEntitiesAndRawResults (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:3614:26)
+      at async SelectQueryBuilder.getRawAndEntities (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:1671:29)
+      at async SelectQueryBuilder.getOne (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\node_modules\src\query-builder\SelectQueryBuilder.ts:1698:25)
+      at async seedRoles (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\src\database\seeds\roles.seed.ts:50:26)
+      at async runSeeds (C:\project-it\fingerprint-solution-server\fingerprint-attendance-server\src\database\seeds\run-seed.ts:10:3) {
+    length: 105,
+    severity: 'ERROR',
+    code: '42P01',
+    detail: undefined,
+    hint: undefined,
+    position: '196',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '1452',
+    routine: 'parserOpenTable'
+  },
+  length: 105,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '196',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1452',
+  routine: 'parserOpenTable'
+}
