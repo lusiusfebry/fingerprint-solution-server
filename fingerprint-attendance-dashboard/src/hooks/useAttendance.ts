@@ -72,6 +72,7 @@ export function useAttendance() {
         try {
             const filters = getFilters();
             // Remove page/limit/sort for summary
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { page, limit, sortBy, sortOrder, ...summaryFilters } = filters;
             const data = await attendanceService.getAttendanceSummary(summaryFilters);
             setSummary(data);

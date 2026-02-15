@@ -22,7 +22,7 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
     logs,
     isLoading,
     pagination,
-    onSort
+    onSort: _onSort
 }) => {
     const columns: Column<AttendanceLog>[] = [
         {

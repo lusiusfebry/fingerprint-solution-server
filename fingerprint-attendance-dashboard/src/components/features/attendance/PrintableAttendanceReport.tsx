@@ -1,5 +1,4 @@
-import React, { forwardRef } from 'react';
-import { AttendanceLog, AttendanceSummary } from '@/types/attendance.types';
+import { AttendanceLog, AttendanceSummary, AttendanceFilters } from '@/types/attendance.types';
 import { format } from 'date-fns';
 
 interface PrintableAttendanceReportProps {
@@ -7,7 +6,7 @@ interface PrintableAttendanceReportProps {
     summary: AttendanceSummary | null;
     startDate: string;
     endDate: string;
-    filters: any;
+    filters: AttendanceFilters;
 }
 
 export const PrintableAttendanceReport = forwardRef<HTMLDivElement, PrintableAttendanceReportProps>(

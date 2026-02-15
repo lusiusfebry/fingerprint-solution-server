@@ -1,6 +1,4 @@
 import React from 'react';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
 
 interface Latecomer {
     rank: number;

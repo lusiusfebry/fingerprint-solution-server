@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { reportsService } from '@/services/reports.service';
 import { AttendanceTrendData, AbsenceBreakdownData, Latecomer, MonthlyStats } from '@/types/reports.types';
-import toast from 'react-hot-toast';
 
 export function useReports() {
     const [month, setMonth] = useState(new Date().getMonth() + 1);

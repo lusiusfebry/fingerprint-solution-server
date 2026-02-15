@@ -59,7 +59,7 @@ export default function ReportsPage() {
             link.click();
             link.remove();
             toast.success('Report exported successfully');
-        } catch (error) {
+        } catch {
             toast.error('Failed to export report');
         } finally {
             setIsExporting(false);
