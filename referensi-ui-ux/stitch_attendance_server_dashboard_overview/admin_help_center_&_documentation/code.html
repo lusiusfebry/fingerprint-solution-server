@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Help Center &amp; Documentation - Fingerprint Solution X105D</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "primary-hover": "#1a75d2",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a2632",
+                        "text-light": "#1f2937",
+                        "text-dark": "#f3f4f6",
+                        "text-muted-light": "#6b7280",
+                        "text-muted-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #374151;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark antialiased min-h-screen flex flex-col font-display">
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-card-light/80 dark:bg-card-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16 items-center">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-icons text-xl">fingerprint</span>
+</div>
+<div>
+<span class="font-bold text-lg tracking-tight text-gray-900 dark:text-white">Solution X105D</span>
+<span class="text-xs text-primary font-medium bg-primary/10 px-2 py-0.5 rounded-full ml-2">Admin Console</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="text-sm font-medium text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors" href="#">Go to Dashboard</a>
+<div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTF6k8iW-gxnH_S8WKLco1hCPcJBkDDvmoZHJf7K0jUikKntuOnWsTcST5plyjnO9YtHfsG4Z1HHjLedWi5K4cc7zUEeHbm75XM9qjA1u7DuDb2gNFSHN9IBXRXqBGk7K7nat1cEOwcliTvwJJLCEdj1WfMYkiFaAhgYHV0WwZdMHzf7oP1NP2SlZMXxg7jCuJIa5oAO7LNj7H-DOjDp57BGnv2lD1YX_fi4LWUWy6DJicJqf5ZnJbBK4aE5dfNyq_OisgZ3MfxNjf"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/5 pb-16 pt-12 md:pt-20">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                How can we help you with the <span class="text-primary">X105D Server</span>?
+            </h1>
+<p class="text-lg text-text-muted-light dark:text-text-muted-dark mb-8 max-w-2xl mx-auto">
+                Find answers, troubleshoot sync issues, and manage your biometric devices.
+            </p>
+<div class="relative max-w-2xl mx-auto shadow-xl shadow-primary/5 rounded-xl">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-icons text-gray-400 dark:text-gray-500">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow text-lg" placeholder="Search for articles, guides, or troubleshooting errors..." type="text"/>
+<div class="hidden md:flex absolute inset-y-0 right-2 items-center">
+<kbd class="inline-flex items-center border border-gray-200 dark:border-gray-700 rounded px-2 text-sm font-sans font-medium text-gray-400 dark:text-gray-500">⌘ K</kbd>
+</div>
+</div>
+</div>
+<!-- Abstract background decoration -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute -top-[10%] -left-[5%] w-[30%] h-[30%] bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute top-[20%] -right-[5%] w-[25%] h-[25%] bg-blue-400/5 rounded-full blur-3xl"></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 pb-20">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="flex mb-6 text-sm text-text-muted-light dark:text-text-muted-dark">
+<ol class="flex items-center space-x-2">
+<li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+<li><span class="text-gray-400 dark:text-gray-600">/</span></li>
+<li class="font-medium text-gray-900 dark:text-white">Help Center</li>
+</ol>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Documentation Categories (Left Column) -->
+<div class="lg:col-span-2 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<a class="group bg-card-light dark:bg-card-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300" href="#">
+<div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons">rocket_launch</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Getting Started</h3>
+<p class="text-text-muted-light dark:text-text-muted-dark text-sm mb-4">Initial server configuration, licensing setup, and first-time admin walkthroughs.</p>
+<div class="flex items-center text-primary text-sm font-medium">
+<span>Browse 12 articles</span>
+<span class="material-icons text-sm ml-1 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</a>
+<!-- Card 2 -->
+<a class="group bg-card-light dark:bg-card-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300" href="#">
+<div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons">settings_input_component</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Device Setup</h3>
+<p class="text-text-muted-light dark:text-text-muted-dark text-sm mb-4">Connecting X105D terminals, network configuration, and firmware updates.</p>
+<div class="flex items-center text-primary text-sm font-medium">
+<span>Browse 8 articles</span>
+<span class="material-icons text-sm ml-1 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</a>
+<!-- Card 3 -->
+<a class="group bg-card-light dark:bg-card-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300" href="#">
+<div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons">people_alt</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Employee Management</h3>
+<p class="text-text-muted-light dark:text-text-muted-dark text-sm mb-4">Enrolling fingerprints, managing user permissions, and bulk import/export.</p>
+<div class="flex items-center text-primary text-sm font-medium">
+<span>Browse 15 articles</span>
+<span class="material-icons text-sm ml-1 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</a>
+<!-- Card 4 -->
+<a class="group bg-card-light dark:bg-card-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300" href="#">
+<div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons">build</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Troubleshooting</h3>
+<p class="text-text-muted-light dark:text-text-muted-dark text-sm mb-4">Diagnosing sync errors, resolving connectivity issues, and system logs.</p>
+<div class="flex items-center text-primary text-sm font-medium">
+<span>Browse 24 articles</span>
+<span class="material-icons text-sm ml-1 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</a>
+<!-- Card 5 -->
+<a class="group bg-card-light dark:bg-card-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 md:col-span-2" href="#">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-12 h-12 flex-shrink-0 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-icons">code</span>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">API &amp; Developer Integration</h3>
+<p class="text-text-muted-light dark:text-text-muted-dark text-sm mb-4 max-w-2xl">
+                                    Comprehensive documentation for Webhooks, REST API endpoints, and SDKs for custom integrations with HR and Payroll systems.
+                                </p>
+<div class="flex items-center text-primary text-sm font-medium">
+<span>Read documentation</span>
+<span class="material-icons text-sm ml-1 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<!-- Sidebar (Right Column) -->
+<aside class="lg:col-span-1 space-y-6">
+<!-- Status Widget -->
+<div class="bg-card-light dark:bg-card-dark p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+</span>
+<span class="font-medium text-sm text-gray-900 dark:text-white">All Systems Operational</span>
+</div>
+<a class="text-xs text-primary hover:underline" href="#">View History</a>
+</div>
+<!-- Common Issues -->
+<div class="bg-card-light dark:bg-card-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm sticky top-24">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-800 pb-2">Common Issues</h3>
+<ul class="space-y-4">
+<li>
+<a class="group flex items-start gap-3" href="#">
+<span class="material-icons text-gray-400 text-lg mt-0.5 group-hover:text-primary transition-colors">description</span>
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark group-hover:text-primary transition-colors">How to reconnect an offline device</span>
+</a>
+</li>
+<li>
+<a class="group flex items-start gap-3" href="#">
+<span class="material-icons text-gray-400 text-lg mt-0.5 group-hover:text-primary transition-colors">description</span>
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark group-hover:text-primary transition-colors">Resetting admin password</span>
+</a>
+</li>
+<li>
+<a class="group flex items-start gap-3" href="#">
+<span class="material-icons text-gray-400 text-lg mt-0.5 group-hover:text-primary transition-colors">description</span>
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark group-hover:text-primary transition-colors">Sync Error 503: Resolution Steps</span>
+</a>
+</li>
+<li>
+<a class="group flex items-start gap-3" href="#">
+<span class="material-icons text-gray-400 text-lg mt-0.5 group-hover:text-primary transition-colors">description</span>
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark group-hover:text-primary transition-colors">Updating device firmware manually</span>
+</a>
+</li>
+<li>
+<a class="group flex items-start gap-3" href="#">
+<span class="material-icons text-gray-400 text-lg mt-0.5 group-hover:text-primary transition-colors">description</span>
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark group-hover:text-primary transition-colors">Recalibrating fingerprint sensors</span>
+</a>
+</li>
+</ul>
+<div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+<div class="bg-primary/5 rounded-lg p-4">
+<h4 class="font-semibold text-primary text-sm mb-1">New Feature Alert</h4>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark">Version 2.4 adds support for iris scanning modules. <a class="underline decoration-primary/50 hover:decoration-primary" href="#">Read the changelog.</a></p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Support Footer -->
+<section class="bg-white dark:bg-card-dark border-t border-gray-200 dark:border-gray-800 py-12">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Still need help?</h2>
+<p class="text-text-muted-light dark:text-text-muted-dark mb-8">Our dedicated support team is available 24/7 to assist with critical server issues.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto">
+<button class="flex items-center justify-center gap-2 px-6 py-4 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+<span class="material-icons">chat</span>
+                    Start Live Chat
+                </button>
+<button class="flex items-center justify-center gap-2 px-6 py-4 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-lg font-medium shadow-sm transition-all transform hover:-translate-y-0.5">
+<span class="material-icons">confirmation_number</span>
+                    Submit a Ticket
+                </button>
+</div>
+<div class="mt-8 text-sm text-text-muted-light dark:text-text-muted-dark">
+<p>Looking for community support? <a class="text-primary hover:underline" href="#">Visit the Developer Forums</a></p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-background-light dark:bg-background-dark py-8 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">
+                © 2023 Fingerprint Solution Inc. All rights reserved.
+            </p>
+<div class="flex space-x-6 text-sm text-text-muted-light dark:text-text-muted-dark">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Cookie Settings</a>
+</div>
+</div>
+</footer>
+</body></html>

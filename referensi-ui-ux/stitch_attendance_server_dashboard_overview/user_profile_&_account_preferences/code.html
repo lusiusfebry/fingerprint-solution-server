@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile &amp; Account Preferences - Fingerprint Solution X105D</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "primary-dark": "#1d6bc0",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1a2632",
+                        "surface-border": "#2b3a4a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b3a4a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2b8cee; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<nav class="sticky top-0 z-50 bg-white dark:bg-surface-dark border-b border-gray-200 dark:border-surface-border px-6 py-3 flex justify-between items-center shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-icons text-xl">fingerprint</span>
+</div>
+<span class="font-semibold text-lg tracking-tight dark:text-white">Fingerprint Solution X105D</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-surface-border text-gray-500 dark:text-gray-400">v4.2.0</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-surface-border text-gray-500 dark:text-gray-400 relative">
+<span class="material-icons">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<div class="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white text-xs font-bold" data-alt="User Avatar Gradient">
+                JD
+            </div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 max-w-7xl mx-auto w-full p-6 lg:p-10">
+<!-- Page Header -->
+<header class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+<div>
+<h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-1">Profile &amp; Preferences</h1>
+<p class="text-gray-500 dark:text-gray-400">Manage your personal information and interface settings.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-sm font-medium text-red-500 bg-red-500/10 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-icons text-sm">logout</span> Sign Out
+                </button>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: User Identity & Permissions (Sticky) -->
+<aside class="lg:col-span-4 space-y-6">
+<!-- Profile Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-surface-border p-6 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-primary/20 to-primary/5 dark:from-primary/30 dark:to-transparent z-0"></div>
+<div class="relative z-10 flex flex-col items-center text-center mt-8">
+<div class="relative">
+<img alt="User profile photo" class="w-24 h-24 rounded-full border-4 border-white dark:border-surface-dark object-cover shadow-md" data-alt="Professional woman in business attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtwTdVIwbTbwUgDEBtJ4XXSPLkb0PO2LCaJ4JJoOWfMC82qv0cLQXUWdK7WFu2oxBg3p5iZiP7-8lEFJxYSbjMxEy8ho2NvmG4oP7_cxLm2HrKCi-kFF9GL3SJ6AfrjdSD9fxahgnIEUuNXOsQ9OV2hmkD1jcLRg4MXrNvpC6LiyIT56Qu8VCKHSDXz-aYS903CoiE4GLzm1JNwJNSiZ-Kn6C7HJfa7TG2pdbvkZQDMVdwswtrJjb_UzcMfTJ0b4XrsMkgq1T7N6kQ"/>
+<button class="absolute bottom-0 right-0 p-1.5 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors shadow-sm" title="Upload new photo">
+<span class="material-icons text-sm">photo_camera</span>
+</button>
+</div>
+<h2 class="mt-4 text-xl font-bold text-gray-900 dark:text-white">Jane Doe</h2>
+<span class="mt-1 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">HR Staff</span>
+<div class="mt-6 w-full pt-6 border-t border-gray-100 dark:border-surface-border flex justify-between text-sm">
+<div class="flex flex-col">
+<span class="text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider">Employee ID</span>
+<span class="font-medium dark:text-slate-200">#HR-8842</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider">Last Login</span>
+<span class="font-medium dark:text-slate-200">Today, 09:15 AM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Read-Only Permissions Sidebar -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-surface-border p-6 shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-icons text-primary text-xl">verified_user</span>
+<h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Assigned Permissions</h3>
+</div>
+<div class="space-y-3">
+<p class="text-xs text-gray-500 dark:text-gray-500 mb-2">Read-only view of your access rights.</p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                User Management: Read
+                            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                Reports: Generate
+                            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                Audit Logs: View
+                            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                System Status: View
+                            </span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Column: Forms & Settings -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Personal Information -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-surface-border shadow-sm">
+<div class="px-6 py-4 border-b border-gray-200 dark:border-surface-border flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Personal Information</h3>
+<span class="material-icons text-gray-400">person_outline</span>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="full-name">Full Name</label>
+<input class="w-full rounded-lg bg-gray-50 dark:bg-background-dark border-gray-300 dark:border-surface-border text-gray-900 dark:text-white focus:ring-primary focus:border-primary" id="full-name" type="text" value="Jane Doe"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="email">Work Email</label>
+<input class="w-full rounded-lg bg-gray-50 dark:bg-background-dark border-gray-300 dark:border-surface-border text-gray-900 dark:text-white focus:ring-primary focus:border-primary" id="email" type="email" value="jane.doe@company.com"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="phone">Phone Extension</label>
+<input class="w-full rounded-lg bg-gray-50 dark:bg-background-dark border-gray-300 dark:border-surface-border text-gray-900 dark:text-white focus:ring-primary focus:border-primary" id="phone" type="text" value="x4022"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="department">Department</label>
+<input class="w-full rounded-lg bg-gray-100 dark:bg-background-dark/50 border-gray-200 dark:border-surface-border text-gray-500 dark:text-gray-500 cursor-not-allowed" disabled="" id="department" type="text" value="Human Resources"/>
+</div>
+</div>
+</section>
+<!-- Account Security -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-surface-border shadow-sm">
+<div class="px-6 py-4 border-b border-gray-200 dark:border-surface-border flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Account Security</h3>
+<span class="material-icons text-gray-400">lock_outline</span>
+</div>
+<div class="p-6 space-y-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100 dark:border-surface-border">
+<div>
+<h4 class="text-sm font-medium text-gray-900 dark:text-white">Password</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Last changed 3 months ago. Ensure you use a strong password.</p>
+</div>
+<button class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-surface-border border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                                Change Password
+                            </button>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2">
+<h4 class="text-sm font-medium text-gray-900 dark:text-white">Multi-Factor Authentication (MFA)</h4>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-500/10 text-green-500 border border-green-500/20">RECOMMENDED</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Add an extra layer of security to your account.</p>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 dark:bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Interface Preferences -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-surface-border shadow-sm">
+<div class="px-6 py-4 border-b border-gray-200 dark:border-surface-border flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Interface Preferences</h3>
+<span class="material-icons text-gray-400">tune</span>
+</div>
+<div class="p-6 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Language -->
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="language">Display Language</label>
+<div class="relative">
+<select class="appearance-none w-full rounded-lg bg-gray-50 dark:bg-background-dark border-gray-300 dark:border-surface-border text-gray-900 dark:text-white focus:ring-primary focus:border-primary py-2.5 pl-3 pr-10" id="language">
+<option selected="">English (US)</option>
+<option>Spanish</option>
+<option>French</option>
+<option>German</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+<span class="material-icons text-sm">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Notification Frequency -->
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="notifications">Email Notifications</label>
+<div class="relative">
+<select class="appearance-none w-full rounded-lg bg-gray-50 dark:bg-background-dark border-gray-300 dark:border-surface-border text-gray-900 dark:text-white focus:ring-primary focus:border-primary py-2.5 pl-3 pr-10" id="notifications">
+<option>Real-time Alerts</option>
+<option selected="">Daily Digest</option>
+<option>Weekly Summary</option>
+<option>Critical Only</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+<span class="material-icons text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Theme Toggle -->
+<div class="pt-4 border-t border-gray-100 dark:border-surface-border flex items-center justify-between">
+<div>
+<h4 class="text-sm font-medium text-gray-900 dark:text-white">Dark Mode</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Adjust the appearance to reduce eye strain.</p>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 dark:bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Action Bar -->
+<div class="flex items-center justify-end gap-4 pt-4">
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-surface-border transition-colors">
+                        Cancel
+                    </button>
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-icons text-sm">save</span> Update Profile
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Simple) -->
+<footer class="mt-auto border-t border-gray-200 dark:border-surface-border py-6 bg-white dark:bg-surface-dark text-center">
+<p class="text-sm text-gray-500 dark:text-gray-400">© 2023 Fingerprint Solution. All rights reserved.</p>
+</footer>
+</body></html>

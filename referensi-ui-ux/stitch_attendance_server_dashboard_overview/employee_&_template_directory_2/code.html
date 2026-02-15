@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee &amp; Template Directory</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b8cee",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922", // Very dark blue/slate
+              // Derived Neutrals (Cool Slates based on Primary Blue hue)
+              "neutral-800": "#1e2936", // Panel bg
+              "neutral-700": "#334155", // Borders/Hover
+              "neutral-600": "#475569", // Secondary Text
+              "neutral-500": "#64748b",
+              "neutral-400": "#94a3b8",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom Scrollbar for the table */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e2936; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+        
+        /* Drawer Transition */
+        .drawer {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .drawer.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display h-screen flex overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-white dark:bg-neutral-800 border-r border-slate-200 dark:border-neutral-700 flex flex-col flex-shrink-0 z-20">
+<div class="h-16 flex items-center px-6 border-b border-slate-200 dark:border-neutral-700">
+<div class="flex items-center gap-2 text-primary font-bold text-xl tracking-tight">
+<span class="material-icons-round text-3xl">fingerprint</span>
+<span>BioSync X1</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700/50 transition-colors group" href="#">
+<span class="material-icons-round group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-primary transition-colors group" href="#">
+<span class="material-icons-round">people</span>
+<span class="font-medium">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700/50 transition-colors group" href="#">
+<span class="material-icons-round group-hover:text-primary transition-colors">devices</span>
+<span class="font-medium">Devices</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700/50 transition-colors group" href="#">
+<span class="material-icons-round group-hover:text-primary transition-colors">history</span>
+<span class="font-medium">Attendance Logs</span>
+</a>
+<div class="pt-6 pb-2 px-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider">Settings</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700/50 transition-colors group" href="#">
+<span class="material-icons-round group-hover:text-primary transition-colors">settings_ethernet</span>
+<span class="font-medium">Network Config</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700/50 transition-colors group" href="#">
+<span class="material-icons-round group-hover:text-primary transition-colors">admin_panel_settings</span>
+<span class="font-medium">Admins</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-neutral-700">
+<div class="flex items-center gap-3">
+<img alt="Admin User Profile" class="h-9 w-9 rounded-full ring-2 ring-primary/20 object-cover" data-alt="Profile picture of the logged in administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3olBJ7sDaIbLJ_3iRmktuUZXLxyKLpQscZ6UK1ISSXfzYfwbeAmf_Zeal9gnJ22--8Edev1bjbnm0dMTHRRI2jti9kHz783hF2PTS3W0idngOhoXLYdaNmWqnjTLZYhanvg5MnL1_0hEGaYh3C9hM7AGfZB1ElOGRjtdTHoVK1N0bUBKljDqiCVRVcM185PCFIMmD03Fy7Qte4PWqgUZ_Af_ROiGGcQdwX_BLJb7PgoCozqPOhQuaLiFkNS9jsSJSqUs7W1tN9LzF"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">Alex Morgan</p>
+<p class="text-xs text-slate-500 dark:text-neutral-400 truncate">System Admin</p>
+</div>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-icons-round text-xl">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+<!-- Header -->
+<header class="bg-white dark:bg-neutral-800 border-b border-slate-200 dark:border-neutral-700 py-4 px-6 sm:px-8">
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+<div>
+<h1 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Employee Directory</h1>
+<p class="text-sm text-slate-500 dark:text-neutral-400 mt-1">Manage biometric templates and sync status across LAN.</p>
+</div>
+<div class="flex items-center gap-3">
+<!-- Stats Summary Mini-cards -->
+<div class="hidden lg:flex items-center gap-4 mr-6 border-r border-slate-200 dark:border-neutral-700 pr-6">
+<div class="text-right">
+<span class="block text-xs text-neutral-500 uppercase font-semibold">Total Staff</span>
+<span class="block text-lg font-bold text-white">124</span>
+</div>
+<div class="text-right">
+<span class="block text-xs text-neutral-500 uppercase font-semibold">Templates</span>
+<span class="block text-lg font-bold text-primary">345</span>
+</div>
+<div class="text-right">
+<span class="block text-xs text-neutral-500 uppercase font-semibold">Devices Online</span>
+<span class="block text-lg font-bold text-green-500">4<span class="text-neutral-500 text-sm font-normal">/5</span></span>
+</div>
+</div>
+<button class="inline-flex items-center gap-2 px-4 py-2 border border-slate-300 dark:border-neutral-600 rounded-lg text-sm font-medium text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-neutral-800 transition-all">
+<span class="material-icons-round text-green-600 text-lg">description</span>
+                        Import Excel
+                    </button>
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-blue-600 text-white rounded-lg text-sm font-medium shadow-lg shadow-blue-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-neutral-800 transition-all">
+<span class="material-icons-round text-lg">add</span>
+                        Add Employee
+                    </button>
+</div>
+</div>
+</header>
+<!-- Filters & Toolbar -->
+<div class="bg-background-light dark:bg-background-dark px-6 sm:px-8 py-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
+<div class="flex flex-1 items-center gap-3 w-full sm:w-auto">
+<div class="relative w-full sm:w-72">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons-round text-slate-400 text-lg">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-slate-300 dark:border-neutral-700 rounded-lg leading-5 bg-white dark:bg-neutral-800 dark:text-white placeholder-slate-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition-colors" placeholder="Search by name, NIK, or department..." type="text"/>
+</div>
+<div class="relative hidden md:block">
+<select class="block w-full pl-3 pr-10 py-2 text-base border-slate-300 dark:border-neutral-700 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-white dark:bg-neutral-800 dark:text-neutral-300">
+<option>All Departments</option>
+<option>Engineering</option>
+<option>Human Resources</option>
+<option>Sales</option>
+<option>Finance</option>
+</select>
+</div>
+<div class="relative hidden md:block">
+<select class="block w-full pl-3 pr-10 py-2 text-base border-slate-300 dark:border-neutral-700 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-lg bg-white dark:bg-neutral-800 dark:text-neutral-300">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-2 px-3 py-2 border border-slate-300 dark:border-neutral-600 rounded-lg text-sm font-medium text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-700 transition-colors">
+<span class="material-icons-round text-lg">filter_list</span>
+                    Filters
+                </button>
+<button class="inline-flex items-center gap-2 px-3 py-2 border border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-400 rounded-lg text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/20 transition-colors" title="Sync selected to all devices">
+<span class="material-icons-round text-lg">cloud_upload</span>
+                    Push to Devices
+                </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="flex-1 overflow-auto px-6 sm:px-8 pb-6">
+<div class="bg-white dark:bg-neutral-800 shadow-sm rounded-lg border border-slate-200 dark:border-neutral-700 overflow-hidden">
+<table class="min-w-full divide-y divide-slate-200 dark:divide-neutral-700">
+<thead class="bg-slate-50 dark:bg-neutral-700/50">
+<tr>
+<th class="px-6 py-3 text-left" scope="col">
+<input class="rounded border-slate-300 dark:border-neutral-600 text-primary focus:ring-primary bg-white dark:bg-neutral-800 h-4 w-4" type="checkbox"/>
+</th>
+<th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider" scope="col">NIK / Employee</th>
+<th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider" scope="col">Department</th>
+<th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider" scope="col">Biometric Status</th>
+<th class="px-6 py-3 text-center text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider" scope="col">Active</th>
+<th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-neutral-800 divide-y divide-slate-200 dark:divide-neutral-700">
+<!-- Row 1: Selected -->
+<tr class="hover:bg-slate-50 dark:hover:bg-neutral-700/40 transition-colors cursor-pointer group" onclick="document.querySelector('#drawer').classList.add('open')">
+<td class="px-6 py-4 whitespace-nowrap">
+<input class="rounded border-slate-300 dark:border-neutral-600 text-primary focus:ring-primary bg-white dark:bg-neutral-800 h-4 w-4" type="checkbox"/>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Sarah Jenkins" class="h-10 w-10 rounded-full object-cover" data-alt="Portrait of Sarah Jenkins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdUrodDwOBijsx8aCtA-eN2_oJz2nKMR42ygvKUO2QW4QGRQ1ljYH4nv9IqqpfvXZzbz2V0yl3Q1il1L6_kc2eeAKRMHLC1IZqIPivIFIwMI9LzjOFsnD7WzllqW2z3xRTUSVWd1F5pTb8TD-tTYLZywLiMDF8KNBOASWgW7ml-Xd3KIsBHj0BGOGEk6d1lHLGN2tpbmBqMugPN4mZc8vFun0xWYW2RZLSNB5qceK_iKwu-5j6apg8g2kchtDHTnqeQylqUQxr7kRn"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-slate-900 dark:text-white">Sarah Jenkins</div>
+<div class="text-sm text-slate-500 dark:text-neutral-400 font-mono">2023001</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-900 dark:text-neutral-300">Engineering</div>
+<div class="text-xs text-slate-500 dark:text-neutral-500">Backend Team</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="material-icons-round text-sm mr-1">fingerprint</span> 2 Templates
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 right-5" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-green-500 cursor-pointer" for="toggle1"></label>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-slate-400 hover:text-primary dark:hover:text-primary transition-colors mx-1">
+<span class="material-icons-round">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 dark:hover:text-red-500 transition-colors mx-1">
+<span class="material-icons-round">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-neutral-700/40 transition-colors cursor-pointer group" onclick="document.querySelector('#drawer').classList.add('open')">
+<td class="px-6 py-4 whitespace-nowrap">
+<input class="rounded border-slate-300 dark:border-neutral-600 text-primary focus:ring-primary bg-white dark:bg-neutral-800 h-4 w-4" type="checkbox"/>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm" data-alt="Abstract gradient avatar">
+                                        MJ
+                                    </div>
+<div class="ml-4">
+<div class="text-sm font-medium text-slate-900 dark:text-white">Michael Johnson</div>
+<div class="text-sm text-slate-500 dark:text-neutral-400 font-mono">2023045</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-900 dark:text-neutral-300">Sales</div>
+<div class="text-xs text-slate-500 dark:text-neutral-500">Regional Manager</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
+<span class="material-icons-round text-sm mr-1">warning</span> No Templates
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex h-2.5 w-2.5 rounded-full bg-green-500 ring-4 ring-green-500/20"></span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-slate-400 hover:text-primary dark:hover:text-primary transition-colors mx-1">
+<span class="material-icons-round">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 dark:hover:text-red-500 transition-colors mx-1">
+<span class="material-icons-round">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-neutral-700/40 transition-colors cursor-pointer group" onclick="document.querySelector('#drawer').classList.add('open')">
+<td class="px-6 py-4 whitespace-nowrap">
+<input class="rounded border-slate-300 dark:border-neutral-600 text-primary focus:ring-primary bg-white dark:bg-neutral-800 h-4 w-4" type="checkbox"/>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="David Kim" class="h-10 w-10 rounded-full object-cover" data-alt="Portrait of David Kim" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK3vv1GDesHuXrFa8hne_t_CEVd_UyOXcWijS6WMVWy6X3dNAuuYC_BQhlFu5Gl-Nh7a-KR18B-F9BNjb5YlgRaBwxl2y6uICsMsFjCCbBjxXhnZGIhQoDoBmq9TnipH3uZ18wzsokQuEDpiOxxEmqn06MdFhouynUM8wyR9E93Zxi8K7zJcFbgns2-qxEeThe-d9je1RCRCxv2GLzGe6a5SnKN4AnNTI0FFaphf1jH8lb734IfRaKFCPPt-EDTWYwEg1Dit-SAVtI"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-slate-900 dark:text-white">David Kim</div>
+<div class="text-sm text-slate-500 dark:text-neutral-400 font-mono">2023089</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-900 dark:text-neutral-300">Human Resources</div>
+<div class="text-xs text-slate-500 dark:text-neutral-500">Recruiter</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="material-icons-round text-sm mr-1">fingerprint</span> 1 Template
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex h-2.5 w-2.5 rounded-full bg-slate-400 dark:bg-neutral-600"></span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-slate-400 hover:text-primary dark:hover:text-primary transition-colors mx-1">
+<span class="material-icons-round">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 dark:hover:text-red-500 transition-colors mx-1">
+<span class="material-icons-round">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-neutral-700/40 transition-colors cursor-pointer group" onclick="document.querySelector('#drawer').classList.add('open')">
+<td class="px-6 py-4 whitespace-nowrap">
+<input class="rounded border-slate-300 dark:border-neutral-600 text-primary focus:ring-primary bg-white dark:bg-neutral-800 h-4 w-4" type="checkbox"/>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Emily Chen" class="h-10 w-10 rounded-full object-cover" data-alt="Portrait of Emily Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmuzu8Ml1_hvEUie_g5VgWu-JdREYWX1RmipGRUFfC83_ibW4OYs3UQTimhzewBBdvqoKR-Q-gzba6OZ_l4OB9JrT-5wq335oBVgPyGSzQBTbTUhcGLOn7HE-IKJawI9dDOcL8Ku0XFElEFRA5WM4kHB3Xz9WdX6SuPRAFWYfCJgk7M9wI08A1X61FBpQRUufLT_X2XKW3hRiY3DkUpIevehO9eXp2NPoGOskEe1zy7h89ysJkizEpZRNCxxIxJOE0rrIk740Ud3KZ"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-slate-900 dark:text-white">Emily Chen</div>
+<div class="text-sm text-slate-500 dark:text-neutral-400 font-mono">2023112</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-900 dark:text-neutral-300">Finance</div>
+<div class="text-xs text-slate-500 dark:text-neutral-500">Accountant</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="material-icons-round text-sm mr-1">fingerprint</span> 3 Templates
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex h-2.5 w-2.5 rounded-full bg-green-500 ring-4 ring-green-500/20"></span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<button class="text-slate-400 hover:text-primary dark:hover:text-primary transition-colors mx-1">
+<span class="material-icons-round">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 dark:hover:text-red-500 transition-colors mx-1">
+<span class="material-icons-round">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="bg-white dark:bg-neutral-800 px-4 py-3 flex items-center justify-between border-t border-slate-200 dark:border-neutral-700 sm:px-6">
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-slate-700 dark:text-neutral-400">
+                                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">124</span> results
+                            </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+<a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-icons-round text-lg">chevron_left</span>
+</a>
+<a aria-current="page" class="z-10 bg-primary/20 border-primary text-primary relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">1</a>
+<a class="bg-white dark:bg-neutral-800 border-slate-300 dark:border-neutral-700 text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">2</a>
+<a class="bg-white dark:bg-neutral-800 border-slate-300 dark:border-neutral-700 text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-slate-700 dark:text-neutral-500">...</span>
+<a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-sm font-medium text-slate-500 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-700" href="#">
+<span class="sr-only">Next</span>
+<span class="material-icons-round text-lg">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detail Side Panel (Drawer) -->
+<!-- Toggle functionality is usually JS, simulating via css class added manually in the row onclick for demo -->
+<div class="absolute inset-y-0 right-0 max-w-md w-full bg-white dark:bg-neutral-800 shadow-2xl drawer flex flex-col z-30 border-l border-slate-200 dark:border-neutral-700" id="drawer">
+<!-- Header -->
+<div class="px-6 py-6 border-b border-slate-200 dark:border-neutral-700 flex items-start justify-between bg-background-light dark:bg-neutral-800">
+<div class="flex items-center gap-4">
+<img alt="Sarah Jenkins Detail" class="h-16 w-16 rounded-full object-cover ring-4 ring-white dark:ring-neutral-700" data-alt="Portrait of Sarah Jenkins in detail view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPE5rFFbGSEHYI68PvTXjP-xs8PFrzL3Q-faiEbVxj_lnwNsLBKTGF0GCDQPEEQtHwRUU6XWmgFV-8lHhGjDJucb6aqy_rL-h0YjEi_tdplJML-M6kEKPpP2ZimpsK48OEMwvk0mNbeOUYwFZgFa9FtsP0XQhnjV4JbitGfgStrCvN9mAKQjHdTKzxyIIQiLm9ZGT9y0yk-bqTJPqfhpy2ac7tOCzV0mYMJ4ktA3lkVGePaXdossbvSAw4aznvZZ4r3UApiy8v02j2"/>
+<div>
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">Sarah Jenkins</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-200 dark:bg-neutral-700 text-slate-800 dark:text-neutral-300">
+                                NIK: 2023001
+                            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
+                                Active
+                            </span>
+</div>
+</div>
+</div>
+<button class="text-slate-400 hover:text-slate-500 dark:hover:text-neutral-300 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-neutral-700 transition-colors" onclick="document.querySelector('#drawer').classList.remove('open')">
+<span class="material-icons-round">close</span>
+</button>
+</div>
+<!-- Content Scrollable -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Biometric Data Section -->
+<section>
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-icons-round text-primary text-lg">fingerprint</span>
+                        Biometric Data
+                    </h3>
+<div class="bg-background-light dark:bg-background-dark rounded-xl p-4 border border-slate-200 dark:border-neutral-700">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-slate-500 dark:text-neutral-400">Template Count</span>
+<span class="text-lg font-bold text-slate-900 dark:text-white">2 <span class="text-xs font-normal text-slate-400">/ 10 Max</span></span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-neutral-700 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 20%"></div>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 text-xs py-2 px-3 bg-white dark:bg-neutral-700 border border-slate-200 dark:border-neutral-600 rounded-lg text-slate-700 dark:text-neutral-300 font-medium hover:border-primary hover:text-primary transition-colors">
+                                Register New Finger
+                            </button>
+<button class="flex-1 text-xs py-2 px-3 bg-white dark:bg-neutral-700 border border-slate-200 dark:border-neutral-600 rounded-lg text-red-500 font-medium hover:border-red-500 transition-colors">
+                                Clear Templates
+                            </button>
+</div>
+</div>
+</section>
+<!-- Device Sync Status -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+<span class="material-icons-round text-primary text-lg">sync_alt</span>
+                            Device Sync Status
+                        </h3>
+<button class="text-xs text-primary font-medium hover:underline">Sync All</button>
+</div>
+<div class="space-y-3">
+<!-- Device 1: Success -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-800/50">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-icons-round text-sm">check</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Main Entrance (Lobby)</p>
+<p class="text-xs text-slate-500 dark:text-neutral-500 font-mono">IP: 192.168.1.201</p>
+</div>
+</div>
+<span class="text-xs font-medium text-green-600 dark:text-green-400">Synced</span>
+</div>
+<!-- Device 2: Pending -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-800/50">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-600 dark:text-yellow-400 animate-pulse">
+<span class="material-icons-round text-sm">hourglass_empty</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Back Office</p>
+<p class="text-xs text-slate-500 dark:text-neutral-500 font-mono">IP: 192.168.1.205</p>
+</div>
+</div>
+<span class="text-xs font-medium text-yellow-600 dark:text-yellow-400">Pending</span>
+</div>
+<!-- Device 3: Failed -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-900/10">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400">
+<span class="material-icons-round text-sm">error_outline</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Warehouse Gate 2</p>
+<p class="text-xs text-slate-500 dark:text-neutral-500 font-mono">IP: 192.168.1.210</p>
+</div>
+</div>
+<button class="text-xs font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded transition-colors">Retry</button>
+</div>
+<!-- Device 4: Success -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-800/50">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-icons-round text-sm">check</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Cafeteria</p>
+<p class="text-xs text-slate-500 dark:text-neutral-500 font-mono">IP: 192.168.1.222</p>
+</div>
+</div>
+<span class="text-xs font-medium text-green-600 dark:text-green-400">Synced</span>
+</div>
+</div>
+</section>
+<!-- Personal Info Section -->
+<section class="border-t border-slate-200 dark:border-neutral-700 pt-6">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-icons-round text-primary text-lg">person</span>
+                        Employment Details
+                    </h3>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-medium text-slate-500 dark:text-neutral-500">Department</label>
+<div class="mt-1 text-sm text-slate-900 dark:text-neutral-300">Engineering</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-slate-500 dark:text-neutral-500">Position</label>
+<div class="mt-1 text-sm text-slate-900 dark:text-neutral-300">Backend Lead</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-slate-500 dark:text-neutral-500">Join Date</label>
+<div class="mt-1 text-sm text-slate-900 dark:text-neutral-300">Jan 12, 2023</div>
+</div>
+<div>
+<label class="block text-xs font-medium text-slate-500 dark:text-neutral-500">Work Shift</label>
+<div class="mt-1 text-sm text-slate-900 dark:text-neutral-300">Regular (9-5)</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-4 border-t border-slate-200 dark:border-neutral-700 bg-background-light dark:bg-neutral-800">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all flex justify-center items-center gap-2">
+<span class="material-icons-round">save</span>
+                    Save Changes
+                </button>
+</div>
+</div>
+</main>
+<!-- Overlay for mobile drawer (optional logic) -->
+<div class="fixed inset-0 bg-black/50 z-20 hidden md:hidden drawer-overlay" onclick="document.querySelector('#drawer').classList.remove('open')"></div>
+</body></html>

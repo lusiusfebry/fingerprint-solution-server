@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Roles &amp; Permissions Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#182430",
+                        "surface-darker": "#141e28",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b3b4b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4b5b; 
+        }
+
+        /* Toggle Switch Custom CSS */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #2b8cee;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #2b8cee;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 font-display antialiased h-screen overflow-hidden flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="h-16 bg-white dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 shrink-0 z-20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-icons text-white">fingerprint</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Fingerprint Solution X105D</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Server Administration v2.4.1</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">
+<span class="material-icons text-lg">help_outline</span>
+<span>Help</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold text-slate-900 dark:text-white">Admin User</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Super Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-slate-200 dark:border-slate-700" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_fT6LF_gwFpXeUy_S7w8Hpfa0v6n7JV6rjcA0VJc_-CKn4LI4m5QJUF0HtXSNRe7V1MUFdLQRZVNt56K3dYTNytr3t78afIWai8c6FyYAMk30fCf4qL2tLp8BXO0O8Acls9LMeW5nltqCaw1rGNorNfmob0g0q7aG7CEuFWJcBEtOsp77nCi1Z3IVa_q3C8dQdbPq4911NS0MJ24F6FcJ52GsRPLSMxcgS--iiSBeDyb0y5sez14NK7iZLxGshiUk1zdZQT9MNybZ"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Sidebar: Roles List -->
+<aside class="w-72 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 z-10">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<h2 class="text-base font-semibold text-slate-900 dark:text-white">User Roles</h2>
+<span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">4 Active</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-2">
+<!-- Role Item: Active -->
+<button class="w-full text-left group flex items-center justify-between p-3 rounded-lg bg-primary/10 border border-primary/20 shadow-sm transition-all">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(43,140,238,0.6)]"></div>
+<div>
+<p class="text-sm font-semibold text-primary">Super Admin</p>
+<p class="text-xs text-primary/70">Full Access</p>
+</div>
+</div>
+<span class="material-icons text-primary text-sm">chevron_right</span>
+</button>
+<!-- Role Item: Inactive -->
+<button class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-surface-darker border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-slate-400 transition-colors"></div>
+<div>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">HR Manager</p>
+<p class="text-xs text-slate-500 dark:text-slate-500">Employee Mgmt</p>
+</div>
+</div>
+</button>
+<!-- Role Item: Inactive -->
+<button class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-surface-darker border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-slate-400 transition-colors"></div>
+<div>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">IT Support</p>
+<p class="text-xs text-slate-500 dark:text-slate-500">Device Maintenance</p>
+</div>
+</div>
+</button>
+<!-- Role Item: Inactive -->
+<button class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-surface-darker border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-slate-400 transition-colors"></div>
+<div>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">Site Supervisor</p>
+<p class="text-xs text-slate-500 dark:text-slate-500">Read Only</p>
+</div>
+</div>
+</button>
+</div>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium transition-colors border border-slate-200 dark:border-slate-700">
+<span class="material-icons text-base">add</span>
+                    Add New Role
+                </button>
+</div>
+</aside>
+<!-- Right Content: Permissions Matrix -->
+<main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark min-w-0">
+<!-- Context Header -->
+<div class="px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Super Admin</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold border border-green-500/20">Active Role</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm max-w-2xl">This role has unrestricted access to all modules within the system. Changes here affect all users assigned to the 'Super Admin' group.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 text-sm font-medium px-4 py-2 transition-colors">Delete Role</button>
+<button class="bg-primary hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-lg shadow-primary/30 flex items-center gap-2 transition-all active:scale-95">
+<span class="material-icons text-lg">save</span>
+                        Save Permissions
+                    </button>
+</div>
+</div>
+<!-- Scrollable Permissions Area -->
+<div class="flex-1 overflow-y-auto px-8 pb-12">
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-7xl mx-auto">
+<!-- Module: Device Management -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400">
+<span class="material-icons text-xl">devices</span>
+</div>
+<h3 class="font-semibold text-slate-900 dark:text-white">Device Management</h3>
+</div>
+<label class="flex items-center cursor-pointer">
+<span class="mr-3 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Select All</span>
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full shadow-inner toggle-label transition-colors duration-300 ease-in-out"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out translate-x-4 shadow"></div>
+</div>
+</label>
+</div>
+<div class="p-0">
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">View Devices</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Allow listing of connected terminals</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-device-view" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-device-view"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Add/Edit Device</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Register new hardware or modify IP settings</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-device-edit" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-device-edit"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Delete Device</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Remove hardware from registry</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-device-delete" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-device-delete"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-red-500 dark:text-red-400 flex items-center gap-1">
+                                        Restart Device
+                                        <span class="material-icons text-xs" style="font-size: 14px;">warning</span>
+</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Remote reboot capability</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-device-restart" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-device-restart"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Module: Employee Management -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-blue-500/10 text-blue-500 dark:text-blue-400">
+<span class="material-icons text-xl">people</span>
+</div>
+<h3 class="font-semibold text-slate-900 dark:text-white">Employee Management</h3>
+</div>
+<label class="flex items-center cursor-pointer">
+<span class="mr-3 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Select All</span>
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full shadow-inner toggle-label transition-colors duration-300 ease-in-out"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out translate-x-4 shadow"></div>
+</div>
+</label>
+</div>
+<div class="p-0">
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">View Employee List</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Access to personnel database</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-emp-view" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-emp-view"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Edit Employee Details</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Update names, departments, and IDs</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-emp-edit" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-emp-edit"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Push Fingerprint Template</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Deploy biometric data to terminals</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-emp-push" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-emp-push"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Module: Attendance Logs -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-orange-500/10 text-orange-500 dark:text-orange-400">
+<span class="material-icons text-xl">history</span>
+</div>
+<h3 class="font-semibold text-slate-900 dark:text-white">Attendance Logs</h3>
+</div>
+<label class="flex items-center cursor-pointer">
+<span class="mr-3 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Select All</span>
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full shadow-inner toggle-label transition-colors duration-300 ease-in-out"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out translate-x-4 shadow"></div>
+</div>
+</label>
+</div>
+<div class="p-0">
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">View Logs</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Read-only access to punch records</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-logs-view" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-logs-view"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Export Report</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Download data as CSV, PDF, or Excel</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-logs-export" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-logs-export"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Module: System Settings -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-slate-500/10 text-slate-600 dark:text-slate-400">
+<span class="material-icons text-xl">settings</span>
+</div>
+<h3 class="font-semibold text-slate-900 dark:text-white">System Settings</h3>
+</div>
+<label class="flex items-center cursor-pointer">
+<span class="mr-3 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Select All</span>
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full shadow-inner toggle-label transition-colors duration-300 ease-in-out"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out translate-x-4 shadow"></div>
+</div>
+</label>
+</div>
+<div class="p-0">
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-slate-900 dark:text-white">Edit Sync Settings</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Configure automatic synchronization intervals</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-sys-sync" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-sys-sync"></label>
+</div>
+</div>
+<!-- Permission Row -->
+<div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div>
+<p class="text-sm font-medium text-red-500 dark:text-red-400 flex items-center gap-1">
+                                        Edit Roles &amp; Permissions
+                                        <span class="material-icons text-xs" style="font-size: 14px;">lock</span>
+</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Manage access control for other users</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-slate-200 dark:border-slate-600 appearance-none cursor-pointer transition-all duration-300" id="perm-sys-roles" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer" for="perm-sys-roles"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer for Mobile/Small Screens if needed, otherwise actions are in header -->
+</main>
+</div>
+<!-- Script to handle pseudo-toggle interaction (visual only) -->
+<script>
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                // Visual update handled by CSS selector
+                const dot = this.parentElement.querySelector('.dot');
+                if(this.checked) {
+                    dot.style.transform = 'translateX(100%)';
+                } else {
+                    dot.style.transform = 'translateX(0)';
+                }
+            });
+        });
+    </script>
+</body></html>

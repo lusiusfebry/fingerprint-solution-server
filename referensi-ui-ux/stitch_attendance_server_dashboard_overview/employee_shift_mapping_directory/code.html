@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Shift Mapping Directory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "primary-hover": "#1a7bdc",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1e2936",
+                        "surface-darker": "#15202b",
+                        "border-dark": "#2d3b4b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dark mode data tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #15202b; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2d3b4b; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #3d4f63; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col antialiased">
+<!-- Top Navigation -->
+<header class="h-16 border-b border-gray-200 dark:border-border-dark bg-white dark:bg-surface-dark px-6 flex items-center justify-between sticky top-0 z-20">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-primary font-bold text-xl">
+<span class="material-icons">fingerprint</span>
+<span>BioSync X105D</span>
+</div>
+<div class="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-2"></div>
+<nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<span class="material-icons text-base">chevron_right</span>
+<span class="text-gray-900 dark:text-white font-medium">Shift Mapping</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                System Online
+            </div>
+<button class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-primary/20 hover:text-primary transition-colors">
+<span class="material-icons text-lg">notifications</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-medium text-gray-900 dark:text-white">Admin User</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">HR Manager</p>
+</div>
+<img alt="User Profile" class="w-9 h-9 rounded-full border-2 border-white dark:border-gray-700" data-alt="User avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcyzR-taucqJ0f0lfpP7srAb2Elsb_AjuTjPVBy-RccLAbX4P5UAdrxy_-cKZF0jUF175cuvye6f__6VuqY8dAXbvFzHRMnqz-2exgMfkTFZFau3-P7kxPDSE8pbS-JZeMkuSaEJ9YoN_OUpRq9e7uidtBzJZe3XW9ZaWnemLnkRgYz40CHnY8f6xpx0HrKTYcHbNeQiz0h_xL-V9m5jdEowIV8jU8LJzzhSVifpDAvILEvE0hcjwmhtxUK_T2S-v6jPXstM8FwPl5"/>
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Panel: Data Table -->
+<div class="flex-1 flex flex-col h-full overflow-hidden p-6 gap-6">
+<!-- Page Header & Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white">Shift Assignment</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Map employees to work schedules for Device X105D synchronization.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2">
+<span class="material-icons text-lg">file_download</span>
+                        Export
+                    </button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors shadow-lg shadow-primary/20 flex items-center gap-2">
+<span class="material-icons text-lg">save</span>
+                        Save Changes
+                    </button>
+</div>
+</div>
+<!-- Filters & Bulk Actions -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl border border-gray-200 dark:border-border-dark flex flex-wrap items-center justify-between gap-4 shadow-sm">
+<div class="flex items-center gap-3 flex-1 min-w-[300px]">
+<div class="relative flex-1 max-w-md">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-border-dark rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400 dark:placeholder-gray-600 text-gray-900 dark:text-white" placeholder="Search by Name or NIK..." type="text"/>
+</div>
+<div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1"></div>
+<select class="bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-border-dark rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary outline-none">
+<option>All Departments</option>
+<option>Engineering</option>
+<option>HR &amp; Admin</option>
+<option>Logistics</option>
+<option>Marketing</option>
+</select>
+</div>
+<div class="flex items-center gap-3 opacity-100 transition-opacity">
+<span class="text-sm text-gray-500 dark:text-gray-400 font-medium hidden sm:inline">2 Selected</span>
+<button class="px-3 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary/20 transition-colors flex items-center gap-2">
+<span class="material-icons text-sm">checklist</span>
+                        Bulk Assign
+                    </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-border-dark shadow-sm flex-1 flex flex-col overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar flex-1">
+<table class="w-full text-left border-collapse">
+<thead class="bg-gray-50 dark:bg-surface-darker sticky top-0 z-10">
+<tr>
+<th class="p-4 w-12 border-b border-gray-200 dark:border-border-dark">
+<input class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary bg-gray-100 dark:bg-gray-800" type="checkbox"/>
+</th>
+<th class="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-border-dark">Employee Info</th>
+<th class="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-border-dark">Department</th>
+<th class="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-border-dark">Current Status</th>
+<th class="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-border-dark w-64">Assign Primary Shift</th>
+<th class="p-4 w-12 border-b border-gray-200 dark:border-border-dark"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-border-dark">
+<!-- Row 1 -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-primary/5 transition-colors">
+<td class="p-4">
+<input class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary bg-gray-100 dark:bg-gray-800" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img alt="Sarah Jenkins" class="h-10 w-10 rounded-full object-cover border border-gray-200 dark:border-gray-700" data-alt="Portrait of Sarah Jenkins smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7W36_SO1zTXVSnrlF4jmHCJffatqwNOrT6yCHvm3qy71l6tFC3paSMootbS_koOPcSV1nZVWZjdV6sgIWY1W_YCQlgEkqRWyVJqOYpT6YRq_Z4P1LOQ6v9SxZz256pLxfw8tDAhJ3I3GG8sr7A1Dmc1O_MIGD17HttlWmeYDU3ntHbQP_LLaMQJOgXnUMTWHWXLxGPBoGFWdJy4z3UDebDjaziQ1sF4E7WIodwtVjzb1KMyTHL2AU45qHZ09JZp5E5bd5qw8S3yxi"/>
+<div>
+<div class="font-medium text-gray-900 dark:text-white">Sarah Jenkins</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">NIK: 10024</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                                        Engineering
+                                    </span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Mapped</span>
+</div>
+</td>
+<td class="p-4">
+<select class="w-full bg-white dark:bg-surface-darker border border-gray-200 dark:border-border-dark rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-shadow">
+<option selected="">Normal Shift (09:00 - 17:00)</option>
+<option>Night Shift (22:00 - 06:00)</option>
+<option>Morning Shift (06:00 - 14:00)</option>
+<option class="text-red-400">Unassigned</option>
+</select>
+</td>
+<td class="p-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons text-base">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-primary/5 transition-colors bg-primary/5">
+<td class="p-4">
+<input checked="" class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary bg-gray-100 dark:bg-gray-800" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img alt="Budi Santoso" class="h-10 w-10 rounded-full object-cover border border-gray-200 dark:border-gray-700" data-alt="Portrait of Budi Santoso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXb9WblFiQ7yHeFOkqdh8lA14036_sKhiSx11Ddk0a-A9C-x8FA932ZXUChlGzBF7-s7-yl5joHwPN40o7EmCnihHATNTHH36Lwj1VGqUruJUUFi_rX2fElVJaXOfw-1QkB1LdrKZXmCmb2zQqyKjTMvw8iphz9T0lp_XNzSJJPWy6GAAYhcLxMq2ItTRlGJgSjMB8fCYt28zqVARZso7OiUvsGuIUnYTzbvi16sJ9-J0j8msFS_VnnuoLS5Wk3FwOKYcI9ZannniX"/>
+<div>
+<div class="font-medium text-gray-900 dark:text-white">Budi Santoso</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">NIK: 10025</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+                                        Logistics
+                                    </span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Mapped</span>
+</div>
+</td>
+<td class="p-4">
+<select class="w-full bg-white dark:bg-surface-darker border border-gray-200 dark:border-border-dark rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-shadow">
+<option>Normal Shift (09:00 - 17:00)</option>
+<option selected="">Night Shift (22:00 - 06:00)</option>
+<option>Morning Shift (06:00 - 14:00)</option>
+<option class="text-red-400">Unassigned</option>
+</select>
+</td>
+<td class="p-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons text-base">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 (Unassigned Alert) -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-primary/5 transition-colors">
+<td class="p-4">
+<input class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary bg-gray-100 dark:bg-gray-800" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-rose-500/20 text-rose-500 flex items-center justify-center font-bold border border-rose-500/30">
+                                            MJ
+                                        </div>
+<div>
+<div class="font-medium text-gray-900 dark:text-white">Michael Jordan</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">NIK: 10026</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">
+                                        Marketing
+                                    </span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div>
+<span class="text-sm text-rose-500 font-medium">Unmapped</span>
+</div>
+</td>
+<td class="p-4">
+<select class="w-full bg-rose-50 dark:bg-rose-900/10 border border-rose-200 dark:border-rose-900/30 rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 outline-none transition-shadow">
+<option>Normal Shift (09:00 - 17:00)</option>
+<option>Night Shift (22:00 - 06:00)</option>
+<option>Morning Shift (06:00 - 14:00)</option>
+<option class="text-rose-500 font-medium" selected="">Unassigned</option>
+</select>
+</td>
+<td class="p-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons text-base">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-primary/5 transition-colors bg-primary/5">
+<td class="p-4">
+<input checked="" class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary bg-gray-100 dark:bg-gray-800" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img alt="David Chen" class="h-10 w-10 rounded-full object-cover border border-gray-200 dark:border-gray-700" data-alt="Portrait of David Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmRWCPRw23E9lpbalav-4VNdYBvk7pFkal2VU6Imyy2tGBxJG_uQ3tzGDxm7vokGAxDqNhqx2sREb4NI32TYwudv9i9hLgpH3Ihiu3HM6LZsbtmH_ObEe4LOilfFvHqm5XqS64Gk1hV0EK4apq9Bo0YrmtHpL0ovYSvxl1FMGO95J50HSCjSL021AxrBYc_UvyHG_aeQqitKjWDWkkRxRpYHjGT3lC3J4wXHb5WiUgGrBifI6kG7v0WMPrZsZ-Bfp0xr4EcKBV4eXy"/>
+<div>
+<div class="font-medium text-gray-900 dark:text-white">David Chen</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">NIK: 10028</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                                        Engineering
+                                    </span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Mapped</span>
+</div>
+</td>
+<td class="p-4">
+<select class="w-full bg-white dark:bg-surface-darker border border-gray-200 dark:border-border-dark rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-shadow">
+<option selected="">Normal Shift (09:00 - 17:00)</option>
+<option>Night Shift (22:00 - 06:00)</option>
+<option>Morning Shift (06:00 - 14:00)</option>
+<option class="text-red-400">Unassigned</option>
+</select>
+</td>
+<td class="p-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons text-base">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-primary/5 transition-colors">
+<td class="p-4">
+<input class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary focus:ring-primary bg-gray-100 dark:bg-gray-800" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img alt="Elisa Wong" class="h-10 w-10 rounded-full object-cover border border-gray-200 dark:border-gray-700" data-alt="Portrait of Elisa Wong" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP-OE8yGo2MufS0O7SmkzLty1uVouYc6L9G09Ve3pLt1yVQknT4t9km1jKLdqPHDbof6OT32nEEyq5rorJxNh1rV18LpsTzXMAWkJ4wjET8juIMHVe7bTcJOLVczBlt6T1eX4emEPsszb7qtYdyMJ9uwUjxQPB8zfzQuhZ2ZAFhXWqyGzMSSZ6dKbXCo42WoOf1X6k9253nzUBlxFqLAXyJRd5fBCiAvV1SIjui6haKtX8LfduXNUCO1Bgp-wrkp8eO7v5d-9kzL0O"/>
+<div>
+<div class="font-medium text-gray-900 dark:text-white">Elisa Wong</div>
+<div class="text-xs text-gray-500 dark:text-gray-400">NIK: 10029</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">
+                                        Marketing
+                                    </span>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Mapped</span>
+</div>
+</td>
+<td class="p-4">
+<select class="w-full bg-white dark:bg-surface-darker border border-gray-200 dark:border-border-dark rounded-lg px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-shadow">
+<option selected="">Normal Shift (09:00 - 17:00)</option>
+<option>Night Shift (22:00 - 06:00)</option>
+<option>Morning Shift (06:00 - 14:00)</option>
+<option class="text-red-400">Unassigned</option>
+</select>
+</td>
+<td class="p-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-icons text-base">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="bg-gray-50 dark:bg-surface-dark border-t border-gray-200 dark:border-border-dark px-4 py-3 flex items-center justify-between sm:px-6">
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-gray-700 dark:text-gray-400">
+                                Showing <span class="font-medium text-gray-900 dark:text-white">1</span> to <span class="font-medium text-gray-900 dark:text-white">5</span> of <span class="font-medium text-gray-900 dark:text-white">142</span> results
+                            </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+<a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-border-dark bg-white dark:bg-surface-darker text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-primary/10" href="#">
+<span class="material-icons text-sm">chevron_left</span>
+</a>
+<a aria-current="page" class="z-10 bg-primary/10 border-primary text-primary relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">1</a>
+<a class="bg-white dark:bg-surface-darker border-gray-300 dark:border-border-dark text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-primary/10 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">2</a>
+<a class="bg-white dark:bg-surface-darker border-gray-300 dark:border-border-dark text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-primary/10 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-border-dark bg-white dark:bg-surface-darker text-sm font-medium text-gray-700 dark:text-gray-400">...</span>
+<a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-border-dark bg-white dark:bg-surface-darker text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-primary/10" href="#">
+<span class="material-icons text-sm">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Summary Sidebar -->
+<aside class="w-80 border-l border-gray-200 dark:border-border-dark bg-white dark:bg-surface-dark hidden lg:flex flex-col overflow-y-auto custom-scrollbar">
+<div class="p-6 sticky top-0 bg-white dark:bg-surface-dark z-10 border-b border-gray-200 dark:border-border-dark">
+<h2 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Shift Distribution</h2>
+<div class="text-sm text-gray-500 dark:text-gray-400">Overview of employee allocation across all available shifts.</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Total Card -->
+<div class="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20">
+<div class="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Total Employees</div>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold text-gray-900 dark:text-white">142</span>
+<div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-1 gap-1">
+<span class="material-icons text-sm text-emerald-500">trending_up</span>
+<span>+4 this week</span>
+</div>
+</div>
+</div>
+<!-- Shift Breakdown List -->
+<div class="space-y-4">
+<!-- Normal Shift -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-medium text-gray-700 dark:text-gray-300">Normal Shift</span>
+<span class="text-gray-500 dark:text-gray-400">85 (60%)</span>
+</div>
+<div class="w-full h-2 bg-gray-100 dark:bg-surface-darker rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+</div>
+<div class="flex items-center gap-2 text-xs text-gray-500">
+<span class="material-icons text-[14px]">schedule</span>
+                            09:00 - 17:00
+                        </div>
+</div>
+<!-- Night Shift -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-medium text-gray-700 dark:text-gray-300">Night Shift</span>
+<span class="text-gray-500 dark:text-gray-400">40 (28%)</span>
+</div>
+<div class="w-full h-2 bg-gray-100 dark:bg-surface-darker rounded-full overflow-hidden">
+<div class="h-full bg-indigo-500 rounded-full" style="width: 28%"></div>
+</div>
+<div class="flex items-center gap-2 text-xs text-gray-500">
+<span class="material-icons text-[14px]">schedule</span>
+                            22:00 - 06:00
+                        </div>
+</div>
+<!-- Unassigned (Warning) -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<span class="font-medium text-rose-600 dark:text-rose-400 flex items-center gap-1">
+<span class="material-icons text-sm">warning</span>
+                                Unassigned
+                            </span>
+<span class="text-rose-600 dark:text-rose-400 font-bold">17 (12%)</span>
+</div>
+<div class="w-full h-2 bg-gray-100 dark:bg-surface-darker rounded-full overflow-hidden">
+<div class="h-full bg-rose-500 rounded-full" style="width: 12%"></div>
+</div>
+<div class="text-xs text-rose-500/80">
+                            Action required: Assign shifts to sync.
+                        </div>
+</div>
+</div>
+<!-- Recent Activities -->
+<div class="pt-6 border-t border-gray-200 dark:border-border-dark">
+<h3 class="text-sm font-bold text-gray-900 dark:text-white mb-4">Recent Updates</h3>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-primary flex-shrink-0"></div>
+<div>
+<p class="text-sm text-gray-700 dark:text-gray-300">Sarah Jenkins reassigned to <span class="font-medium">Normal Shift</span></p>
+<p class="text-xs text-gray-500 mt-0.5">2 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-gray-400 dark:bg-gray-600 flex-shrink-0"></div>
+<div>
+<p class="text-sm text-gray-700 dark:text-gray-300">Bulk update: 5 employees to <span class="font-medium">Night Shift</span></p>
+<p class="text-xs text-gray-500 mt-0.5">1 hour ago</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+<div>
+<p class="text-sm text-gray-700 dark:text-gray-300">Device X105D Synced successfully</p>
+<p class="text-xs text-gray-500 mt-0.5">3 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

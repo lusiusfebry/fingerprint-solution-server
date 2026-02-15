@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Attendance Log &amp; Reporting Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#368ce2",
+              "primary-dark": "#2a70b8", // Calculated darker shade for hover
+              "background-light": "#f6f7f8",
+              "background-dark": "#111921",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a242f",
+              "slate-custom": {
+                 50: "#f0f5fa",
+                 100: "#e1ecf6",
+                 200: "#c3daee",
+                 300: "#a5c8e6",
+                 400: "#87b6de",
+                 500: "#368ce2", // Primary
+                 600: "#2b70b5",
+                 700: "#205488",
+                 800: "#15385b",
+                 900: "#0b1c2d",
+              }
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom Scrollbar for table */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-display min-h-screen flex flex-col transition-colors duration-200">
+<!-- Top Navigation / Header -->
+<header class="bg-surface-light dark:bg-surface-dark border-b border-slate-custom-200 dark:border-slate-700 sticky top-0 z-30">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<!-- Logo & Title -->
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
+<span class="material-icons">fingerprint</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Attendance Logs</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Fingerprint Solution X105D • Real-time Data</p>
+</div>
+</div>
+<!-- Right Side Actions -->
+<div class="flex items-center gap-4">
+<!-- Live Sync Status -->
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/30">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+</span>
+<span class="text-xs font-medium text-emerald-700 dark:text-emerald-400">Live Sync Active</span>
+</div>
+<!-- Divider -->
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
+<!-- User Profile -->
+<button class="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-800 p-1.5 rounded-lg transition-colors">
+<img alt="User Avatar" class="h-8 w-8 rounded-full" data-alt="Admin user avatar generic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQGJjPJgvdkc53PxYR9l04zI9l5Ep4VA94CD-SVFG6Fvz0XIG4NAC2dQB3JRj1GV1yvh979LQ9lg9P-tqwql8p_nsJSnZOL0aj2aNI0N_TIkUoPm-7z0eJH8hiPalSCaRW-_3-S8VmbycjYSshKJKO5tLLXaY0GgOP4lpfyj9YRu6soYA2UlVBkX5pPb03Uw_eOo59pZeHlcHqEkxvlKecWiMhYe1EV_PdRFYYs-Oe6FMK1UUEVq8FXi6c6e2jKbrpYGo0UZiecZIN"/>
+<span class="text-sm font-medium hidden sm:block">Admin</span>
+<span class="material-icons text-slate-400 text-lg hidden sm:block">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+<!-- Action Toolbar -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+<div>
+<nav aria-label="Breadcrumb" class="flex">
+<ol class="flex items-center space-x-2">
+<li><a class="text-slate-400 hover:text-slate-500" href="#"><span class="material-icons text-sm">home</span></a></li>
+<li><span class="text-slate-300 dark:text-slate-600">/</span></li>
+<li><a class="text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200" href="#">Reporting</a></li>
+<li><span class="text-slate-300 dark:text-slate-600">/</span></li>
+<li><span aria-current="page" class="text-sm font-medium text-primary">Logs</span></li>
+</ol>
+</nav>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<span class="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline-block">Last synced: 2 mins ago</span>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-surface-dark border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 focus:ring-2 focus:ring-offset-1 focus:ring-primary/50 transition-all">
+<span class="material-icons text-lg">sync</span>
+                    Pull Logs
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm shadow-primary/30 transition-all">
+<span class="material-icons text-lg">file_download</span>
+                    Export to Excel
+                </button>
+</div>
+</div>
+<!-- Filters Section -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 mb-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Date Range -->
+<div class="relative">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Date Range</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons text-slate-400 text-lg">calendar_today</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2.5 sm:text-sm border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-primary focus:border-primary transition-colors" placeholder="Oct 24, 2023 - Oct 25, 2023" type="text"/>
+</div>
+</div>
+<!-- Search Employee -->
+<div class="relative">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Employee</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons text-slate-400 text-lg">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2.5 sm:text-sm border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-primary focus:border-primary transition-colors" placeholder="Search by Name or NIK" type="text"/>
+</div>
+</div>
+<!-- Department Dropdown -->
+<div class="relative">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Department</label>
+<select class="block w-full pl-3 pr-10 py-2.5 sm:text-sm border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-primary focus:border-primary transition-colors appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:0.75rem] bg-no-repeat bg-[right:1rem_center]">
+<option>All Departments</option>
+<option>Engineering</option>
+<option>Human Resources</option>
+<option>Operations</option>
+<option>Marketing</option>
+</select>
+</div>
+<!-- Device Dropdown -->
+<div class="relative">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Device / Location</label>
+<select class="block w-full pl-3 pr-10 py-2.5 sm:text-sm border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-primary focus:border-primary transition-colors appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:0.75rem] bg-no-repeat bg-[right:1rem_center]">
+<option>All Devices</option>
+<option>Main Lobby (X105D-01)</option>
+<option>Warehouse Back (X105D-02)</option>
+<option>Office Entrance (X105D-03)</option>
+</select>
+</div>
+</div>
+<div class="mt-4 flex justify-end">
+<button class="text-xs font-medium text-primary hover:text-primary-dark flex items-center gap-1 transition-colors">
+<span class="material-icons text-sm">refresh</span>
+                    Reset Filters
+                </button>
+</div>
+</div>
+<!-- Data Table Section -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
+<!-- Table Header Stats (Optional micro-stats) -->
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center">
+<h3 class="text-base font-semibold text-slate-800 dark:text-white">Recent Logs</h3>
+<span class="text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full">Total Records: <span class="font-bold text-slate-800 dark:text-white">1,248</span></span>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+<thead class="bg-slate-50 dark:bg-slate-800">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Log ID</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">NIK</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider sticky left-0 bg-slate-50 dark:bg-slate-800 z-10 shadow-sm sm:shadow-none" scope="col">Employee Name</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider hidden md:table-cell" scope="col">Department</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Device / Location</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Timestamp</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Status</th>
+<th class="relative px-6 py-3" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-surface-dark divide-y divide-slate-200 dark:divide-slate-700">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 font-mono">#10234</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white font-medium">89901</td>
+<td class="px-6 py-4 whitespace-nowrap sticky left-0 bg-white dark:bg-surface-dark z-10 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="flex items-center">
+<div class="h-8 w-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold mr-3">SJ</div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Sarah Jenkins</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">Engineering</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-icons text-slate-400 text-sm">place</span>
+                                    Lobby Main
+                                </div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-200 tabular-nums">Oct 24, 08:02 AM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                    Check-in
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-icons text-lg">more_vert</span></a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 font-mono">#10233</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white font-medium">89905</td>
+<td class="px-6 py-4 whitespace-nowrap sticky left-0 bg-white dark:bg-surface-dark z-10 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="flex items-center">
+<div class="h-8 w-8 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-xs font-bold mr-3">MR</div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Mike Ross</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">Operations</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-icons text-slate-400 text-sm">place</span>
+                                    Warehouse Back
+                                </div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-200 tabular-nums">Oct 24, 08:05 AM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                    Check-in
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-icons text-lg">more_vert</span></a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 font-mono">#10232</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white font-medium">89882</td>
+<td class="px-6 py-4 whitespace-nowrap sticky left-0 bg-white dark:bg-surface-dark z-10 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="flex items-center">
+<img alt="Avatar for Jessica" class="h-8 w-8 rounded-full mr-3" data-alt="Avatar with initials JP" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNZaD9sR97NUGlTJdWzmILLUiGfin38PSY7nl1QsLBmdFvfkgYZjcsBTa-7QkaVel1i7xafTX0ET3O0y0dtOIaf3n9ZML841RthP7mfLVPtx1ti9QyyQqq-OkT7F-_paiVgjJvf2VFwWMD4oTN4Nf-5IcZ6AZLd7_PRLCACx_J-xEJi_9HEqINVKblFq-haEek1yMEsFou68jgIIuo9rP1Vq9kr4bGLy0C7XokU-ntHQICfM0uUFvq3rQD_sPT13d1FkuUaa-rDsge"/>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Jessica Pearson</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">Management</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-icons text-slate-400 text-sm">place</span>
+                                    Office Entrance
+                                </div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-200 tabular-nums">Oct 23, 06:15 PM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600">
+                                    Check-out
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-icons text-lg">more_vert</span></a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 font-mono">#10231</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white font-medium">89920</td>
+<td class="px-6 py-4 whitespace-nowrap sticky left-0 bg-white dark:bg-surface-dark z-10 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="flex items-center">
+<div class="h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xs font-bold mr-3">LS</div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Louis Specter</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">Legal</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-icons text-slate-400 text-sm">place</span>
+                                    Lobby Main
+                                </div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-200 tabular-nums">Oct 23, 05:45 PM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600">
+                                    Check-out
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-icons text-lg">more_vert</span></a>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 font-mono">#10230</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white font-medium">89912</td>
+<td class="px-6 py-4 whitespace-nowrap sticky left-0 bg-white dark:bg-surface-dark z-10 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="flex items-center">
+<div class="h-8 w-8 rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xs font-bold mr-3">RZ</div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Rachel Zane</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">Paralegal</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-icons text-slate-400 text-sm">place</span>
+                                    Lobby Main
+                                </div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-200 tabular-nums">Oct 23, 05:42 PM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600">
+                                    Check-out
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-icons text-lg">more_vert</span></a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="bg-white dark:bg-surface-dark px-4 py-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between sm:px-6">
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-slate-700 dark:text-slate-300">
+                            Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">1,248</span> results
+                        </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+<a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-surface-dark text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-icons text-lg">chevron_left</span>
+</a>
+<!-- Current: "z-10 bg-primary border-primary text-white", Default: "bg-white border-slate-300 text-slate-500 hover:bg-slate-50" -->
+<a aria-current="page" class="z-10 bg-primary border-primary text-white relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">1</a>
+<a class="bg-white dark:bg-surface-dark border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">2</a>
+<a class="bg-white dark:bg-surface-dark border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 bg-white dark:bg-surface-dark text-sm font-medium text-slate-700 dark:text-slate-400">...</span>
+<a class="bg-white dark:bg-surface-dark border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium" href="#">8</a>
+<a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-surface-dark text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="sr-only">Next</span>
+<span class="material-icons text-lg">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Mobile Pagination View -->
+<div class="flex items-center justify-between sm:hidden w-full">
+<a class="relative inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 text-sm font-medium rounded-md text-slate-700 dark:text-slate-200 bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800" href="#">Previous</a>
+<a class="ml-3 relative inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 text-sm font-medium rounded-md text-slate-700 dark:text-slate-200 bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800" href="#">Next</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-light dark:bg-surface-dark border-t border-slate-200 dark:border-slate-700 mt-auto">
+<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<p class="text-sm text-slate-500 dark:text-slate-400">© 2023 Company Inc. All rights reserved.</p>
+<div class="flex items-center space-x-4 mt-4 md:mt-0">
+<div class="flex items-center text-xs text-slate-400">
+<span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                        System Operational
+                    </div>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

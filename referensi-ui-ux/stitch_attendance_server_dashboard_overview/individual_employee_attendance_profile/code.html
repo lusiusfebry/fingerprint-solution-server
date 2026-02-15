@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Individual Employee Attendance Profile</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1c2630",
+                        "surface-darker": "#152029",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+<!-- Navbar / Top Bar -->
+<header class="bg-white dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 h-16 flex items-center px-6 sticky top-0 z-30">
+<div class="flex items-center gap-3">
+<span class="material-icons text-primary text-2xl">fingerprint</span>
+<span class="font-bold text-lg tracking-tight">Fingerprint Solution <span class="text-primary">X105D</span></span>
+</div>
+<nav class="ml-12 hidden md:flex gap-6 text-sm font-medium text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary" href="#">Employees</a>
+<a class="hover:text-primary transition-colors" href="#">Attendance</a>
+<a class="hover:text-primary transition-colors" href="#">Devices</a>
+<a class="hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="ml-auto flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400">
+<span class="material-icons text-xl">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm border border-primary/30">
+                AD
+            </div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 p-6 md:p-8 max-w-[1600px] mx-auto w-full">
+<!-- Breadcrumbs -->
+<nav class="flex text-sm text-slate-500 dark:text-slate-400 mb-6">
+<a class="hover:text-primary" href="#">Employees</a>
+<span class="mx-2">/</span>
+<span class="text-slate-800 dark:text-white font-medium">Employee Profile</span>
+</nav>
+<!-- Header Profile Section -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-6 border border-slate-200 dark:border-slate-700/50 shadow-sm mb-6">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<div class="relative">
+<img alt="Professional woman portrait" class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-white dark:border-surface-darker shadow-sm" data-alt="Professional headshot of a female employee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMl5_KcwSDDeJA4gdqqr2FWvjuNzafwVdysbQKD4TihRPhCi8vwYItMbYYW1dSRh0ta8243JynEiO43bbovoT5t7JT0mtQjetYuk8dpUyLsCJbua6aJnwFf3hY1GOPU_oQPO5iFITGAY63jGvPAvJ7y9LfmUkd4fckFjXq9t-waErN77jW5NSWmZv1873PyMYpSJU70Txm0TgueMflsdaxKDkomu_VGBHTnT32Mt-T1AcxuG4N2vxb1PytBTGdGJLm_A2geZY8jTgO"/>
+<div class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white dark:border-surface-dark rounded-full" title="Active"></div>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h1 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Sarah Jenkins</h1>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-500/30">Active</span>
+</div>
+<div class="text-sm text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-6 gap-y-2">
+<span class="flex items-center gap-1">
+<span class="material-icons text-base text-primary/70">badge</span>
+                                NIK: <span class="font-medium text-slate-700 dark:text-slate-300">EMP-2021-042</span>
+</span>
+<span class="flex items-center gap-1">
+<span class="material-icons text-base text-primary/70">apartment</span>
+                                Dept: <span class="font-medium text-slate-700 dark:text-slate-300">Product Design</span>
+</span>
+<span class="flex items-center gap-1">
+<span class="material-icons text-base text-primary/70">work</span>
+                                Position: <span class="font-medium text-slate-700 dark:text-slate-300">Senior UX Designer</span>
+</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-surface-darker border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-icons text-lg">edit</span>
+                        Edit Profile
+                    </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors shadow-lg shadow-primary/25">
+<span class="material-icons text-lg">file_download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Left Column: Summary & Main Table -->
+<div class="lg:col-span-3 space-y-6">
+<!-- KPI Cards -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Present -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-full -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Present Days</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">22</span>
+<span class="text-xs text-slate-400">/ 24 days</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1 mt-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 91%"></div>
+</div>
+</div>
+<!-- Late -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm relative overflow-hidden group hover:border-orange-500/50 transition-colors">
+<div class="absolute top-0 right-0 w-16 h-16 bg-orange-500/5 rounded-full -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Late Arrivals</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-orange-500">3</span>
+<span class="text-xs text-orange-400 flex items-center"><span class="material-icons text-[10px] mr-0.5">arrow_upward</span> 12%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1 mt-3 rounded-full overflow-hidden">
+<div class="bg-orange-500 h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<!-- Early -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm relative overflow-hidden group hover:border-yellow-500/50 transition-colors">
+<div class="absolute top-0 right-0 w-16 h-16 bg-yellow-500/5 rounded-full -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Early Departures</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">0</span>
+<span class="text-xs text-green-500 flex items-center">Perfect</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1 mt-3 rounded-full overflow-hidden">
+<div class="bg-yellow-500 h-full rounded-full" style="width: 0%"></div>
+</div>
+</div>
+<!-- Overtime -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm relative overflow-hidden group hover:border-purple-500/50 transition-colors">
+<div class="absolute top-0 right-0 w-16 h-16 bg-purple-500/5 rounded-full -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Overtime Hours</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-purple-500">12.5</span>
+<span class="text-xs text-slate-400">hours</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-1 mt-3 rounded-full overflow-hidden">
+<div class="bg-purple-500 h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<!-- Filters & Table -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm flex flex-col h-full min-h-[500px]">
+<!-- Table Header Controls -->
+<div class="p-4 border-b border-slate-200 dark:border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<h2 class="text-lg font-semibold text-slate-900 dark:text-white">Attendance History</h2>
+<div class="flex flex-wrap gap-3">
+<!-- Date Range Picker Mockup -->
+<div class="relative">
+<span class="material-icons absolute left-3 top-2.5 text-slate-400 text-sm">calendar_today</span>
+<input class="pl-9 pr-8 py-2 bg-slate-50 dark:bg-surface-darker border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none w-36 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/80 transition-colors" type="text" value="Oct 2023"/>
+<span class="material-icons absolute right-2 top-2.5 text-slate-400 text-sm pointer-events-none">expand_more</span>
+</div>
+<!-- Status Filter -->
+<select class="pl-3 pr-8 py-2 bg-slate-50 dark:bg-surface-darker border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/80 transition-colors appearance-none">
+<option>All Statuses</option>
+<option>Late</option>
+<option>On Time</option>
+<option>Absent</option>
+</select>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-surface-darker/50 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Shift Name</th>
+<th class="px-6 py-4">Time In</th>
+<th class="px-6 py-4">Time Out</th>
+<th class="px-6 py-4">Late (Min)</th>
+<th class="px-6 py-4 text-right">Total Work Time</th>
+<th class="px-6 py-4 text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-700/50 text-sm text-slate-700 dark:text-slate-300">
+<!-- Row 1: Late -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Oct 24, 2023 <span class="block text-xs font-normal text-slate-400">Tue</span></td>
+<td class="px-6 py-4">Regular (09:00 - 18:00)</td>
+<td class="px-6 py-4 text-orange-500 font-medium">09:15 AM</td>
+<td class="px-6 py-4">06:05 PM</td>
+<td class="px-6 py-4 text-orange-500 font-bold">15</td>
+<td class="px-6 py-4 text-right font-mono">8h 50m</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-500/10 text-orange-800 dark:text-orange-400">Late</span>
+</td>
+</tr>
+<!-- Row 2: Normal -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Oct 23, 2023 <span class="block text-xs font-normal text-slate-400">Mon</span></td>
+<td class="px-6 py-4">Regular (09:00 - 18:00)</td>
+<td class="px-6 py-4 text-green-600 dark:text-green-400">08:55 AM</td>
+<td class="px-6 py-4">06:10 PM</td>
+<td class="px-6 py-4 text-slate-400">-</td>
+<td class="px-6 py-4 text-right font-mono">9h 15m</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/10 text-green-800 dark:text-green-400">Present</span>
+</td>
+</tr>
+<!-- Row 3: Overtime -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Oct 20, 2023 <span class="block text-xs font-normal text-slate-400">Fri</span></td>
+<td class="px-6 py-4">Regular (09:00 - 18:00)</td>
+<td class="px-6 py-4 text-green-600 dark:text-green-400">08:50 AM</td>
+<td class="px-6 py-4">08:30 PM</td>
+<td class="px-6 py-4 text-slate-400">-</td>
+<td class="px-6 py-4 text-right font-mono font-bold text-purple-400">11h 40m</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-500/10 text-purple-800 dark:text-purple-400">Overtime</span>
+</td>
+</tr>
+<!-- Row 4: Normal -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Oct 19, 2023 <span class="block text-xs font-normal text-slate-400">Thu</span></td>
+<td class="px-6 py-4">Regular (09:00 - 18:00)</td>
+<td class="px-6 py-4 text-green-600 dark:text-green-400">08:58 AM</td>
+<td class="px-6 py-4">06:02 PM</td>
+<td class="px-6 py-4 text-slate-400">-</td>
+<td class="px-6 py-4 text-right font-mono">9h 04m</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/10 text-green-800 dark:text-green-400">Present</span>
+</td>
+</tr>
+<!-- Row 5: Late -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Oct 18, 2023 <span class="block text-xs font-normal text-slate-400">Wed</span></td>
+<td class="px-6 py-4">Regular (09:00 - 18:00)</td>
+<td class="px-6 py-4 text-orange-500 font-medium">09:32 AM</td>
+<td class="px-6 py-4">06:00 PM</td>
+<td class="px-6 py-4 text-orange-500 font-bold">32</td>
+<td class="px-6 py-4 text-right font-mono">8h 28m</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-500/10 text-orange-800 dark:text-orange-400">Late</span>
+</td>
+</tr>
+<!-- Row 6: Normal -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Oct 17, 2023 <span class="block text-xs font-normal text-slate-400">Tue</span></td>
+<td class="px-6 py-4">Regular (09:00 - 18:00)</td>
+<td class="px-6 py-4 text-green-600 dark:text-green-400">08:45 AM</td>
+<td class="px-6 py-4">06:05 PM</td>
+<td class="px-6 py-4 text-slate-400">-</td>
+<td class="px-6 py-4 text-right font-mono">9h 20m</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/10 text-green-800 dark:text-green-400">Present</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+<span class="text-sm text-slate-500 dark:text-slate-400">Showing 1-6 of 24 records</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-600 text-slate-400 dark:text-slate-500 cursor-not-allowed text-sm">Prev</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-600 bg-white dark:bg-surface-darker text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-sm">Next</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Personal Details -->
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm sticky top-24">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-semibold text-slate-900 dark:text-white">Personal Details</h3>
+<button class="text-primary hover:text-blue-400 transition-colors text-sm font-medium">Edit</button>
+</div>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-icons text-lg">email</span>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Email Address</p>
+<a class="text-sm font-medium text-slate-800 dark:text-slate-200 hover:text-primary break-all" href="mailto:sarah.jenkins@company.com">sarah.jenkins@company.com</a>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-icons text-lg">phone</span>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Phone Number</p>
+<p class="text-sm font-medium text-slate-800 dark:text-slate-200">+1 (555) 0123-4567</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-icons text-lg">calendar_today</span>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Date Joined</p>
+<p class="text-sm font-medium text-slate-800 dark:text-slate-200">April 12, 2021</p>
+<p class="text-xs text-slate-400 mt-0.5">2 years, 6 months ago</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-icons text-lg">fingerprint</span>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Fingerprint Template</p>
+<div class="flex items-center gap-2 mt-1">
+<p class="text-sm font-medium text-slate-800 dark:text-slate-200">Version 10.2</p>
+<span class="w-2 h-2 bg-green-500 rounded-full" title="Synced"></span>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Last updated: Oct 01, 2023</p>
+</div>
+</div>
+<div class="border-t border-slate-200 dark:border-slate-700 pt-6 mt-2">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700/50 flex items-center justify-center flex-shrink-0 text-slate-500 dark:text-slate-400">
+<span class="material-icons text-lg">domain</span>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Office Location</p>
+<p class="text-sm font-medium text-slate-800 dark:text-slate-200">San Francisco HQ</p>
+<p class="text-xs text-slate-400 mt-0.5">Building A, Floor 4</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Map Visual (Abstract) -->
+<div class="mt-6 rounded-lg overflow-hidden h-32 relative group cursor-pointer">
+<img alt="Map location view" class="w-full h-full object-cover opacity-60 dark:opacity-40 group-hover:scale-105 transition-transform duration-700" data-alt="Abstract view of city buildings" data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBop2vqRRYZUDhwz_Y8h2aKf_f3kbxQM4MjqG5KWwAc85LK8tClPU0d2b6s-KsyYjTZEZ4GWD8L-vXxjGu1ukbzhFZcPy4lms0X5gCnh1qHykit7zW4JL6dyza0KuYPINQCBu2oQkhKPjXHo_Z3h94WM53I2sNbRY7tPVNjvWvlOtcvx3VJLQ4_FFXLnB-aZGHDNJJj1Udj3OLmeKsHQmgL_wrpAfMQJZveMSaDW83Pv2iH7T5pyatXCa_Gh3MCWQBhIEondmjwEwrz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+<span class="text-white text-xs font-medium flex items-center gap-1">
+<span class="material-icons text-sm text-primary">place</span> View on Map
+                            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

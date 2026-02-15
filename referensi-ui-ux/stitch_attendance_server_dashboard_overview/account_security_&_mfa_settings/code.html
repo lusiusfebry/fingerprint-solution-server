@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Account Security &amp; MFA Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b3b4f; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4b5f; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="bg-white dark:bg-[#161f2a] border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<!-- Left: Logo & Title -->
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded bg-primary/20 flex items-center justify-center">
+<span class="material-icons text-primary text-sm">fingerprint</span>
+</div>
+<span class="font-semibold text-lg tracking-tight">Fingerprint Solution X105D</span>
+</div>
+<!-- Right: Profile & Actions -->
+<div class="flex items-center gap-4">
+<button class="p-2 text-gray-400 hover:text-white transition-colors relative">
+<span class="material-icons text-xl">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<div class="w-px h-6 bg-gray-700 mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-medium text-white">Alex Administrator</p>
+<p class="text-xs text-gray-400">admin@x105d-server.com</p>
+</div>
+<img alt="User Avatar" class="w-9 h-9 rounded-full border border-gray-700" data-alt="User profile avatar image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEDNhYKH2Os8mYgO2JxEQrszq3HzXLzAbq9VdUp8vI3SueTK1xwmOQ7Qs2NbVrpLGYWUw0W3gwWUKP4Nw1cOp-k4A2MHP4x-RQo-8JtWbwnmnhr9D2yIPegGqlWIZW8GckOEA9Z29C3jRA1pKGOxj-93Ek1J0KZlAFNF7YR8mDw7l9sJfapsu_uhIorAZCy7qLkERGFPRlkV15MIFF1nq1k2DEsM_FYrq0KV3rzzOV_j-X9FhZS27DfFOEHShFdwMD5CoqaSuKUHiI"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow py-10 px-4 sm:px-6 lg:px-8">
+<div class="max-w-5xl mx-auto">
+<!-- Breadcrumb & Header -->
+<div class="mb-8">
+<nav aria-label="Breadcrumb" class="flex text-sm text-gray-500 dark:text-gray-400 mb-2">
+<ol class="inline-flex items-center space-x-1 md:space-x-3">
+<li class="inline-flex items-center">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-icons text-base mx-2">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Settings</a>
+</div>
+</li>
+<li aria-current="page">
+<div class="flex items-center">
+<span class="material-icons text-base mx-2">chevron_right</span>
+<span class="text-gray-900 dark:text-gray-200">Security</span>
+</div>
+</li>
+</ol>
+</nav>
+<h1 class="text-3xl font-bold text-gray-900 dark:text-white">Account Security</h1>
+<p class="mt-2 text-gray-600 dark:text-gray-400">Manage your password, enable multi-factor authentication, and monitor active sessions.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Password & 2FA -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Password Section -->
+<section class="bg-white dark:bg-[#161f2a] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-icons text-primary">lock</span>
+</div>
+<div>
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Change Password</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Ensure your account is using a long, random password.</p>
+</div>
+</div>
+</div>
+<form class="space-y-5">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="current-password">Current Password</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-background-dark border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow outline-none pr-10" id="current-password" placeholder="••••••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-primary" type="button">
+<span class="material-icons text-lg">visibility_off</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="new-password">New Password</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-background-dark border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow outline-none pr-10" id="new-password" placeholder="New password" type="password"/>
+<button class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-primary" type="button">
+<span class="material-icons text-lg">visibility_off</span>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="confirm-password">Confirm Password</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-background-dark border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow outline-none pr-10" id="confirm-password" placeholder="Confirm new password" type="password"/>
+<button class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-primary" type="button">
+<span class="material-icons text-lg">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Password Strength Meter -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+<span>Password strength</span>
+<span class="font-medium text-yellow-500">Weak</span>
+</div>
+<div class="h-1.5 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden flex">
+<div class="h-full bg-yellow-500 w-1/4"></div>
+<!-- Add widths w-2/4, w-3/4, w-full based on strength, and change colors red -> yellow -> green -->
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-500">Make sure it's at least 12 characters including a number and a lowercase letter.</p>
+</div>
+<div class="pt-2 flex justify-end">
+<button class="bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-6 rounded-lg transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-dark focus:ring-primary shadow-lg shadow-primary/20" type="button">
+                                    Update Password
+                                </button>
+</div>
+</form>
+</section>
+<!-- 2FA Section -->
+<section class="bg-white dark:bg-[#161f2a] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+<div class="flex gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-icons text-primary">phonelink_lock</span>
+</div>
+<div>
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Two-Factor Authentication</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Add an extra layer of security to your account by requiring a code from your authenticator app.</p>
+<div class="mt-4 flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300">
+<span class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-1.5"></span>
+                                            Currently Disabled
+                                        </span>
+</div>
+</div>
+</div>
+<button class="shrink-0 bg-white dark:bg-transparent border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2" type="button">
+<span class="material-icons text-sm">qr_code</span>
+                                Enable 2FA
+                            </button>
+</div>
+</section>
+</div>
+<!-- Right Column: Active Sessions -->
+<div class="lg:col-span-1">
+<section class="bg-white dark:bg-[#161f2a] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 h-full flex flex-col">
+<div class="p-6 border-b border-gray-200 dark:border-gray-800">
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-icons text-gray-400">devices</span>
+                                Active Sessions
+                            </h2>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage devices where you are currently logged in.</p>
+</div>
+<div class="flex-grow overflow-y-auto p-4 space-y-3 custom-scrollbar max-h-[500px] lg:max-h-none">
+<!-- Current Session -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/20 relative group">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-background-dark flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-icons text-gray-600 dark:text-gray-300">desktop_windows</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">Windows PC (Chrome)</h3>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full">Current</span>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">192.168.1.105 • Stockholm, SE</p>
+<p class="text-xs text-green-500 mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Active now
+                                    </p>
+</div>
+</div>
+<!-- Other Session 1 -->
+<div class="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700 group">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
+<span class="material-icons text-gray-500 dark:text-gray-400">laptop_mac</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-sm font-medium text-gray-900 dark:text-gray-200">MacBook Pro (Safari)</h3>
+<button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all" title="Revoke Session">
+<span class="material-icons text-lg">logout</span>
+</button>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">204.14.22.11 • New York, USA</p>
+<p class="text-xs text-gray-500 mt-1">Last active: 2 hours ago</p>
+</div>
+</div>
+<!-- Other Session 2 -->
+<div class="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700 group">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
+<span class="material-icons text-gray-500 dark:text-gray-400">smartphone</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-sm font-medium text-gray-900 dark:text-gray-200">iPhone 13 (App)</h3>
+<button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all" title="Revoke Session">
+<span class="material-icons text-lg">logout</span>
+</button>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">10.0.0.42 • London, UK</p>
+<p class="text-xs text-gray-500 mt-1">Last active: 3 days ago</p>
+</div>
+</div>
+<!-- Other Session 3 -->
+<div class="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700 group">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
+<span class="material-icons text-gray-500 dark:text-gray-400">tablet_mac</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="text-sm font-medium text-gray-900 dark:text-gray-200">iPad Pro (Chrome)</h3>
+<button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all" title="Revoke Session">
+<span class="material-icons text-lg">logout</span>
+</button>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">172.16.0.23 • Berlin, DE</p>
+<p class="text-xs text-gray-500 mt-1">Last active: 1 week ago</p>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-gray-200 dark:border-gray-800 mt-auto">
+<button class="w-full border border-red-500/30 hover:bg-red-500/10 text-red-500 text-sm font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-icons text-sm">logout</span>
+                                Logout from all devices
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-gray-200 dark:border-gray-800 py-6 mt-auto bg-white dark:bg-[#161f2a]">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+<p class="text-sm text-gray-500">© 2023 Fingerprint Security Solutions. All rights reserved.</p>
+<div class="flex gap-6 text-sm text-gray-500">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>
