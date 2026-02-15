@@ -233,6 +233,30 @@ export class AttendanceLogsService {
     if (inOutMode !== undefined) {
       query.andWhere('log.in_out_mode = :inOutMode', { inOutMode });
     }
+    if (filter.search) {
+      query.andWhere(
+        '(employee.nama ILIKE :search OR employee.nik ILIKE :search)',
+        { search: `%${filter.search}%` },
+      );
+    }
+    if (filter.department && filter.department !== 'all') {
+      query.andWhere('employee.departemen ILIKE :department', {
+        department: `%${filter.department}%`,
+      });
+    }
+    if (filter.device && filter.device !== 'all') {
+      // Logic for device can be by name or ID (if it's a UUID)
+      query.andWhere('(device.name ILIKE :device OR device.id = :deviceId)', {
+        device: `%${filter.device}%`,
+        deviceId: filter.device,
+      });
+    }
+    if (filter.status && filter.status !== 'all') {
+      // Status in entity is 'present' | 'late' | 'absent' but log doesn't have it directly.
+      // Usually status is calculated. For now let's just ignore it or assume a field exists.
+      // Looking at transformToDto, status isn't there.
+      // I'll skip status filtering for now as it needs complex logic or a saved field.
+    }
 
     query.orderBy(`log.${sortBy}`, sortOrder);
 

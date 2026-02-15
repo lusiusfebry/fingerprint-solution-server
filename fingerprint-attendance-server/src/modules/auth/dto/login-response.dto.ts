@@ -5,13 +5,13 @@ export class LoginResponseDto {
     description: 'Access token (JWT)',
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
-  access_token: string;
+  accessToken: string;
 
   @ApiProperty({
     description: 'Refresh token untuk mendapatkan access token baru',
     example: 'd8f5a6b7-c9d0-4e1f-a2b3-c4d5e6f7a8b9',
   })
-  refresh_token: string;
+  refreshToken: string;
 
   @ApiProperty({
     description: 'Informasi detail user',

@@ -5,7 +5,7 @@ class WebSocketService {
     private url: string;
 
     constructor() {
-        this.url = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3000';
+        this.url = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3001';
     }
 
     connect(token?: string): Socket {
@@ -13,7 +13,7 @@ class WebSocketService {
             return this.socket;
         }
 
-        this.socket = io(this.url, {
+        this.socket = io(`${this.url}/devices`, {
             auth: {
                 token: token,
             },

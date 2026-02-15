@@ -28,6 +28,19 @@ describe('EmployeesController (e2e)', () => {
     await setupTestDatabase();
     await seedTestData();
 
+    // Seed an online device
+    const devRepo = testDataSource.getRepository(Device);
+    await devRepo.save(
+      devRepo.create({
+        name: 'Test Device',
+        serial_number: 'SN-TEST',
+        ip_address: '1.2.3.4',
+        status: 'online',
+      }),
+    );
+
+    await teardownTestDatabase(); // Close seeding connection
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
@@ -48,17 +61,6 @@ describe('EmployeesController (e2e)', () => {
         password: 'admin123',
       });
     authToken = loginRes.body.access_token;
-
-    // Seed an online device
-    const devRepo = testDataSource.getRepository(Device);
-    await devRepo.save(
-      devRepo.create({
-        name: 'Test Device',
-        serial_number: 'SN-TEST',
-        ip_address: '1.2.3.4',
-        status: 'online',
-      }),
-    );
   });
 
   afterAll(async () => {

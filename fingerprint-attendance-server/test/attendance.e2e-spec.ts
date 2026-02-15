@@ -23,25 +23,7 @@ describe('AttendanceLogsController (e2e)', () => {
     await setupTestDatabase();
     await seedTestData();
 
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    app.setGlobalPrefix('api');
-    app.useGlobalPipes(new ValidationPipe());
-    await app.init();
-
-    // Login
-    const loginRes = await request(app.getHttpServer())
-      .post('/api/auth/login')
-      .send({
-        username: 'admin_test',
-        password: 'admin123',
-      });
-    authToken = loginRes.body.access_token;
-
-    // Seed Employee & Device & Logs
+    // Custom Seed: Employee & Device & Logs
     const empRepo = testDataSource.getRepository(Employee);
     const devRepo = testDataSource.getRepository(Device);
     const logRepo = testDataSource.getRepository(AttendanceLog);
@@ -66,6 +48,26 @@ describe('AttendanceLogsController (e2e)', () => {
         in_out_mode: 0,
       }),
     );
+
+    await teardownTestDatabase(); // Close seeding connection
+
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
+    app.useGlobalPipes(new ValidationPipe());
+    await app.init();
+
+    // Login
+    const loginRes = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({
+        username: 'admin_test',
+        password: 'admin123',
+      });
+    authToken = loginRes.body.access_token;
   });
 
   afterAll(async () => {

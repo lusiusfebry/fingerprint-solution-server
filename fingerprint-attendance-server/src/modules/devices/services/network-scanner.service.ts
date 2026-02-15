@@ -14,7 +14,7 @@ export class NetworkScannerService {
 
   async scanSubnet(
     subnet?: string,
-    port: number = 80,
+    port: number = 4370,
   ): Promise<ScanResultDto[]> {
     const targetSubnet = subnet || this.getLocalSubnet();
     if (!targetSubnet) {

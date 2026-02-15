@@ -89,7 +89,7 @@ export const teardownTestDatabase = async () => {
     if (testDataSource.isInitialized) {
       await testDataSource.destroy();
     }
-  } catch (error) {
+  } catch {
     // Ignore errors during teardown
   }
 };

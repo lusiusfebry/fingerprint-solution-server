@@ -98,7 +98,7 @@ export const AutoDetectModal: React.FC<AutoDetectModalProps> = ({
                 {scanning && (
                     <div className="text-center py-8">
                         <LoadingSpinner size="lg" className="mb-2" />
-                        <p className="text-gray-500">Scanning local network (192.168.1.0/24)...</p>
+                        <p className="text-gray-500">Scanning local network (192.168.1.0/24) on port 4370...</p>
                     </div>
                 )}
 

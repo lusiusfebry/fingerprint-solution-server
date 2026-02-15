@@ -7,6 +7,7 @@ Sebelum memulai, pastikan perangkat Anda sudah terinstal perangkat lunak berikut
 - **Node.js**: Versi 18 atau lebih baru.
 - **PostgreSQL**: Versi 14 atau lebih baru.
 - **NPM**: Versi 9 atau lebih baru (biasanya terikut dengan Node.js).
+- **Mesin Fingerprint**: Mesin Solution (X100C, X105, dll) yang mendukung protokol ZK / TCP/IP.
 
 ## 2. Struktur Proyek
 Proyek ini terdiri dari dua bagian utama:
@@ -84,15 +85,30 @@ Gunakan kredensial berikut untuk masuk ke dashboard pertama kali:
 | Field | Keterangan |
 |-------|------------|
 | **Username** | `admin` |
-| **Password** | `Admin123!` |
+| **Password** | `admin789` |
 | **Level** | Super Admin |
 
 > [!WARNING]
 > Sangat disarankan untuk segera mengubah password default ini melalui menu pengaturan setelah berhasil login.
 
-## 7. Fitur Umum & Troubleshooting
+## 7. Menambahkan Mesin Fingerprint Pertama
+
+Karena aplikasi ini bergantung pada koneksi ke mesin fingerprint, langkah pertama setelah login adalah mendaftarkan mesin Anda.
+
+1. **Login ke Dashboard**: Masuk dengan username/password di atas.
+2. **Navigasi ke Device Management**: Klik menu `Device Management` di sidebar kiri.
+3. **Tambah Perangkat**: Klik tombol `+ Add Device` di pojok kanan atas.
+4. **Isi Form**:
+   - **Name**: Beri nama mesin (contoh: "Pintu Depan").
+   - **IP Address**: Masukkan IP address mesin fingerprint (pastikan satu jaringan dengan server).
+   - **Port**: Default biasanya `4370`.
+   - **Serial Number**: Opsional, bisa diisi nanti.
+5. **Simpan**: Klik `Save`.
+6. **Test Koneksi**: Setelah tersimpan, klik tombol `Test Connection` (ikon petir/link) di tabel daftar perangkat. Jika status berubah menjadi **Online**, maka koneksi berhasil.
+
+## 8. Fitur Umum & Troubleshooting
 - **Sinkronisasi Otomatis**: Backend dikonfigurasi untuk menarik log dari mesin fingerprint setiap 5 menit secara otomatis (bisa diatur di `.env`).
-- **Koneksi Mesin**: Pastikan IP Address mesin fingerprint dapat dijangkau dari server. Jika menggunakan server lokal, pastikan firewall tidak memblokir port 4370 (default port mesin).
+- **Koneksi Mesin**: Pastikan IP Address mesin fingerprint dapat dijangkau dari server. PING IP mesin dari terminal server untuk memastikan konektivitas.
 - **Log Error**: Jika terjadi error, Anda bisa mengecek log di folder `fingerprint-attendance-server/logs`.
 
 ---

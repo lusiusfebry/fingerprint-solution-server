@@ -51,7 +51,7 @@ export class DevicesService {
     // Validate connection
     const config: IConnectionConfig = {
       ipAddress: createDeviceDto.ip_address,
-      port: createDeviceDto.port || 80,
+      port: createDeviceDto.port || 4370,
       commKey: createDeviceDto.comm_key || '0',
       timeout: 3000,
     };

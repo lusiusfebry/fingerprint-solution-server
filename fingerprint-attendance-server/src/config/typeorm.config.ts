@@ -12,4 +12,5 @@ export default new DataSource({
   database: process.env.DB_DATABASE || 'fingerprint_attendance',
   entities: ['src/database/entities/*.entity.ts'],
   migrations: ['src/database/migrations/*.ts'],
+  synchronize: true,
 });

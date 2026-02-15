@@ -83,8 +83,8 @@ export class AuthService {
     };
 
     return {
-      access_token: this.jwtService.sign(payload),
-      refresh_token: this.jwtService.sign(payload, {
+      accessToken: this.jwtService.sign(payload),
+      refreshToken: this.jwtService.sign(payload, {
         secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         expiresIn: (this.configService.get<string>('JWT_REFRESH_EXPIRATION') ||
@@ -96,7 +96,7 @@ export class AuthService {
   async refreshToken(refreshTokenDto: RefreshTokenDto) {
     try {
       const payload = this.jwtService.verify<TokenPayload>(
-        refreshTokenDto.refresh_token,
+        refreshTokenDto.refreshToken,
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
         },

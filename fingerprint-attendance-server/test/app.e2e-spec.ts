@@ -9,6 +9,7 @@ describe('AppController (e2e)', () => {
 
   beforeAll(async () => {
     await setupTestDatabase();
+    await teardownTestDatabase();
   });
 
   afterAll(async () => {

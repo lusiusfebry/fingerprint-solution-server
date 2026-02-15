@@ -1,0 +1,95 @@
+
+> fingerprint-attendance-server@0.0.1 test:e2e
+> jest --config ./test/jest-e2e.json --runInBand --forceExit
+
+PASS test/employees.e2e-spec.ts (6.211 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+FAIL test/attendance.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜí∩╕Å secrets for agents: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/logs (GET) ΓÇ║ should return attendance logs
+
+
+
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/summary (GET) ΓÇ║ should return attendance summary
+
+
+
+
+  ΓùÅ AttendanceLogsController (e2e) ΓÇ║ /attendance/calculate (GET) ΓÇ║ should return calculated results
+
+
+
+
+
+  ΓùÅ Test suite failed to run
+
+    Connection terminated
+
+FAIL test/app.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒñû agentic secret storage: https://dotenvx.com/as2
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+  ΓùÅ AppController (e2e) ΓÇ║ /api (GET)
+
+
+
+
+
+  ΓùÅ Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'close')
+
+      14 |
+      15 |   afterAll(async () => {
+    > 16 |     await app.close();
+         |               ^
+      17 |     await teardownTestDatabase();
+      18 |   });
+      19 |
+
+      at Object.<anonymous> (app.e2e-spec.ts:16:15)
+
+  ΓùÅ Test suite failed to run
+
+    Connection terminated
+
+PASS test/auth.e2e-spec.ts
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  override existing env vars with { override: true }
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+PASS test/devices.e2e-spec.ts (5.685 s)
+  ΓùÅ Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒ¢í∩╕Å auth for agents: https://vestauth.com
+
+      at _log (../node_modules/dotenv/lib/main.js:139:11)
+
+
+Test Suites: 2 failed, 3 passed, 5 total
+Tests:       4 failed, 13 passed, 17 total
+Snapshots:   0 total
+Time:        23.074 s, estimated 26 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

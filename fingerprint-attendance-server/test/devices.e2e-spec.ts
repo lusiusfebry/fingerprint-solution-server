@@ -27,6 +27,7 @@ describe('DevicesController (e2e)', () => {
   beforeAll(async () => {
     await setupTestDatabase();
     await seedTestData();
+    await teardownTestDatabase(); // Close seeding connection to avoid conflicts
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],

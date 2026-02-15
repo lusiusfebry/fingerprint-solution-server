@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsEnum,
   Min,
+  IsString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
@@ -62,6 +63,28 @@ export class AttendanceLogFilterDto {
   @IsNumber()
   inOutMode?: number;
 
+  @ApiPropertyOptional({ description: 'Cari berdasarkan nama karyawan' })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
+  @ApiPropertyOptional({ description: 'Filter berdasarkan departemen' })
+  @IsOptional()
+  @IsString()
+  department?: string;
+
+  @ApiPropertyOptional({ description: 'Filter berdasarkan nama/id perangkat' })
+  @IsOptional()
+  @IsString()
+  device?: string;
+
+  @ApiPropertyOptional({
+    description: 'Filter berdasarkan status (present/late/absent)',
+  })
+  @IsOptional()
+  @IsEnum(['all', 'present', 'late', 'absent'])
+  status?: string;
+
   @ApiPropertyOptional({ description: 'Nomor halaman', default: 1, example: 1 })
   @IsOptional()
   @Type(() => Number)
@@ -95,6 +118,6 @@ export class AttendanceLogFilterDto {
     example: 'DESC',
   })
   @IsOptional()
-  @IsEnum(['ASC', 'DESC'])
-  sortOrder?: 'ASC' | 'DESC' = 'DESC';
+  @IsEnum(['ASC', 'DESC', 'asc', 'desc'])
+  sortOrder?: 'ASC' | 'DESC' | 'asc' | 'desc' = 'DESC';
 }

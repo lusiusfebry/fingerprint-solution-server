@@ -11,7 +11,7 @@ import {
 @ApiTags('System')
 @ApiBearerAuth('JWT-auth')
 @UseGuards(JwtAuthGuard)
-@Controller('api/system-info')
+@Controller('system-info')
 export class SystemInfoController {
   constructor(private readonly systemInfoService: SystemInfoService) {}
 

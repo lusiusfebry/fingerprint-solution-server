@@ -25,7 +25,7 @@ import { ManualSyncDto } from './dto/manual-sync.dto';
 import { BatchSyncDto } from './dto/batch-sync.dto';
 
 @ApiTags('Sync History & Engine')
-@Controller('api/sync')
+@Controller('sync')
 @ApiBearerAuth('JWT-auth')
 export class SyncHistoryController {
   constructor(
