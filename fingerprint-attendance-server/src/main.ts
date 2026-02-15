@@ -61,8 +61,8 @@ async function bootstrap() {
       'JWT-auth', // This name should match the one used in @ApiBearerAuth()
     )
     .setExternalDoc(
-      'Dokumentasi Lengkap',
-      'https://github.com/itpsg/fingerprint-solution-server/docs',
+      'Dokumentasi Lengkap (GitHub Repository)',
+      'https://github.com/itpsg/fingerprint-solution-server/tree/main/fingerprint-attendance-server/docs',
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);

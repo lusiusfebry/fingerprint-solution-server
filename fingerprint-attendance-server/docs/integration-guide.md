@@ -1,47 +1,114 @@
-# Panduan Integrasi Perangkat
+# Panduan Integrasi Sistem HR / ERP
 
-Dokumen ini menjelaskan cara menghubungkan mesin fingerprint (ZKTeco/Solution) ke sistem dan bagaimana proses sinkronisasi data bekerja.
+Dokumen ini menjelaskan cara mengintegrasikan sistem HR atau ERP pihak ketiga dengan Fingerprint Attendance Server menggunakan REST API dan WebSocket.
 
-## Persiapan Perangkat
+## Persyaratan Integrasi
+1.  **Base URL**: `http://<server-ip>:3001/api`
+2.  **Autentikasi**: Bearer Token (JWT).
+3.  **Format Data**: JSON.
 
-Sistem ini dirancang untuk bekerja dengan perangkat yang kompatibel dengan protokol ZK (misalnya: Solution X105-D, ZKTeco iClock series).
+## Alur Integrasi Utama
 
-### Konfigurasi Mesin
-1.  **IP Address**: Pastikan mesin memiliki IP statis yang dapat dijangkau oleh server aplikasi.
-2.  **Port**: Default port komunikasi adalah `4370`.
-3.  **Communication Key**: Jika diatur pada mesin, pastikan nilainya sama dengan yang didaftarkan di dashboard (Default: `0`).
-4.  **Gateway**: Pastikan gateway mesin mengarah ke router yang benar jika server berada di subnet berbeda.
+### 1. Autentikasi
+Sebelum melakukan permintaan lain, sistem Anda harus mendapatkan token akses.
+-   **Endpoint**: `POST /auth/login`
+-   **Payload**: `{ "username": "...", "password": "..." }`
 
-## Mekanisme Sinkronisasi
+### 2. Sinkronisasi Data Karyawan (Admin/HR)
+Anda dapat mengirim data karyawan dari sistem HR ke server ini agar terdaftar di mesin fingerprint.
+-   **Endpoint**: `POST /employees/import` (Batch) atau `POST /employees` (Single).
+-   **Payload (Single)**:
+    ```json
+    {
+      "nik": "123456",
+      "nama": "Budi Santoso",
+      "departemen": "Produksi",
+      "jabatan": "Operator",
+      "status": "aktif"
+    }
+    ```
 
-Aplikasi menggunakan kombinasi *Pull* dan *Push* untuk menjaga keselarasan data.
+### 3. Pengambilan Log Absensi
+Sistem HR dapat menarik log absensi secara periodik atau berdasarkan filter tertentu.
+-   **Endpoint**: `GET /attendance/logs`
+-   **Parameter Query**: `startDate`, `endDate`, `employeeId`, `deviceId`.
 
-### 1. Sinkronisasi Log (Pull)
-Server akan menarik data transaksi dari mesin ke basis data lokal.
--   **Tipe**: `pull_logs`
--   **Data**: Waktu absensi, ID karyawan (PIN), tipe verifikasi, dan status masuk/keluar.
+## Contoh Kode Integrasi
 
-### 2. Sinkronisasi Karyawan (Push)
-Server mengirimkan data profil karyawan (NIK dan Nama) ke mesin.
--   **Tipe**: `push_employees`
--   **Tujuan**: Agar nama muncul di layar mesin saat karyawan melakukan absensi.
+### Node.js (axios)
+```javascript
+const axios = require('axios');
 
-### 3. Sinkronisasi Template (Push)
-Server mengirimkan data sidik jari yang tersimpan di server ke mesin.
--   **Tipe**: `push_templates`
--   **Kegunaan**: Memungkinkan karyawan melakukan absensi di mesin manapun tanpa harus daftar ulang (Enrollment) di setiap mesin.
+async function syncAttendance() {
+  // 1. Login
+  const auth = await axios.post('http://localhost:3001/api/auth/login', {
+    username: 'admin',
+    password: 'password123'
+  });
+  const token = auth.data.access_token;
 
-## Resolusi Konflik (Conflict Resolution)
+  // 2. Ambil Log
+  const logs = await axios.get('http://localhost:3001/api/attendance/logs', {
+    headers: { Authorization: `Bearer ${token}` },
+    params: { startDate: '2023-10-01', endDate: '2023-10-31' }
+  });
+  
+  console.log(logs.data);
+}
+```
 
-Saat melakukan sinkronisasi karyawan atau template, terdapat dua mode resolusi:
+### PHP (cURL)
+```php
+<?php
+$ch = curl_init('http://localhost:3001/api/auth/login');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    'username' => 'admin',
+    'password' => 'password123'
+]));
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+$response = json_decode(curl_exec($ch), true);
+$token = $response['access_token'];
 
-1.  **Server Override (Default)**: Data di server dianggap yang paling benar. Jika ada perbedaan, data di mesin akan ditimpa.
-2.  **Device Override**: Jika data sudah ada di mesin, server tidak akan mengirimkan data tersebut untuk menghindari duplikasi atau perubahan yang tidak diinginkan di mesin.
+// Pull Logs
+$ch = curl_init('http://localhost:3001/api/attendance/logs?startDate=2023-10-01');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $token
+]);
+$logs = curl_exec($ch);
+echo $logs;
+?>
+```
 
-## Troubleshooting Koneksi
+### Python (Requests)
+```python
+import requests
 
-Jika status perangkat "Offline":
--   Cek kabel LAN dan konektivitas jaringan (coba `ping` IP mesin dari server).
--   Pastikan `comm_key` sudah sesuai.
--   Cek apakah port `4370` diblokir oleh firewall server/computer.
--   Gunakan fitur "Test Connection" pada menu Devices untuk melihat pesan error spesifik.
+# 1. Login
+login_url = "http://localhost:3001/api/auth/login"
+creds = {"username": "admin", "password": "password123"}
+response = requests.post(login_url, json=creds)
+token = response.json().get("access_token")
+
+# 2. Get Logs
+logs_url = "http://localhost:3001/api/attendance/logs"
+headers = {"Authorization": f"Bearer {token}"}
+params = {"startDate": "2023-10-01"}
+logs = requests.get(logs_url, headers=headers, params=params)
+print(logs.json())
+```
+
+## Real-time Notifications (WebSocket)
+Untuk mendapatkan data absensi langsung saat terjadi (real-time), gunakan `socket.io-client`.
+
+```javascript
+const io = require('socket.io-client');
+const socket = io('http://localhost:3001/devices');
+
+socket.on('attendance:new', (data) => {
+  console.log('Absensi Baru Terdeteksi:', data);
+  // Proses data ke sistem HR Anda
+});
+```

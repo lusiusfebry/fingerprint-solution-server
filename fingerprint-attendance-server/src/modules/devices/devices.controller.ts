@@ -22,6 +22,7 @@ import {
   ApiQuery,
   ApiBearerAuth,
   ApiResponse,
+  ApiBody,
 } from '@nestjs/swagger';
 
 @ApiTags('Devices')
@@ -36,10 +37,44 @@ export class DevicesController {
     description:
       'Menambahkan mesin fingerprint baru ke dalam sistem untuk dimonitor dan disinkronisasi.',
   })
-  @ApiResponse({ status: 201, description: 'Perangkat berhasil terdaftar' })
+  @ApiBody({
+    type: CreateDeviceDto,
+    examples: {
+      valid: {
+        value: {
+          name: 'Pintu Utama Lobby',
+          serial_number: 'SN12345678',
+          ip_address: '192.168.1.201',
+          port: 80,
+          location: 'Lobby Lantai 1',
+          comm_key: '0',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Perangkat berhasil terdaftar',
+    schema: {
+      example: {
+        id: '550e8400-e29b-41d4-a716-446655440000',
+        name: 'Pintu Utama Lobby',
+        serial_number: 'SN12345678',
+        status: 'offline',
+      },
+    },
+  })
   @ApiResponse({
     status: 400,
     description: 'Data tidak valid atau IP sudah terdaftar',
+    content: {
+      'application/json': {
+        example: {
+          message: 'IP address already registered',
+          errors: ['ip_address must be unique'],
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @UsePipes(ValidationPipe)
@@ -56,6 +91,19 @@ export class DevicesController {
   @ApiResponse({
     status: 200,
     description: 'Daftar perangkat berhasil diambil',
+    content: {
+      'application/json': {
+        example: [
+          {
+            id: '550e8400-e29b-41d4-a716-446655440000',
+            name: 'Pintu Utama Lobby',
+            serial_number: 'SN12345678',
+            ip_address: '192.168.1.201',
+            status: 'online',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll() {
@@ -74,7 +122,24 @@ export class DevicesController {
     description: 'Subnet CIDR (contoh: 192.168.1.0/24)',
     example: '192.168.1.0/24',
   })
-  @ApiResponse({ status: 200, description: 'Pemindaian selesai' })
+  @ApiResponse({
+    status: 200,
+    description: 'Pemindaian selesai',
+    content: {
+      'application/json': {
+        example: {
+          message: 'Scanning finished',
+          found: [
+            {
+              ip: '192.168.1.201',
+              port: 80,
+              sn: 'SN12345678',
+            },
+          ],
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   scanNetwork(@Query('subnet') subnet?: string) {
     return this.devicesService.scanNetwork(subnet);
@@ -86,7 +151,19 @@ export class DevicesController {
     description:
       'Menguji konektivitas ke mesin fingerprint sebelum didaftarkan.',
   })
-  @ApiResponse({ status: 200, description: 'Hasil tes koneksi' })
+  @ApiBody({ type: TestConnectionDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Hasil tes koneksi',
+    content: {
+      'application/json': {
+        example: {
+          success: true,
+          message: 'Connected successfully',
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   testConnectionParams(@Body() dto: TestConnectionDto) {
     return this.devicesService.testConnectionByParams(dto.ip_address, dto.port);
@@ -106,6 +183,18 @@ export class DevicesController {
   @ApiResponse({
     status: 200,
     description: 'Data perangkat berhasil ditemukan',
+    content: {
+      'application/json': {
+        example: {
+          id: '550e8400-e29b-41d4-a716-446655440000',
+          name: 'Pintu Utama Lobby',
+          serial_number: 'SN12345678',
+          ip_address: '192.168.1.201',
+          status: 'online',
+          location: 'Lobby Lantai 1',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Perangkat tidak ditemukan' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -120,6 +209,7 @@ export class DevicesController {
       'Memperbarui informasi konfigurasi mesin fingerprint yang sudah terdaftar.',
   })
   @ApiParam({ name: 'id', description: 'ID Perangkat (UUID)' })
+  @ApiBody({ type: UpdateDeviceDto })
   @ApiResponse({ status: 200, description: 'Perangkat berhasil diperbarui' })
   @ApiResponse({ status: 404, description: 'Perangkat tidak ditemukan' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -147,7 +237,15 @@ export class DevicesController {
       'Menguji apakah mesin yang sudah terdaftar masih dapat dijangkau di jaringan.',
   })
   @ApiParam({ name: 'id', description: 'ID Perangkat (UUID)' })
-  @ApiResponse({ status: 200, description: 'Hasil tes koneksi' })
+  @ApiResponse({
+    status: 200,
+    description: 'Hasil tes koneksi',
+    content: {
+      'application/json': {
+        example: { success: true, message: 'Device is reachable' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   testConnection(@Param('id') id: string) {
     return this.devicesService.testConnection(id);
@@ -160,7 +258,15 @@ export class DevicesController {
       'Mengirimkan perintah reboot/restart ke mesin fingerprint secara remote.',
   })
   @ApiParam({ name: 'id', description: 'ID Perangkat (UUID)' })
-  @ApiResponse({ status: 200, description: 'Perintah restart terkirim' })
+  @ApiResponse({
+    status: 200,
+    description: 'Perintah restart terkirim',
+    content: {
+      'application/json': {
+        example: { success: true, message: 'Restart command sent' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   restartDevice(@Param('id') id: string) {
     return this.devicesService.restartDevice(id);
@@ -173,7 +279,16 @@ export class DevicesController {
       'Memicu proses sinkronisasi data (log/karyawan) secara paksa ke mesin tertentu.',
   })
   @ApiParam({ name: 'id', description: 'ID Perangkat (UUID)' })
-  @ApiResponse({ status: 200, description: 'Proses sinkronisasi dimulai' })
+  @ApiBody({ type: SyncDeviceDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Proses sinkronisasi dimulai',
+    content: {
+      'application/json': {
+        example: { jobId: 'job_uuid', status: 'queued' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   syncDevice(@Param('id') id: string, @Body() syncDto: SyncDeviceDto) {
     return this.devicesService.syncDevice(id, syncDto);
@@ -189,6 +304,16 @@ export class DevicesController {
   @ApiResponse({
     status: 200,
     description: 'Informasi device berhasil diambil',
+    content: {
+      'application/json': {
+        example: {
+          userCount: 150,
+          fingerCount: 300,
+          logCount: 1050,
+          deviceName: 'X105-D',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getDeviceInfo(@Param('id') id: string) {

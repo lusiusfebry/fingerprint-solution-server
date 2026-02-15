@@ -35,7 +35,22 @@ export class RolesController {
     description:
       'Mendapatkan daftar seluruh role beserta permission yang terkait.',
   })
-  @ApiResponse({ status: 200, description: 'Daftar role berhasil diambil' })
+  @ApiResponse({
+    status: 200,
+    description: 'Daftar role berhasil diambil',
+    content: {
+      'application/json': {
+        example: [
+          {
+            id: 'uuid',
+            name: 'Super Admin',
+            description: 'Akses penuh ke sistem',
+            permissions: [{ module: 'Devices', actions: ['create', 'read'] }],
+          },
+        ],
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   async getRoles() {
@@ -58,8 +73,24 @@ export class RolesController {
       required: ['name'],
     },
   })
-  @ApiResponse({ status: 201, description: 'Role berhasil dibuat' })
-  @ApiResponse({ status: 400, description: 'Nama role sudah ada' })
+  @ApiResponse({
+    status: 201,
+    description: 'Role berhasil dibuat',
+    content: {
+      'application/json': {
+        example: { id: 'uuid', name: 'Manager HR', description: '...' },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Nama role sudah ada',
+    content: {
+      'application/json': {
+        example: { message: 'Role with name Manager HR already exists' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   async createRole(@Body() body: { name: string; description: string }) {
@@ -89,7 +120,15 @@ export class RolesController {
       },
     },
   })
-  @ApiResponse({ status: 200, description: 'Role berhasil diperbarui' })
+  @ApiResponse({
+    status: 200,
+    description: 'Role berhasil diperbarui',
+    content: {
+      'application/json': {
+        example: { id: 'uuid', name: 'Manager HR Senior' },
+      },
+    },
+  })
   @ApiResponse({ status: 404, description: 'Role tidak ditemukan' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async updateRole(
@@ -128,7 +167,15 @@ export class RolesController {
       },
     },
   })
-  @ApiResponse({ status: 200, description: 'Permissions berhasil diperbarui' })
+  @ApiResponse({
+    status: 200,
+    description: 'Permissions berhasil diperbarui',
+    content: {
+      'application/json': {
+        example: { success: true, message: 'Permissions updated' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async updatePermissions(
     @Param('id') id: string,
@@ -145,7 +192,15 @@ export class RolesController {
       'Menghapus role dari sistem (pastikan tidak ada user yang menggunakan role ini).',
   })
   @ApiParam({ name: 'id', description: 'ID Role (UUID)' })
-  @ApiResponse({ status: 200, description: 'Role berhasil dihapus' })
+  @ApiResponse({
+    status: 200,
+    description: 'Role berhasil dihapus',
+    content: {
+      'application/json': {
+        example: { message: 'Role deleted successfully' },
+      },
+    },
+  })
   @ApiResponse({ status: 404, description: 'Role tidak ditemukan' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async deleteRole(@Param('id') id: string) {

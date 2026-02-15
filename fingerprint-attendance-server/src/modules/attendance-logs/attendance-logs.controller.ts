@@ -18,8 +18,6 @@ import {
 import type { Response } from 'express';
 import { AttendanceLogsService } from './attendance-logs.service';
 import { AttendanceLogFilterDto } from './dto/attendance-log-filter.dto';
-import { AttendanceLogResponseDto } from './dto/attendance-log-response.dto';
-import { AttendanceSummaryDto } from './dto/attendance-summary.dto';
 import { ExportFilterDto } from './dto/export-filter.dto';
 import { AttendanceCalculationFilterDto } from './dto/attendance-calculation-filter.dto';
 
@@ -38,6 +36,25 @@ export class AttendanceLogsController {
   @ApiResponse({
     status: 200,
     description: 'Daftar log absensi berhasil diambil',
+    content: {
+      'application/json': {
+        example: {
+          data: [
+            {
+              id: '550e8400-e29b-41d4-a716-446655440000',
+              timestamp: '2024-01-27T08:00:00Z',
+              employee: { nik: '123456', name: 'Budi' },
+              device: { name: 'Pintu Utama' },
+              verifyType: 1,
+              inOutMode: 0,
+            },
+          ],
+          total: 100,
+          page: 1,
+          limit: 50,
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -54,7 +71,17 @@ export class AttendanceLogsController {
   @ApiResponse({
     status: 200,
     description: 'Ringkasan statistik berhasil diambil',
-    type: AttendanceSummaryDto,
+    content: {
+      'application/json': {
+        example: {
+          totalLogs: 1250,
+          uniqueEmployees: 45,
+          lateCount: 12,
+          earlyLeave: 5,
+          onTime: 1233,
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getSummary(
@@ -102,7 +129,18 @@ export class AttendanceLogsController {
   @ApiResponse({
     status: 200,
     description: 'Detail log absensi ditemukan',
-    type: AttendanceLogResponseDto,
+    content: {
+      'application/json': {
+        example: {
+          id: '550e8400-e29b-41d4-a716-446655440000',
+          timestamp: '2024-01-27T08:00:00Z',
+          employeeId: '550e8400-e29b-41d4-a716-446655440001',
+          deviceId: '550e8400-e29b-41d4-a716-446655440002',
+          verifyType: 1,
+          inOutMode: 0,
+        },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Log tidak ditemukan' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -119,6 +157,22 @@ export class AttendanceLogsController {
   @ApiResponse({
     status: 200,
     description: 'Hasil kalkulasi berhasil diperoleh',
+    content: {
+      'application/json': {
+        example: [
+          {
+            employee_id: '...',
+            date: '2024-01-27',
+            shift_name: 'Pagi',
+            clock_in: '07:55:00',
+            clock_out: '16:05:00',
+            terlambat_menit: 0,
+            pulang_cepat_menit: 0,
+            status: 'hadir',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -135,6 +189,20 @@ export class AttendanceLogsController {
   @ApiResponse({
     status: 200,
     description: 'Laporan ringkasan berhasil diambil',
+    content: {
+      'application/json': {
+        example: [
+          {
+            nik: '123456',
+            nama: 'Budi',
+            hadir: 20,
+            terlambat: 2,
+            alpha: 1,
+            total_menit_kerja: 9600,
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @UsePipes(new ValidationPipe({ transform: true }))

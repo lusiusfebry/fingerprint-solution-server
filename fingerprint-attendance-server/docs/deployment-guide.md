@@ -1,75 +1,84 @@
 # Panduan Deployment
 
-Dokumen ini menjelaskan langkah-langkah untuk memasang dan menjalankan sistem Fingerprint Attendance di lingkungan produksi.
+Dokumen ini menjelaskan langkah-langkah untuk memasang dan menjalankan sistem Fingerprint Attendance di lingkungan produksi, dengan fokus khusus pada lingkungan Windows Server.
 
 ## Persyaratan Sistem
-- **Node.js**: Versi 18 atau lebih baru.
+- **Node.js**: Versi 18 atau lebih baru (LTS direkomendasikan).
 - **Basis Data**: PostgreSQL 14 atau lebih baru.
-- **RAM**: Minimal 2GB (direkomendasikan 4GB untuk sistem dengan banyak mesin).
+- **RAM**: Minimal 2GB (direkomendasikan 4GB).
+- **OS**: Windows Server 2016+ atau Linux (Ubuntu 20.04+).
 
-## Langkah Instalasi
+## Instalasi di Windows Server
+
+### 1. Persiapan Lingkungan
+1.  **Node.js**: Unduh dan instal installer `.msi` dari [nodejs.org](https://nodejs.org).
+2.  **PostgreSQL**: Instal PostgreSQL dan buat basis data `fingerprint_attendance`.
+3.  **Git**: Instal Git for Windows jika ingin melakukan penarikan kode langsung dari repository.
+
+### 2. Konfigurasi Backend & Dashboard
+Ikuti langkah persiapan pada bagian umum di bawah (Variabel Lingkungan & Build).
+
+### 3. Manajemen Proses (PM2 di Windows)
+Agar aplikasi berjalan sebagai Windows Service dan otomatis aktif saat reboot:
+```powershell
+# Install PM2 secara global
+npm install pm2 -g
+
+# Install PM2 Windows Service
+npm install pm2-windows-service -g
+
+# Daftarkan aplikasi
+pm2 start dist/main.js --name "fg-server"
+pm2 save
+```
+
+### 4. IIS sebagai Reverse Proxy (Opsional)
+Jika ingin menggunakan port 80/443 dengan domain:
+1.  Instal **Application Request Routing (ARR)** dan **URL Rewrite** di IIS.
+2.  Buat Website baru atau gunakan Default Web Site.
+3.  Tambahkan aturan URL Rewrite untuk meneruskan trafik ke `http://localhost:3001`.
+
+### 5. Aturan Firewall
+Buka port berikut pada Windows Firewall:
+- `3001`: Backend API.
+- `5432`: PostgreSQL (jika diakses dari luar).
+- `4370`: Protokol ZK (UDP/TCP) untuk komunikasi mesin.
+
+## Langkah Instalasi Umum
 
 ### 1. Persiapan Basis Data
-Buat basis data kosong di PostgreSQL:
 ```sql
 CREATE DATABASE fingerprint_attendance;
 ```
 
-### 2. Konfigurasi Variabel Lingkungan
-Salin file `.env.example` menjadi `.env` di folder server dan sesuaikan nilainya:
-```env
-# Database
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASS=yourpassword
-DB_NAME=fingerprint_attendance
+### 2. Konfigurasi Variabel Lingkungan (.env)
+Sesuaikan `DB_HOST`, `DB_USER`, `DB_PASS`, dan `JWT_SECRET`.
 
-# JWT
-JWT_SECRET=pilih_string_yang_sangat_kuat
-JWT_EXPIRATION=1h
-JWT_REFRESH_SECRET=pilih_string_refresh_kuat
-JWT_REFRESH_EXPIRATION=7d
-
-# App
-PORT=3001
-NODE_ENV=production
-```
-
-### 3. Build & Jalankan Server
+### 3. Build & Run
 ```bash
+# Server
 cd fingerprint-attendance-server
 npm install
 npm run build
 npm run start:prod
-```
 
-### 4. Build & Jalankan Dashboard
-Pastikan `VITE_API_URL` pada `.env` dashboard mengarah ke IP/Domain server.
-```bash
+# Dashboard
 cd fingerprint-attendance-dashboard
 npm install
 npm run build
 ```
-Hasil build di folder `dist` dapat dideploy menggunakan Nginx atau web server statis lainnya.
 
-## Rekomendasi Produksi (PM2)
-Gunakan PM2 untuk menjaga aplikasi tetap berjalan di background dan otomatis restart jika terjadi error.
+## Maintenance & Backup di Windows
 
-```bash
-# Install PM2 secara global
-npm install pm2 -g
-
-# Jalankan server
-pm2 start dist/main.js --name "fg-server"
-
-# Pantau log
-pm2 logs fg-server
+### Otomatisasi Backup (PowerShell)
+Simpan script berikut sebagai `backup.ps1` dan jalankan via Task Scheduler:
+```powershell
+$env:PGPASSWORD = "password_anda"
+pg_dump -h localhost -U postgres -d fingerprint_attendance > "C:\Backup\db_$(get-date -f yyyyMMdd).sql"
 ```
 
-## Update Aplikasi
-Untuk memperbarui aplikasi ke versi terbaru:
+### Update Aplikasi
 1. `git pull`
 2. `npm install`
 3. `npm run build`
-4. `pm2 restart fg-server` (atau restart service Anda)
+4. `pm2 restart fg-server`

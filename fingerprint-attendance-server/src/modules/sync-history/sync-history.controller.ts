@@ -18,6 +18,7 @@ import {
   ApiBearerAuth,
   ApiResponse,
   ApiParam,
+  ApiBody,
 } from '@nestjs/swagger';
 
 import { ManualSyncDto } from './dto/manual-sync.dto';
@@ -44,23 +45,45 @@ export class SyncHistoryController {
     name: 'deviceId',
     required: false,
     description: 'ID Perangkat (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
   })
   @ApiQuery({
     name: 'syncType',
     required: false,
     description: 'Tipe: pull_logs, push_employees, dll',
+    example: 'pull_logs',
   })
   @ApiQuery({
     name: 'status',
     required: false,
     description: 'Status: success, failed, in_progress',
+    example: 'success',
   })
   @ApiQuery({
     name: 'limit',
     required: false,
     description: 'Maksimal data yang diambil',
+    example: 20,
   })
-  @ApiResponse({ status: 200, description: 'Daftar riwayat berhasil diambil' })
+  @ApiResponse({
+    status: 200,
+    description: 'Daftar riwayat berhasil diambil',
+    content: {
+      'application/json': {
+        example: [
+          {
+            id: 'uuid',
+            deviceId: 'uuid',
+            syncType: 'pull_logs',
+            status: 'success',
+            startTime: '2024-01-27T10:00:00Z',
+            endTime: '2024-01-27T10:01:00Z',
+            recordsProcessed: 150,
+          },
+        ],
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async findAll(
     @Query('deviceId') deviceId?: string,
@@ -82,8 +105,25 @@ export class SyncHistoryController {
     description:
       'Mendapatkan detail proses dan error (jika ada) dari satu entri riwayat sinkronisasi.',
   })
-  @ApiParam({ name: 'id', description: 'ID Riwayat (UUID)' })
-  @ApiResponse({ status: 200, description: 'Detail riwayat ditemukan' })
+  @ApiParam({
+    name: 'id',
+    description: 'ID Riwayat (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Detail riwayat ditemukan',
+    content: {
+      'application/json': {
+        example: {
+          id: 'uuid',
+          details: 'Pulled 150 records from device',
+          errorMessage: null,
+          status: 'success',
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 404, description: 'Riwayat tidak ditemukan' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async findOne(@Param('id') id: string) {
@@ -96,10 +136,25 @@ export class SyncHistoryController {
     description:
       'Mendapatkan log sinkronisasi terbaru untuk satu perangkat spesifik.',
   })
-  @ApiParam({ name: 'deviceId', description: 'ID Perangkat (UUID)' })
+  @ApiParam({
+    name: 'deviceId',
+    description: 'ID Perangkat (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
   @ApiResponse({
     status: 200,
     description: 'Riwayat perangkat berhasil diambil',
+    content: {
+      'application/json': {
+        example: [
+          {
+            syncType: 'pull_logs',
+            status: 'success',
+            timestamp: '2024-01-27T10:00:00Z',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async findByDevice(
@@ -115,7 +170,25 @@ export class SyncHistoryController {
     description:
       'Mendapatkan ringkasan statistik (jumlah sukses/gagal) sinkronisasi.',
   })
-  @ApiResponse({ status: 200, description: 'Statistik berhasil diambil' })
+  @ApiQuery({
+    name: 'deviceId',
+    required: false,
+    description: 'ID Perangkat (UUID)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Statistik berhasil diambil',
+    content: {
+      'application/json': {
+        example: {
+          total: 100,
+          success: 95,
+          failed: 5,
+          lastSync: '2024-01-27T10:00:00Z',
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getStatistics(@Query('deviceId') deviceId?: string) {
     return this.syncHistoryService.getStatistics(deviceId);
@@ -127,7 +200,32 @@ export class SyncHistoryController {
     description:
       'Menjalankan proses sinkronisasi secara manual baik untuk satu mesin maupun seluruh mesin.',
   })
-  @ApiResponse({ status: 201, description: 'Proses sinkronisasi dimulai' })
+  @ApiBody({
+    type: ManualSyncDto,
+    examples: {
+      singleDevice: {
+        value: {
+          deviceId: '550e8400-e29b-41d4-a716-446655440000',
+          syncType: 'pull_logs',
+          conflictMode: 'server_override',
+        },
+      },
+      allDevices: {
+        value: {
+          syncType: 'full',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Proses sinkronisasi dimulai',
+    content: {
+      'application/json': {
+        example: { message: 'Sync started', jobId: 'job_uuid' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async triggerManualSync(@Body() dto: ManualSyncDto) {
     const syncType = dto.syncType as
@@ -154,7 +252,26 @@ export class SyncHistoryController {
     description:
       'Menjalankan sinkronisasi secara bersamaan untuk beberapa ID perangkat yang dipilih.',
   })
-  @ApiResponse({ status: 201, description: 'Proses batch dimulai' })
+  @ApiBody({
+    type: BatchSyncDto,
+    examples: {
+      default: {
+        value: {
+          deviceIds: ['uuid-1', 'uuid-2'],
+          syncType: 'push_employees',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Proses batch dimulai',
+    content: {
+      'application/json': {
+        example: { message: 'Batch sync started', jobsCount: 2 },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async triggerBatchSync(@Body() dto: BatchSyncDto) {
     const syncType = dto.syncType as
@@ -172,7 +289,11 @@ export class SyncHistoryController {
     summary: 'Coba ulang sinkronisasi',
     description: 'Mengulangi proses sinkronisasi yang sebelumnya gagal.',
   })
-  @ApiParam({ name: 'id', description: 'ID Riwayat yang gagal (UUID)' })
+  @ApiParam({
+    name: 'id',
+    description: 'ID Riwayat yang gagal (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
   @ApiResponse({ status: 201, description: 'Percobaan ulang dimulai' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async retrySync(@Param('id') id: string) {
@@ -185,7 +306,20 @@ export class SyncHistoryController {
     description:
       'Mendapatkan informasi jumlah antrian sinkronisasi yang sedang berjalan.',
   })
-  @ApiResponse({ status: 200, description: 'Status antrian berhasil diambil' })
+  @ApiResponse({
+    status: 200,
+    description: 'Status antrian berhasil diambil',
+    content: {
+      'application/json': {
+        example: {
+          pending: 5,
+          processing: 1,
+          completedToday: 50,
+          failedToday: 2,
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getQueueStatus() {
     return Promise.resolve(this.syncQueueService.getQueueStatus());
@@ -197,7 +331,15 @@ export class SyncHistoryController {
     description:
       'Menghapus seluruh antrian proses sinkronisasi yang belum berjalan.',
   })
-  @ApiResponse({ status: 201, description: 'Antrian berhasil dibersihkan' })
+  @ApiResponse({
+    status: 201,
+    description: 'Antrian berhasil dibersihkan',
+    content: {
+      'application/json': {
+        example: { message: 'Queue cleared' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async clearQueue() {
     this.syncQueueService.clearQueue();
@@ -213,6 +355,14 @@ export class SyncHistoryController {
   @ApiResponse({
     status: 200,
     description: 'Status scheduler berhasil diambil',
+    content: {
+      'application/json': {
+        example: {
+          isActive: true,
+          nextRun: '2024-01-27T11:00:00Z',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getSchedulerStatus() {
@@ -225,7 +375,15 @@ export class SyncHistoryController {
     description:
       'Mengaktifkan kembali sistem penjadwalan sinkronisasi otomatis.',
   })
-  @ApiResponse({ status: 201, description: 'Scheduler diaktifkan' })
+  @ApiResponse({
+    status: 201,
+    description: 'Scheduler diaktifkan',
+    content: {
+      'application/json': {
+        example: { message: 'Scheduler started' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async startScheduler() {
     this.syncSchedulerService.startScheduler();
@@ -238,7 +396,15 @@ export class SyncHistoryController {
     description:
       'Memberhentikan sistem penjadwalan sinkronisasi otomatis sementara.',
   })
-  @ApiResponse({ status: 201, description: 'Scheduler dihentikan' })
+  @ApiResponse({
+    status: 201,
+    description: 'Scheduler dihentikan',
+    content: {
+      'application/json': {
+        example: { message: 'Scheduler stopped' },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async stopScheduler() {
     this.syncSchedulerService.stopScheduler();
