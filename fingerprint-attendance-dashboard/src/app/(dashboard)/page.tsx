@@ -37,8 +37,8 @@ export default function DashboardPage() {
     const timelineItems = history.slice(0, 5).map(h => ({
         id: h.id,
         title: `Device Sync: ${h.device_id}`, // Ideally resolve device name
-        description: h.details || h.status,
-        timestamp: new Date(h.created_at).toLocaleTimeString(),
+        description: h.error_message || h.status,
+        timestamp: new Date(h.timestamp).toLocaleTimeString(),
         type: h.status === 'success' ? 'success' as const : 'error' as const
     }));
 

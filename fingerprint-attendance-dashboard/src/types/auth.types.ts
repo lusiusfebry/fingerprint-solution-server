@@ -1,7 +1,7 @@
 export interface User {
     id: string;
     username: string;
-    role: string;
+    role: string | { name: string };
     // Add other user properties as needed
 }
 
