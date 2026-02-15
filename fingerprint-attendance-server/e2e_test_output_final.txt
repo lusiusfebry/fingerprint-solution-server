@@ -433,3 +433,19 @@ relation "system_settings" does not exist
 relation "system_settings" does not exist
 [Nest] 14684  - 02/15/2026, 10:03:00 PM   ERROR [BackupService] Error in auto-backup cron:
 relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:04:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:04:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:05:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:05:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:06:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:06:01 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:07:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
+[Nest] 14684  - 02/15/2026, 10:07:00 PM   ERROR [BackupService] Error in auto-backup cron:
+relation "system_settings" does not exist
