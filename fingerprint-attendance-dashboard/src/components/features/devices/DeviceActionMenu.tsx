@@ -49,52 +49,48 @@ export const DeviceActionMenu: React.FC<DeviceActionMenuProps> = ({
                 size="sm"
                 onClick={(e) => { e.stopPropagation(); setIsOpen(!isOpen); }}
                 disabled={loading}
-                className="h-8 w-8 p-0"
+                className="h-9 w-9 p-0 text-slate-400 hover:text-primary hover:bg-slate-100 dark:hover:bg-industrial-surface rounded-full transition-all"
             >
-                <span className="material-icons-outlined">more_vert</span>
+                <span className="material-icons-outlined text-xl">more_vert</span>
             </Button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-surface-dark ring-1 ring-black ring-opacity-5 z-50">
-                    <div className="py-1" role="menu" aria-orientation="vertical">
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-industrial-surface border border-slate-200 dark:border-industrial-border shadow-xl rounded-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="py-1" role="menu">
                         <button
                             onClick={(e) => { e.stopPropagation(); handleAction(onTestConnection); }}
-                            className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                            role="menuitem"
+                            className="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-industrial-black flex items-center transition-colors"
                         >
-                            <span className="material-icons-outlined text-sm mr-2">network_check</span>
+                            <span className="material-icons-outlined text-sm mr-3 text-slate-400">network_check</span>
                             Test Connection
                         </button>
                         <button
                             onClick={(e) => { e.stopPropagation(); handleAction(onSync); }}
-                            className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                            role="menuitem"
+                            className="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-industrial-black flex items-center transition-colors"
                         >
-                            <span className="material-icons-outlined text-sm mr-2">sync</span>
-                            Sync Data
+                            <span className="material-icons-outlined text-sm mr-3 text-slate-400">sync</span>
+                            Synchronize
                         </button>
                         <button
                             onClick={(e) => { e.stopPropagation(); handleAction(onRestart); }}
-                            className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                            role="menuitem"
+                            className="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-industrial-black flex items-center transition-colors"
                         >
-                            <span className="material-icons-outlined text-sm mr-2">restart_alt</span>
+                            <span className="material-icons-outlined text-sm mr-3 text-slate-400">restart_alt</span>
                             Restart Device
                         </button>
+                        <div className="h-px bg-slate-100 dark:bg-industrial-border/30 my-1" />
                         <button
                             onClick={(e) => { e.stopPropagation(); handleAction(onEdit); }}
-                            className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                            role="menuitem"
+                            className="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-industrial-black flex items-center transition-colors"
                         >
-                            <span className="material-icons-outlined text-sm mr-2">edit</span>
-                            Edit Configuration
+                            <span className="material-icons-outlined text-sm mr-3 text-slate-400">edit</span>
+                            Edit Config
                         </button>
                         <button
                             onClick={(e) => { e.stopPropagation(); handleAction(onDelete); }}
-                            className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-                            role="menuitem"
+                            className="w-full text-left px-4 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 flex items-center transition-colors"
                         >
-                            <span className="material-icons-outlined text-sm mr-2">delete</span>
+                            <span className="material-icons-outlined text-sm mr-3">delete_outline</span>
                             Delete Device
                         </button>
                     </div>

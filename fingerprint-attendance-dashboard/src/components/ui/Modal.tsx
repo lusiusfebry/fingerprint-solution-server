@@ -63,30 +63,37 @@ export const Modal: React.FC<ModalProps> = ({
 
             {/* Modal Panel */}
             <div className={cn(
-                "relative bg-white dark:bg-surface-dark rounded-xl shadow-xl w-full transform transition-all sm:my-8 flex flex-col max-h-[90vh]",
+                "relative glass-surface border border-industrial-border/50 shadow-industrial w-full transform transition-all sm:my-8 flex flex-col max-h-[90vh] overflow-hidden rounded-xl",
                 sizeClasses[size],
-                "animate-in fade-in zoom-in-95 duration-200 slide-in-from-bottom-5 sm:slide-in-from-bottom-0",
+                "animate-in fade-in zoom-in-95 duration-300 slide-in-from-bottom-5 sm:slide-in-from-bottom-0",
                 className
             )}>
                 {/* Header */}
-                <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white leading-6">{title}</h3>
+                <div className="px-8 py-5 border-b border-industrial-border/40 flex items-center justify-between bg-industrial-black/40">
+                    <div className="space-y-1">
+                        <h3 className="text-xl font-bold text-industrial-text tracking-tight font-display">{title}</h3>
+                        <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-primary rounded-full shadow-glow" />
+                            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-mono">Process.Overlay // Active</span>
+                        </div>
+                    </div>
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors focus:outline-none"
+                        className="h-10 w-10 flex items-center justify-center rounded bg-industrial-black/50 border border-industrial-border text-industrial-muted hover:text-accent-red hover:border-accent-red/40 transition-all group"
+                        title="Close Interface"
                     >
-                        <span className="material-icons-outlined">close</span>
+                        <span className="material-icons-outlined group-hover:rotate-90 transition-transform">close</span>
                     </button>
                 </div>
 
                 {/* Body */}
-                <div className="px-6 py-4 overflow-y-auto">
+                <div className="px-8 py-6 overflow-y-auto custom-scrollbar bg-industrial-surface/20">
                     {children}
                 </div>
 
                 {/* Footer */}
                 {footer && (
-                    <div className="px-6 py-4 bg-gray-50 dark:bg-surface-darker/50 border-t border-gray-100 dark:border-gray-700 rounded-b-xl flex justify-end space-x-3">
+                    <div className="px-8 py-5 bg-industrial-black/40 border-t border-industrial-border/40 flex justify-end items-center space-x-4">
                         {footer}
                     </div>
                 )}

@@ -34,15 +34,15 @@ export const EmployeeStatsCards: React.FC<EmployeeStatsCardsProps> = ({ employee
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             <KPICard
-                title="Total Staff"
+                title="Total Employees"
                 value={stats.total}
                 icon="people"
                 color="info"
                 badges={[
                     { label: `${stats.active} Active`, variant: 'success' },
-                    { label: `${stats.nonActive} Non-Active`, variant: 'neutral' }
+                    { label: `${stats.nonActive} Inactive`, variant: 'neutral' }
                 ]}
             />
             <KPICard
@@ -50,17 +50,17 @@ export const EmployeeStatsCards: React.FC<EmployeeStatsCardsProps> = ({ employee
                 value={stats.totalTemplates}
                 icon="fingerprint"
                 color="success"
-                subtitle="Total registered fingerprints"
+                subtitle="Enrolled fingerprint identifiers"
             />
             <KPICard
-                title="Connected Devices"
+                title="Node Connectivity"
                 value={`${stats.onlineDevices}/${stats.totalDevices}`}
-                icon="devices"
+                icon="router"
                 color="primary"
                 progress={{
                     value: stats.onlineDevices,
                     max: stats.totalDevices || 1,
-                    label: 'Online Status'
+                    label: 'Sync Path Efficiency'
                 }}
             />
         </div>

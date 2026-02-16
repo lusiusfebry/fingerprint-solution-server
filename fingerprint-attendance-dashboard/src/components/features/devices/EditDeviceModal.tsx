@@ -62,80 +62,85 @@ export const EditDeviceModal: React.FC<EditDeviceModalProps> = ({
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title={isEdit ? "Edit Device" : "Add New Device"}
+            title={isEdit ? "Edit Terminal Config" : "Register New Terminal"}
             size="md"
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5 p-1">
                 <Input
-                    label="Device Name"
+                    label="Display Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Main Entrance Fingerprint"
+                    placeholder="e.g. Lobby Entrance"
                     helperText={errors.name}
-                    className={errors.name ? "border-red-500" : ""}
+                    className={errors.name ? "border-red-500" : "bg-slate-50 dark:bg-industrial-black"}
                 />
+
                 <div className="grid grid-cols-2 gap-4">
                     <Input
                         label="IP Address"
                         value={formData.ip_address}
                         onChange={(e) => setFormData({ ...formData, ip_address: e.target.value })}
-                        placeholder="192.168.1.201"
+                        placeholder="192.168.1.100"
                         helperText={errors.ip_address}
-                        className={errors.ip_address ? "border-red-500" : ""}
+                        className={errors.ip_address ? "border-red-500" : "bg-slate-50 dark:bg-industrial-black"}
                     />
                     <Input
-                        label="Port"
+                        label="Network Port"
                         type="number"
                         value={formData.port}
                         onChange={(e) => setFormData({ ...formData, port: parseInt(e.target.value) || 0 })}
                         placeholder="4370"
-                        helperText={errors.port ? errors.port : ''}
-                        className={errors.port ? "border-red-500" : ""}
+                        helperText={errors.port || ''}
+                        className={errors.port ? "border-red-500" : "bg-slate-50 dark:bg-industrial-black"}
                     />
                 </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <Input
+                        label="Serial Number"
+                        value={formData.serial_number}
+                        onChange={(e) => setFormData({ ...formData, serial_number: e.target.value })}
+                        placeholder="e.g. SN123456"
+                        readOnly={isEdit && !!formData.serial_number}
+                        className="bg-slate-50 dark:bg-industrial-black opacity-80"
+                        helperText={isEdit ? "Hardware ID linked" : ""}
+                    />
+                    <Input
+                        label="Deployment Zone"
+                        value={formData.location}
+                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        placeholder="e.g. Warehouse A"
+                        helperText={errors.location}
+                        className={errors.location ? "border-red-500" : "bg-slate-50 dark:bg-industrial-black"}
+                    />
+                </div>
+
                 <Input
-                    label="Serial Number"
-                    value={formData.serial_number}
-                    onChange={(e) => setFormData({ ...formData, serial_number: e.target.value })}
-                    placeholder="Device SN"
-                    readOnly={isEdit && !!formData.serial_number}
-                    helperText={isEdit ? "Serial Number cannot be changed" : ""}
-                />
-                <Input
-                    label="Location"
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    placeholder="e.g. Building A, Lobby"
-                    helperText={errors.location}
-                    className={errors.location ? "border-red-500" : ""}
-                />
-                <Input
-                    label="Communication Key"
+                    label="Security Communication Key"
                     value={formData.comm_key}
                     onChange={(e) => setFormData({ ...formData, comm_key: e.target.value })}
-                    placeholder="0"
+                    placeholder="Default: 0"
                     type="password"
+                    className="bg-slate-50 dark:bg-industrial-black"
                 />
 
-                <div className="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <div className="flex-1 text-xs text-red-500">
-                        {Object.keys(errors).length > 0 && "Please fix errors before saving"}
-                    </div>
-                    <button
+                <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-slate-100 dark:border-industrial-border">
+                    <Button
                         type="button"
+                        variant="ghost"
                         onClick={onClose}
-                        className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                        className="text-slate-500 hover:text-slate-800"
                         disabled={isLoading}
                     >
                         Cancel
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                         type="submit"
-                        className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
-                        disabled={isLoading}
+                        className="bg-primary hover:bg-blue-600 text-white min-w-[120px]"
+                        isLoading={isLoading}
                     >
-                        {isLoading ? 'Saving...' : 'Save Device'}
-                    </button>
+                        {isEdit ? 'Update Terminal' : 'Register Terminal'}
+                    </Button>
                 </div>
             </form>
         </Modal>

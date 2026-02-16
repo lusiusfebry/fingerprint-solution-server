@@ -20,54 +20,67 @@ export const DeviceStatusTable: React.FC<DeviceStatusTableProps> = ({
 }) => {
     const columns: Column<Device>[] = [
         {
-            header: 'Device Name',
+            header: 'Device Module',
             accessorKey: 'name',
-            className: 'min-w-[150px]',
-            cell: (device) => <span className="font-medium text-gray-900 dark:text-white">{device.name}</span>
+            className: 'min-w-[200px]',
+            cell: (device) => (
+                <div className="flex flex-col">
+                    <span className="font-bold text-primary tracking-wide text-sm">{device.name}</span>
+                    <span className="text-[10px] text-industrial-muted uppercase font-mono mt-0.5">ID: {device.id.split('-')[0]}</span>
+                </div>
+            )
         },
         {
-            header: 'IP Address',
+            header: 'Network.Path',
             accessorKey: 'ip_address',
-            cell: (device) => <span className="text-gray-500 font-mono text-xs">{device.ip_address}:{device.port}</span>
+            cell: (device) => (
+                <div className="flex items-center space-x-2">
+                    <span className="material-icons-outlined text-xs text-industrial-muted">lan</span>
+                    <span className="text-industrial-text font-mono text-xs">{device.ip_address}:{device.port}</span>
+                </div>
+            )
         },
         {
-            header: 'Status',
+            header: 'Node.Status',
             accessorKey: 'status',
             cell: (device) => {
                 let variant: 'success' | 'error' | 'warning' = 'error';
                 if (device.status === 'online') variant = 'success';
                 if (device.status === 'semionline') variant = 'warning';
 
-                return <Badge label={device.status} variant={variant} showDot />;
+                return <Badge label={device.status.toUpperCase()} variant={variant} className="font-mono text-[9px] px-2 py-0" showDot />;
             }
         },
         {
-            header: 'Last Activity',
+            header: 'Last Transmission',
             accessorKey: 'last_activity',
             cell: (device) => (
-                <span className="text-gray-500 text-xs">
-                    {device.last_activity ? new Date(device.last_activity).toLocaleString() : 'Never'}
-                </span>
+                <div className="flex items-center text-industrial-muted text-[10px] font-mono">
+                    <span className="material-icons-outlined text-xs mr-1.5 opacity-50">schedule</span>
+                    {device.last_activity ? new Date(device.last_activity).toLocaleTimeString() : 'OFFLINE'}
+                </div>
             )
         },
         {
-            header: 'Actions',
+            header: 'Override',
             className: 'text-right',
             cell: (device) => (
-                <div className="flex justify-end space-x-2">
+                <div className="flex justify-end space-x-1">
                     <Button
                         size="sm"
                         variant="ghost"
+                        className="h-8 w-8 p-0 text-industrial-muted hover:text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20"
                         onClick={(e) => { e.stopPropagation(); onSync(device.id); }}
-                        title="Sync"
+                        title="Force Transmission Sync"
                     >
                         <span className="material-icons-outlined text-sm">sync</span>
                     </Button>
                     <Button
                         size="sm"
                         variant="ghost"
+                        className="h-8 w-8 p-0 text-industrial-muted hover:text-accent-amber hover:bg-accent-amber/10 border border-transparent hover:border-accent-amber/20"
                         onClick={(e) => { e.stopPropagation(); onRestart(device.id); }}
-                        title="Restart"
+                        title="Reboot Module"
                     >
                         <span className="material-icons-outlined text-sm">restart_alt</span>
                     </Button>
@@ -78,17 +91,22 @@ export const DeviceStatusTable: React.FC<DeviceStatusTableProps> = ({
 
     return (
         <div className="flex flex-col space-y-4">
-            <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Device Status</h3>
-                <Link href="/devices" className="text-sm text-primary hover:text-primary/80 font-medium">
-                    View All
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div className="w-1 h-6 bg-primary rounded-full" />
+                    <h3 className="text-lg font-bold text-slate-800 dark:text-white tracking-tight">Active Terminal Nodes</h3>
+                </div>
+                <Link href="/devices" className="text-xs font-bold text-primary hover:text-blue-600 transition-colors uppercase tracking-wider flex items-center">
+                    Manage All Devices
+                    <span className="material-icons-outlined text-sm ml-1">arrow_forward</span>
                 </Link>
             </div>
+
             <DataTable
                 columns={columns}
-                data={devices.slice(0, 5)} // Show only top 5
+                data={devices.slice(0, 5)}
                 isLoading={isLoading}
-                emptyMessage="No devices found."
+                emptyMessage="No active terminal nodes found."
             />
         </div>
     );

@@ -15,33 +15,33 @@ export const Badge: React.FC<BadgeProps> = ({
     className
 }) => {
     const variants = {
-        default: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
-        neutral: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
-        primary: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-        success: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-        warning: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
-        error: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-        info: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+        default: 'bg-industrial-black border border-industrial-border text-industrial-muted uppercase tracking-[0.15em] font-mono shadow-sm',
+        neutral: 'bg-industrial-black border border-industrial-border text-industrial-muted uppercase tracking-[0.15em] font-mono shadow-sm',
+        primary: 'bg-primary/10 border border-primary/30 text-primary uppercase tracking-[0.15em] font-mono shadow-glow-sm',
+        success: 'bg-primary/10 border border-primary/40 text-primary uppercase tracking-[0.15em] font-mono shadow-glow-sm',
+        warning: 'bg-accent-amber/10 border border-accent-amber/30 text-accent-amber uppercase tracking-[0.15em] font-mono shadow-amber-sm',
+        error: 'bg-accent-red/10 border border-accent-red/30 text-accent-red uppercase tracking-[0.15em] font-mono shadow-red-sm',
+        info: 'bg-primary/5 border border-primary/20 text-primary/80 uppercase tracking-[0.15em] font-mono shadow-sm',
     };
 
     const dotColors = {
-        default: 'bg-gray-400',
-        neutral: 'bg-gray-400',
-        primary: 'bg-blue-400',
-        success: 'bg-green-400',
-        warning: 'bg-yellow-400',
-        error: 'bg-red-400',
-        info: 'bg-indigo-400',
+        default: 'bg-industrial-muted',
+        neutral: 'bg-industrial-muted',
+        primary: 'bg-primary shadow-glow',
+        success: 'bg-primary shadow-glow animate-pulse',
+        warning: 'bg-accent-amber shadow-amber animate-pulse',
+        error: 'bg-accent-red shadow-red animate-pulse',
+        info: 'bg-primary/60',
     };
 
     return (
         <span className={cn(
-            "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
+            "inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold leading-none select-none",
             variants[variant],
             className
         )}>
             {showDot && (
-                <span className={cn("w-1.5 h-1.5 mr-1.5 rounded-full", dotColors[variant])} />
+                <span className={cn("w-1.5 h-1.5 mr-2 rounded-full", dotColors[variant])} />
             )}
             {label}
         </span>

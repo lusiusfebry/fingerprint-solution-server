@@ -36,27 +36,27 @@ export const DeviceStatsCards: React.FC<DeviceStatsCardsProps> = ({ devices, loa
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             <KPICard
-                title="Online Devices"
+                title="Online"
                 value={stats.online}
-                icon="check_circle"
+                icon="cloud_done"
                 color="success"
             />
             <KPICard
-                title="Offline Devices"
+                title="Offline"
                 value={stats.offline}
-                icon="error_outline"
+                icon="cloud_off"
                 color="danger"
             />
             <KPICard
-                title="Pending Syncs"
+                title="Synchronizing"
                 value={stats.syncing}
-                icon="cloud_sync"
+                icon="sync"
                 color="info"
             />
             <KPICard
-                title="Total Devices"
+                title="Network Total"
                 value={stats.total}
-                icon="dns"
+                icon="hub"
                 color="primary"
             />
         </div>

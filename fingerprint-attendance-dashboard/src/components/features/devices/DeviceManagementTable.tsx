@@ -3,6 +3,7 @@ import { DataTable, Column } from '@/components/ui/DataTable';
 import { Device } from '@/types/device.types';
 import { Badge } from '@/components/ui/Badge';
 import { DeviceActionMenu } from './DeviceActionMenu';
+import { format } from 'date-fns';
 
 interface DeviceManagementTableProps {
     devices: Device[];
@@ -25,16 +26,16 @@ export const DeviceManagementTable: React.FC<DeviceManagementTableProps> = ({
 }) => {
     const columns: Column<Device>[] = [
         {
-            header: 'Device Info',
+            header: 'Device Name',
             accessorKey: 'name',
             cell: (device) => (
-                <div className="flex items-center">
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
-                        <span className="material-icons-outlined text-primary">fingerprint</span>
+                <div className="flex items-center space-x-3">
+                    <div className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-industrial-black border border-slate-200 dark:border-industrial-border flex items-center justify-center">
+                        <span className="material-icons-outlined text-primary text-xl">router</span>
                     </div>
-                    <div>
-                        <div className="font-medium text-gray-900 dark:text-white">{device.name}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">SN: {device.serial_number || '-'}</div>
+                    <div className="flex flex-col">
+                        <span className="font-bold text-slate-900 dark:text-white text-sm tracking-tight">{device.name}</span>
+                        <span className="text-[10px] font-bold text-slate-400 dark:text-industrial-muted uppercase tracking-wider">SN: {device.serial_number || '-'}</span>
                     </div>
                 </div>
             )
@@ -43,21 +44,19 @@ export const DeviceManagementTable: React.FC<DeviceManagementTableProps> = ({
             header: 'Location',
             accessorKey: 'location',
             cell: (device) => (
-                <div className="text-sm text-gray-700 dark:text-gray-300">
-                    <div className="flex items-center">
-                        <span className="material-icons-outlined text-xs mr-1 text-gray-400">place</span>
-                        {device.location || 'Unassigned'}
-                    </div>
+                <div className="flex items-center text-slate-600 dark:text-industrial-muted">
+                    <span className="material-icons-outlined text-sm mr-2 text-primary">place</span>
+                    <span className="text-[10px] uppercase font-bold tracking-wider">{device.location || 'Unassigned'}</span>
                 </div>
             )
         },
         {
-            header: 'IP / Port',
+            header: 'IP Address',
             accessorKey: 'ip_address',
             cell: (device) => (
-                <div className="font-mono text-xs text-gray-600 dark:text-gray-400">
-                    <div>{device.ip_address}</div>
-                    <div className="text-gray-400 dark:text-gray-600">Port: {device.port}</div>
+                <div className="flex flex-col">
+                    <span className="text-slate-800 dark:text-white font-bold text-xs">{device.ip_address}</span>
+                    <span className="text-slate-400 dark:text-industrial-muted text-[10px] font-bold">Port {device.port}</span>
                 </div>
             )
         },
@@ -66,21 +65,20 @@ export const DeviceManagementTable: React.FC<DeviceManagementTableProps> = ({
             accessorKey: 'status',
             cell: (device) => {
                 let variant: 'success' | 'error' | 'warning' | 'info' | 'neutral' = 'error';
-                let label: string = device.status;
+                let label: string = device.status.toUpperCase();
 
                 if (device.status === 'online') variant = 'success';
                 if (device.status === 'semionline') {
-                    variant = 'info';
-                    label = 'Syncing';
+                    variant = 'warning';
+                    label = 'SYNCING';
                 }
 
                 return (
-                    <div className="flex items-center">
-                        <Badge label={label} variant={variant} showDot />
-                        {device.status === 'semionline' && (
-                            <span className="ml-2 h-2 w-2 bg-blue-400 rounded-full animate-ping opacity-75"></span>
-                        )}
-                    </div>
+                    <Badge
+                        label={label}
+                        variant={variant}
+                        className="text-[9px] font-black tracking-tighter px-2 py-0.5"
+                    />
                 );
             }
         },
@@ -88,11 +86,14 @@ export const DeviceManagementTable: React.FC<DeviceManagementTableProps> = ({
             header: 'Last Sync',
             accessorKey: 'last_sync_time',
             cell: (device) => (
-                <div className="text-xs text-gray-500">
+                <div className="flex flex-col">
                     {device.last_sync_time ? (
-                        <span>{new Date(device.last_sync_time).toLocaleString()}</span>
+                        <>
+                            <span className="text-slate-800 dark:text-white font-bold text-xs">{format(new Date(device.last_sync_time).toLocaleDateString())}</span>
+                            <span className="text-slate-400 dark:text-industrial-muted text-[10px] font-bold uppercase">{format(new Date(device.last_sync_time), 'HH:mm:ss')}</span>
+                        </>
                     ) : (
-                        <span className="text-gray-400 italic">Never</span>
+                        <span className="text-slate-400 dark:text-industrial-muted italic text-[10px]">Never Synchronized</span>
                     )}
                 </div>
             )

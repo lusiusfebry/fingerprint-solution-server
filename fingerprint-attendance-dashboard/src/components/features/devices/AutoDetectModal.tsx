@@ -80,37 +80,47 @@ export const AutoDetectModal: React.FC<AutoDetectModalProps> = ({
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title="Auto-Detect Devices"
+            title="Auto-Detect System Terminals"
             size="lg"
         >
-            <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-700 dark:text-blue-300">
-                    <p>Make sure the server is on the same local network as the fingerprint devices.</p>
+            <div className="space-y-6">
+                <div className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-xl flex items-start gap-4 border border-blue-100 dark:border-blue-900/20">
+                    <span className="material-icons-outlined text-blue-500">info</span>
+                    <p className="text-sm text-blue-700 dark:text-blue-300 font-medium">
+                        Ensure the server and biometric devices share the same local area network subnet for discovery.
+                    </p>
                 </div>
 
                 {foundDevices.length === 0 && !scanning && (
-                    <div className="text-center py-8">
-                        <span className="material-icons-outlined text-4xl text-gray-300 mb-2">radar</span>
-                        <p className="text-gray-500">Click &quot;Start Scan&quot; to search for devices.</p>
+                    <div className="text-center py-16 bg-slate-50 dark:bg-industrial-black/40 rounded-2xl border border-dashed border-slate-200 dark:border-industrial-border">
+                        <div className="w-16 h-16 bg-white dark:bg-industrial-surface rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                            <span className="material-icons-outlined text-3xl text-slate-300">radar</span>
+                        </div>
+                        <h4 className="text-slate-900 dark:text-white font-bold mb-1">No Devices Discovered</h4>
+                        <p className="text-slate-500 dark:text-industrial-muted text-sm">Initiate a network scan to search for hardware terminals.</p>
                     </div>
                 )}
 
                 {scanning && (
-                    <div className="text-center py-8">
-                        <LoadingSpinner size="lg" className="mb-2" />
-                        <p className="text-gray-500">Scanning local network (192.168.1.0/24) on port 4370...</p>
+                    <div className="text-center py-16 bg-slate-50 dark:bg-industrial-black/40 rounded-2xl border border-dashed border-slate-200 dark:border-industrial-border">
+                        <div className="relative w-16 h-16 mx-auto mb-4">
+                            <LoadingSpinner size="lg" className="text-primary" />
+                            <div className="absolute inset-0 bg-primary/20 blur-xl animate-pulse rounded-full" />
+                        </div>
+                        <h4 className="text-slate-900 dark:text-white font-bold mb-1">Scanning Network...</h4>
+                        <p className="text-slate-500 dark:text-industrial-muted text-sm">Searching subnet 192.168.1.0/24 on port 4370</p>
                     </div>
                 )}
 
                 {foundDevices.length > 0 && (
-                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead className="bg-gray-50 dark:bg-gray-800">
+                    <div className="bg-white dark:bg-industrial-surface rounded-xl border border-slate-200 dark:border-industrial-border overflow-hidden shadow-sm">
+                        <table className="min-w-full divide-y divide-slate-200 dark:divide-industrial-border">
+                            <thead className="bg-slate-50 dark:bg-industrial-black/50">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-10">
+                                    <th className="px-6 py-3 text-left w-10">
                                         <input
                                             type="checkbox"
-                                            className="rounded border-gray-300 text-primary focus:ring-primary"
+                                            className="rounded border-slate-300 text-primary focus:ring-primary w-4 h-4"
                                             onChange={(e) => {
                                                 if (e.target.checked) {
                                                     setSelectedDevices(new Set(foundDevices.map(d => d.ip_address)));
@@ -121,25 +131,25 @@ export const AutoDetectModal: React.FC<AutoDetectModalProps> = ({
                                             checked={selectedDevices.size === foundDevices.length && foundDevices.length > 0}
                                         />
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP Address</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Port</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MAC / SN</th>
+                                    <th className="px-6 py-3 text-left text-[10px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-widest">Network Address</th>
+                                    <th className="px-6 py-3 text-left text-[10px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-widest">Port</th>
+                                    <th className="px-6 py-3 text-left text-[10px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-widest">Hardware ID</th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white dark:bg-surface-dark divide-y divide-gray-200 dark:divide-gray-700">
+                            <tbody className="divide-y divide-slate-100 dark:divide-industrial-border/30">
                                 {foundDevices.map((device) => (
-                                    <tr key={device.ip_address} className="hover:bg-gray-50 dark:hover:bg-gray-800">
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                    <tr key={device.ip_address} className="hover:bg-slate-50 dark:hover:bg-industrial-black/20 transition-colors">
+                                        <td className="px-6 py-4">
                                             <input
                                                 type="checkbox"
-                                                className="rounded border-gray-300 text-primary focus:ring-primary"
+                                                className="rounded border-slate-300 text-primary focus:ring-primary w-4 h-4"
                                                 checked={selectedDevices.has(device.ip_address)}
                                                 onChange={() => toggleSelection(device.ip_address)}
                                             />
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200 font-mono">{device.ip_address}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{device.port}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{device.serial_number || '-'}</td>
+                                        <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-white">{device.ip_address}</td>
+                                        <td className="px-6 py-4 text-sm text-slate-500 dark:text-industrial-muted">{device.port}</td>
+                                        <td className="px-6 py-4 text-sm font-bold text-primary">{device.serial_number || 'N/A'}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -147,25 +157,27 @@ export const AutoDetectModal: React.FC<AutoDetectModalProps> = ({
                     </div>
                 )}
 
-                <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center mt-8 pt-6 border-t border-slate-100 dark:border-industrial-border">
                     <Button
                         variant="secondary"
                         onClick={startScan}
                         disabled={scanning || adding}
-                        leftIcon={<span className="material-icons-outlined">refresh</span>}
+                        className="bg-slate-100 dark:bg-industrial-black text-slate-700 dark:text-white"
+                        leftIcon={<span className="material-icons-outlined text-lg">refresh</span>}
                     >
-                        {scanning ? 'Scanning...' : 'Start Scan'}
+                        {scanning ? 'Detecting...' : 'Scan Subnet'}
                     </Button>
-                    <div className="flex space-x-3">
-                        <Button variant="ghost" onClick={onClose} disabled={adding}>
+                    <div className="flex gap-3">
+                        <Button variant="ghost" onClick={onClose} disabled={adding} className="text-slate-500">
                             Cancel
                         </Button>
                         <Button
                             onClick={handleAdd}
                             disabled={selectedDevices.size === 0 || adding}
                             isLoading={adding}
+                            className="bg-primary hover:bg-blue-600 text-white min-w-[140px]"
                         >
-                            Add {selectedDevices.size} Devices
+                            Connect {selectedDevices.size} Terminals
                         </Button>
                     </div>
                 </div>

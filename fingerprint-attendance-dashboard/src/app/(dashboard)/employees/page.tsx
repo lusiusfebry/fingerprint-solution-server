@@ -136,32 +136,49 @@ export default function EmployeesPage() {
 
     return (
         <DashboardLayout>
-            <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Employee Management</h2>
-                        <p className="text-gray-500 dark:text-gray-400">Manage staff, biometrics, and access rights</p>
+            <div className="space-y-10 py-4">
+                {/* Tactical Header: Human Resources Core */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-industrial-border/50 pb-8 relative group">
+                    <div className="space-y-2">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-1.5 h-6 bg-primary rounded-full shadow-glow" />
+                            <h2 className="text-[10px] font-bold text-primary uppercase tracking-[0.4em] font-mono">Biometric Ident Database // Verified</h2>
+                        </div>
+                        <h1 className="text-4xl font-bold text-industrial-text tracking-tighter font-display">
+                            Personnel Management
+                        </h1>
+                        <p className="text-sm text-industrial-muted flex items-center font-medium">
+                            Status: <span className="text-primary ml-1.5 font-mono uppercase tracking-widest">{employees.length} Ident Profiles Encrypted</span>
+                        </p>
                     </div>
-                    <div className="flex space-x-3">
+
+                    <div className="mt-6 md:mt-0 flex items-center space-x-3">
                         <Button
                             variant="secondary"
                             onClick={() => setIsImportModalOpen(true)}
-                            leftIcon={<span className="material-icons-outlined">upload_file</span>}
+                            className="bg-industrial-black/40 border-industrial-border text-industrial-muted hover:text-accent-amber hover:border-accent-amber/40 text-[10px] font-bold uppercase tracking-widest h-10 px-6"
+                            leftIcon={<span className="material-icons-outlined text-sm">upload_file</span>}
                         >
-                            Import Excel
+                            Import Data.XLS
                         </Button>
                         <Button
                             onClick={handleAddClick}
-                            leftIcon={<span className="material-icons-outlined">add</span>}
+                            className="bg-primary shadow-glow text-industrial-black text-[10px] font-bold uppercase tracking-widest h-10 px-6 hover:bg-primary/90 transition-all"
+                            leftIcon={<span className="material-icons-outlined text-sm">person_add</span>}
                         >
-                            Add Employee
+                            Register New Profile
                         </Button>
                     </div>
                 </div>
 
                 <EmployeeStatsCards employees={employees} devices={devices} loading={loading} />
 
-                <div className="bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                <div className="glass-surface rounded-xl shadow-industrial border border-industrial-border/40 p-8 space-y-8">
+                    <div className="flex items-center space-x-3 mb-2">
+                        <span className="material-icons-outlined text-primary text-lg">manage_search</span>
+                        <h3 className="text-[10px] font-bold text-industrial-muted uppercase tracking-[0.2em]">Database Query Filters</h3>
+                    </div>
+
                     <EmployeeFilters
                         search={search}
                         onSearchChange={setSearch}
@@ -174,21 +191,23 @@ export default function EmployeesPage() {
                         hasSelection={selectedIds.size > 0}
                     />
 
-                    <EmployeeManagementTable
-                        employees={filteredEmployees}
-                        isLoading={loading}
-                        onEdit={handleEditClick}
-                        onDelete={handleDeleteClick}
-                        onUploadFingerprint={(e) => {
-                            setSelectedEmployee(e);
-                            setIsUploadModalOpen(true);
-                            setIsDrawerOpen(false);
-                        }}
-                        selectedIds={selectedIds}
-                        onSelectionChange={setSelectedIds}
-                        onToggleStatus={handleToggleStatus}
-                        onRowClick={handleRowClick}
-                    />
+                    <div className="pt-4">
+                        <EmployeeManagementTable
+                            employees={filteredEmployees}
+                            isLoading={loading}
+                            onEdit={handleEditClick}
+                            onDelete={handleDeleteClick}
+                            onUploadFingerprint={(e) => {
+                                setSelectedEmployee(e);
+                                setIsUploadModalOpen(true);
+                                setIsDrawerOpen(false);
+                            }}
+                            selectedIds={selectedIds}
+                            onSelectionChange={setSelectedIds}
+                            onToggleStatus={handleToggleStatus}
+                            onRowClick={handleRowClick}
+                        />
+                    </div>
                 </div>
 
                 {/* Add/Edit Employee Modal */}

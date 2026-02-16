@@ -22,39 +22,39 @@ export const DeviceFilters: React.FC<DeviceFiltersProps> = ({
     locations
 }) => {
     return (
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
-                <div className="relative">
-                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span className="material-icons-outlined text-gray-400">search</span>
+                <div className="relative group">
+                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
+                        <span className="material-icons-outlined text-lg">search</span>
                     </span>
                     <Input
-                        placeholder="Search device name, IP, or serial number..."
+                        placeholder="Search device, IP, or serial number..."
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary/20 h-10"
                     />
                 </div>
             </div>
-            <div className="md:w-48">
+            <div className="grid grid-cols-2 gap-3 lg:w-96">
                 <Select
                     value={location}
                     onChange={(e) => onLocationChange(e.target.value)}
+                    className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white text-xs h-10"
                     options={[
                         { value: 'all', label: 'All Locations' },
                         ...locations.map(loc => ({ value: loc, label: loc }))
                     ]}
                 />
-            </div>
-            <div className="md:w-40">
                 <Select
                     value={status}
                     onChange={(e) => onStatusChange(e.target.value)}
+                    className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white text-xs h-10"
                     options={[
-                        { value: 'all', label: 'All Status' },
+                        { value: 'all', label: 'All Statuses' },
                         { value: 'online', label: 'Online' },
                         { value: 'offline', label: 'Offline' },
-                        { value: 'semionline', label: 'Syncing' }
+                        { value: 'semionline', label: 'Synchronizing' }
                     ]}
                 />
             </div>

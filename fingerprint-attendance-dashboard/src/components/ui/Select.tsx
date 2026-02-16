@@ -10,14 +10,15 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label?: string;
     options: SelectOption[];
     error?: string;
+    labelClassName?: string;
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, label, options, error, ...props }, ref) => {
+    ({ className, label, options, error, labelClassName, ...props }, ref) => {
         return (
             <div className="w-full">
                 {label && (
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className={cn("block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1", labelClassName)}>
                         {label}
                     </label>
                 )}

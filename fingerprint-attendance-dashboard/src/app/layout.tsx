@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Outfit, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' });
 
 export const metadata: Metadata = {
   title: 'BioSync Attendance Dashboard',
@@ -16,8 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased selection:bg-primary/30">
+        <div className="industrial-grid fixed inset-0 z-[-1] pointer-events-none opacity-50" />
+        <div className="scan-line" />
         <Providers>
           {children}
         </Providers>

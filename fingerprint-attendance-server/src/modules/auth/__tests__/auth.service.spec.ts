@@ -96,8 +96,8 @@ describe('AuthService', () => {
       };
       jest.spyOn(service, 'validateUser').mockResolvedValue(user as any);
       jest.spyOn(service, 'generateTokens').mockReturnValue({
-        access_token: 'at',
-        refresh_token: 'rt',
+        accessToken: 'at',
+        refreshToken: 'rt',
       });
 
       const result = await service.login(
@@ -106,7 +106,7 @@ describe('AuthService', () => {
         'agent',
       );
 
-      expect(result.access_token).toBe('at');
+      expect(result.accessToken).toBe('at');
       expect(mockUsersService.updateLastLogin).toHaveBeenCalledWith('u1');
       expect(mockAuditLogsService.createLog).toHaveBeenCalled();
     });
@@ -131,11 +131,11 @@ describe('AuthService', () => {
       });
       jest
         .spyOn(service, 'generateTokens')
-        .mockReturnValue({ access_token: 'at2', refresh_token: 'rt2' });
+        .mockReturnValue({ accessToken: 'at2', refreshToken: 'rt2' });
 
-      const result = await service.refreshToken({ refresh_token: 'old-rt' });
+      const result = await service.refreshToken({ refreshToken: 'old-rt' });
 
-      expect(result.access_token).toBe('at2');
+      expect(result.accessToken).toBe('at2');
     });
 
     it('should throw UnauthorizedException if verify fails', async () => {
@@ -144,7 +144,7 @@ describe('AuthService', () => {
       });
 
       await expect(
-        service.refreshToken({ refresh_token: 'bad' }),
+        service.refreshToken({ refreshToken: 'bad' }),
       ).rejects.toThrow(UnauthorizedException);
     });
   });

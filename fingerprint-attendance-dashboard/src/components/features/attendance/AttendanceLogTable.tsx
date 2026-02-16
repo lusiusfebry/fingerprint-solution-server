@@ -44,18 +44,18 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
         {
             header: renderHeader('Log ID', 'id'),
             accessorKey: 'log_id',
-            cell: (log) => <span className="text-gray-400 text-xs font-mono">#{log.id.slice(0, 6)}</span>
+            cell: (log) => <span className="text-[10px] font-bold text-slate-400 dark:text-industrial-muted uppercase tracking-wider">#{log.id.slice(0, 8)}</span>
         },
         {
-            header: renderHeader('Date & Time', 'timestamp'),
+            header: renderHeader('Timestamp', 'timestamp'),
             accessorKey: 'timestamp',
             cell: (log) => (
-                <div className="flex flex-col">
-                    <span className="text-gray-900 dark:text-white text-sm font-medium">
+                <div className="flex flex-col gap-0.5">
+                    <span className="text-xs font-bold text-slate-700 dark:text-white">
                         {format(new Date(log.timestamp), 'MMM dd, yyyy')}
                     </span>
-                    <span className="text-gray-500 text-xs">
-                        {format(new Date(log.timestamp), 'hh:mm:ss a')}
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-industrial-muted uppercase">
+                        {format(new Date(log.timestamp), 'HH:mm:ss')}
                     </span>
                 </div>
             )
@@ -64,13 +64,13 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
             header: renderHeader('Employee', 'employee_name'),
             accessorKey: 'employee_name',
             cell: (log) => (
-                <div className="flex items-center">
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs mr-3">
-                        {log.employee_name?.charAt(0) || '?'}
+                <div className="flex items-center space-x-3">
+                    <div className="h-8 w-8 rounded-full bg-slate-100 dark:bg-industrial-black border border-slate-200 dark:border-industrial-border flex items-center justify-center text-primary font-bold text-xs">
+                        {log.employee_name?.charAt(0).toUpperCase() || '?'}
                     </div>
                     <div className="flex flex-col">
-                        <span className="font-medium text-gray-900 dark:text-white text-sm">{log.employee_name || 'Unknown'}</span>
-                        <span className="text-gray-500 text-xs">{log.employee_nik || '-'}</span>
+                        <span className="font-bold text-slate-900 dark:text-white text-sm tracking-tight">{log.employee_name || 'Unknown'}</span>
+                        <span className="text-[10px] text-slate-500 dark:text-industrial-muted font-bold uppercase tracking-wider">NIK {log.employee_nik || '-'}</span>
                     </div>
                 </div>
             )
@@ -79,28 +79,28 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
             header: 'Department',
             accessorKey: 'department',
             cell: (log) => (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
+                <span className="text-[10px] font-bold text-slate-600 dark:text-industrial-muted uppercase tracking-wider bg-slate-100 dark:bg-industrial-black/40 px-2 py-0.5 rounded">
                     {log.department || '-'}
                 </span>
             )
         },
         {
-            header: 'Device / Location',
+            header: 'Device',
             accessorKey: 'device_name',
             cell: (log) => (
                 <div className="flex flex-col">
-                    <span className="text-gray-900 dark:text-white text-xs">{log.device_name}</span>
-                    <div className="flex items-center text-gray-500 text-xs mt-0.5">
-                        <span className="material-icons-outlined text-[10px] mr-1">place</span>
-                        {log.device_location}
+                    <span className="text-slate-800 dark:text-white font-bold text-xs tracking-tight">{log.device_name}</span>
+                    <div className="flex items-center text-slate-400 dark:text-industrial-muted text-[10px] font-bold uppercase mt-0.5">
+                        <span className="material-icons-outlined text-[12px] mr-1">place</span>
+                        {log.device_location || 'Remote'}
                     </div>
                 </div>
             )
         },
         {
-            header: 'Verification',
+            header: 'Method',
             accessorKey: 'verify_type',
-            cell: (log) => <span className="text-gray-500 text-xs capitalize">{log.verify_type?.toLowerCase() || 'Fingerprint'}</span>
+            cell: (log) => <span className="text-[10px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-widest">{log.verify_type || 'Biometric'}</span>
         },
         {
             header: renderHeader('Status', 'status'),
@@ -116,6 +116,7 @@ export const AttendanceLogTable: React.FC<AttendanceLogTableProps> = ({
                     <Badge
                         label={status.toUpperCase()}
                         variant={variantMap[status] || 'neutral'}
+                        className="text-[9px] font-black tracking-tighter px-2 py-0.5"
                     />
                 );
             }

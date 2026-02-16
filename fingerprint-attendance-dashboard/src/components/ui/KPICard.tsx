@@ -32,66 +32,75 @@ export const KPICard: React.FC<KPICardProps> = ({
     badges,
     progress,
 }) => {
-    const colorStyles = {
-        primary: "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400",
-        success: "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400",
-        warning: "bg-yellow-50 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400",
-        danger: "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400",
-        info: "bg-cyan-50 text-cyan-600 dark:bg-cyan-900/20 dark:text-cyan-400",
+    const colorVariants = {
+        primary: "border-primary text-primary",
+        success: "border-accent-green text-accent-green",
+        warning: "border-accent-amber text-accent-amber",
+        danger: "border-accent-red text-accent-red",
+        info: "border-primary text-primary",
     };
 
     return (
-        <div className={cn("bg-white dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 relative overflow-hidden group hover:shadow-md transition-all", className)}>
-            <div className="flex justify-between items-start">
-                <div className="relative z-10">
-                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
-                    <div className="mt-2 flex items-baseline">
-                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{value}</h3>
+        <div className={cn(
+            "relative overflow-hidden bg-white dark:bg-industrial-surface p-6 rounded-xl border-t-4 shadow-sm hover:shadow-md transition-all duration-300 group",
+            colorVariants[color],
+            className
+        )}>
+            <div className="flex justify-between items-start relative z-10">
+                <div className="space-y-2">
+                    <p className="text-[11px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-wider">{title}</p>
+                    <div className="flex items-baseline gap-3">
+                        <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            {value}
+                        </h3>
                         {trend && (
-                            <span className={cn(
-                                "ml-2 text-xs font-medium px-2 py-0.5 rounded-full flex items-center",
-                                trend.isPositive ? "text-green-700 bg-green-100 dark:bg-green-900/30 dark:text-green-400" : "text-red-700 bg-red-100 dark:bg-red-900/30 dark:text-red-400"
+                            <div className={cn(
+                                "flex items-center text-[10px] font-bold px-1.5 py-0.5 rounded",
+                                trend.isPositive ? "text-green-600 bg-green-50 dark:bg-green-500/10" : "text-red-600 bg-red-50 dark:bg-red-500/10"
                             )}>
-                                <span className="material-icons-outlined text-[10px] mr-0.5">{trend.isPositive ? 'trending_up' : 'trending_down'}</span>
+                                <span className="material-icons-outlined text-xs mr-0.5">{trend.isPositive ? 'arrow_upward' : 'arrow_downward'}</span>
                                 {trend.value}
-                            </span>
+                            </div>
                         )}
                     </div>
-                    {subtitle && (
-                        <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">{subtitle}</p>
-                    )}
+
+                    {subtitle && <p className="text-xs text-slate-500 dark:text-industrial-muted font-medium">{subtitle}</p>}
 
                     {badges && (
-                        <div className="mt-3 flex gap-2">
+                        <div className="flex flex-wrap gap-2 pt-2">
                             {badges.map((badge, idx) => (
-                                <Badge key={idx} label={badge.label} variant={badge.variant} showDot />
+                                <Badge key={idx} label={badge.label} variant={badge.variant} className="text-[10px] py-0.5" />
                             ))}
                         </div>
                     )}
 
                     {progress && (
-                        <div className="mt-3 w-full">
-                            <div className="flex justify-between text-xs mb-1">
-                                <span className="text-gray-500">{progress.label || 'Progress'}</span>
-                                <span className="text-gray-700 dark:text-gray-300 font-medium">{Math.round((progress.value / progress.max) * 100)}%</span>
+                        <div className="w-full space-y-2 pt-2">
+                            <div className="flex justify-between text-[10px] font-bold uppercase tracking-wide text-slate-500 dark:text-industrial-muted">
+                                <span>{progress.label || 'Progress'}</span>
+                                <span>{Math.round((progress.value / progress.max) * 100)}%</span>
                             </div>
-                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                            <div className="w-full bg-slate-100 dark:bg-industrial-black rounded-full h-1.5 overflow-hidden">
                                 <div
-                                    className={cn("h-1.5 rounded-full", colorStyles[color].split(' ')[0].replace('bg-', 'bg-type-'))} // Simple hack, ideally explicit color map for progress
-                                    style={{ width: `${(progress.value / progress.max) * 100}%`, backgroundColor: 'currentColor' }}
-                                ></div>
+                                    className={cn("h-full rounded-full transition-all duration-1000",
+                                        color === 'primary' ? 'bg-primary' :
+                                            color === 'success' ? 'bg-accent-green' :
+                                                color === 'warning' ? 'bg-accent-amber' : 'bg-primary'
+                                    )}
+                                    style={{ width: `${(progress.value / progress.max) * 100}%` }}
+                                />
                             </div>
                         </div>
                     )}
-
                 </div>
-                <div className={cn("p-3 rounded-lg transition-opacity opacity-80 group-hover:opacity-100", colorStyles[color])}>
+
+                <div className={cn("p-3 rounded-lg bg-slate-50 dark:bg-industrial-black/40 group-hover:scale-110 transition-transform duration-300", colorVariants[color])}>
                     <span className="material-icons-outlined text-2xl">{icon}</span>
                 </div>
             </div>
 
-            {/* Background Icon Decoration */}
-            <span className="material-icons-outlined absolute -right-6 -bottom-6 text-9xl text-gray-50 dark:text-surface-darker opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500 ease-in-out">
+            {/* Background Narrative Icon Decoration */}
+            <span className="material-icons-outlined absolute -right-6 -bottom-6 text-9xl text-slate-200/40 dark:text-white/5 pointer-events-none group-hover:rotate-12 transition-transform duration-700">
                 {icon}
             </span>
         </div>

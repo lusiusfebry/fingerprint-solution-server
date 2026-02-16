@@ -36,34 +36,34 @@ export function DataTable<T extends { id?: string | number }>({
 }: DataTableProps<T>) {
 
     return (
-        <div className={cn("bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col", className)}>
+        <div className={cn("bg-white dark:bg-industrial-surface rounded-xl shadow-sm border border-slate-200 dark:border-industrial-border overflow-hidden flex flex-col", className)}>
             <div className="overflow-x-auto flex-1">
                 <table className="w-full text-left border-collapse">
-                    <thead className="bg-gray-50 dark:bg-surface-darker/50 sticky top-0 z-10">
+                    <thead className="bg-slate-50 dark:bg-industrial-black/40 border-b border-slate-200 dark:border-industrial-border">
                         <tr>
                             {columns.map((col, idx) => (
-                                <th key={idx} className={cn("px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider", col.className)}>
+                                <th key={idx} className={cn("px-6 py-4 text-[11px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-wider", col.className)}>
                                     {col.header}
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                    <tbody className="divide-y divide-slate-100 dark:divide-industrial-border/30">
                         {isLoading ? (
                             <tr>
-                                <td colSpan={columns.length} className="px-6 py-10 text-center text-gray-500">
-                                    <div className="flex flex-col items-center justify-center">
-                                        <LoadingSpinner size="lg" className="mb-2" />
-                                        <span className="text-sm">Loading data...</span>
+                                <td colSpan={columns.length} className="px-6 py-16 text-center">
+                                    <div className="flex flex-col items-center justify-center space-y-3">
+                                        <LoadingSpinner size="md" className="text-primary" />
+                                        <span className="text-xs font-semibold text-slate-400 dark:text-industrial-muted uppercase tracking-widest">Hydrating Data...</span>
                                     </div>
                                 </td>
                             </tr>
                         ) : data.length === 0 ? (
                             <tr>
-                                <td colSpan={columns.length} className="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
-                                    <div className="flex flex-col items-center justify-center">
-                                        <span className="material-icons-outlined text-4xl text-gray-300 mb-2">inbox</span>
-                                        <span>{emptyMessage}</span>
+                                <td colSpan={columns.length} className="px-6 py-16 text-center">
+                                    <div className="flex flex-col items-center justify-center space-y-3 opacity-40">
+                                        <span className="material-icons-outlined text-4xl text-slate-400">inventory_2</span>
+                                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{emptyMessage}</span>
                                     </div>
                                 </td>
                             </tr>
@@ -73,12 +73,12 @@ export function DataTable<T extends { id?: string | number }>({
                                     key={row.id || rowIdx}
                                     onClick={() => onRowClick && onRowClick(row)}
                                     className={cn(
-                                        "transition-colors",
-                                        onRowClick ? "cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-800/50" : "hover:bg-gray-50/50 dark:hover:bg-slate-800/20"
+                                        "transition-all duration-200 group/row",
+                                        onRowClick ? "cursor-pointer hover:bg-slate-50 dark:hover:bg-primary/5" : "hover:bg-slate-50/50 dark:hover:bg-industrial-surface-hover/20"
                                     )}
                                 >
                                     {columns.map((col, colIdx) => (
-                                        <td key={colIdx} className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
+                                        <td key={colIdx} className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 dark:text-industrial-text">
                                             {col.cell ? col.cell(row) : (col.accessorKey ? String(row[col.accessorKey]) : '')}
                                         </td>
                                     ))}
@@ -91,25 +91,26 @@ export function DataTable<T extends { id?: string | number }>({
 
             {/* Pagination Footer */}
             {!isLoading && pagination && pagination.totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-surface-darker/30 flex items-center justify-between">
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Showing page <span className="font-medium">{pagination.currentPage}</span> of <span className="font-medium">{pagination.totalPages}</span>
-                        {pagination.totalItems && <> (<span className="font-medium">{pagination.totalItems}</span> items)</>}
+                <div className="px-6 py-4 border-t border-slate-200 dark:border-industrial-border bg-slate-50 dark:bg-industrial-black/40 flex items-center justify-between">
+                    <div className="text-[10px] font-bold text-slate-500 dark:text-industrial-muted uppercase tracking-wider">
+                        Showing <span className="text-slate-900 dark:text-white">{(pagination.currentPage - 1) * 10 + 1}</span> to <span className="text-slate-900 dark:text-white">{Math.min(pagination.currentPage * 10, pagination.totalItems || 0)}</span> of <span className="text-slate-900 dark:text-white">{pagination.totalItems || '0'}</span> entries
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex gap-2">
                         <button
                             onClick={() => pagination.onPageChange(pagination.currentPage - 1)}
                             disabled={pagination.currentPage <= 1}
-                            className="px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-surface-dark text-sm disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-industrial-border bg-white dark:bg-industrial-black text-[10px] font-extrabold text-slate-600 dark:text-industrial-muted uppercase tracking-wider disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-industrial-surface hover:text-primary transition-all flex items-center shadow-sm"
                         >
+                            <span className="material-icons-outlined text-sm mr-1">chevron_left</span>
                             Previous
                         </button>
                         <button
                             onClick={() => pagination.onPageChange(pagination.currentPage + 1)}
                             disabled={pagination.currentPage >= pagination.totalPages}
-                            className="px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-surface-dark text-sm disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-industrial-border bg-white dark:bg-industrial-black text-[10px] font-extrabold text-slate-600 dark:text-industrial-muted uppercase tracking-wider disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-industrial-surface hover:text-primary transition-all flex items-center shadow-sm"
                         >
                             Next
+                            <span className="material-icons-outlined text-sm ml-1">chevron_right</span>
                         </button>
                     </div>
                 </div>

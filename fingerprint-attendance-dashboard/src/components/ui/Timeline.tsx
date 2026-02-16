@@ -31,34 +31,37 @@ export const Timeline: React.FC<TimelineProps> = ({
     };
 
     return (
-        <div className={cn("bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6", className)}>
+        <div className="bg-white dark:bg-industrial-surface rounded-xl shadow-sm border border-slate-200 dark:border-industrial-border p-6 h-full flex flex-col">
             <div className="flex items-center justify-between mb-6">
-                <h3 className="font-semibold text-gray-900 dark:text-white">{title}</h3>
+                <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">{title}</h3>
                 {viewAllLink && (
-                    <Link href={viewAllLink} className="text-sm text-primary hover:text-primary/80 font-medium">
-                        View All
+                    <Link href={viewAllLink} className="text-xs text-primary font-bold hover:underline">
+                        View History
                     </Link>
                 )}
             </div>
 
-            <div className="space-y-6 relative before:absolute before:inset-0 before:ml-1.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 h-full">
-                <div className="relative border-l border-gray-200 dark:border-gray-700 ml-1.5 space-y-6">
+            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                <div className="relative border-l border-slate-200 dark:border-industrial-border ml-2 space-y-8 pb-2">
                     {items.length === 0 ? (
-                        <p className="text-gray-500 text-sm italic pl-4">No recent activity.</p>
+                        <p className="text-slate-400 dark:text-industrial-muted text-xs italic pl-6">No recent streams detected.</p>
                     ) : (
                         items.map((item) => (
-                            <div key={item.id} className="relative pl-6">
+                            <div key={item.id} className="relative pl-8">
                                 <span className={cn(
-                                    "absolute top-1 left-[-4px] w-2 h-2 rounded-full ring-4 ring-white dark:ring-surface-dark",
-                                    typeStyles[item.type || 'neutral']
+                                    "absolute top-1.5 left-[-5px] w-2.5 h-2.5 rounded-full ring-4 ring-white dark:ring-industrial-surface shadow-sm",
+                                    item.type === 'success' ? 'bg-green-500' :
+                                        item.type === 'error' ? 'bg-red-500' : 'bg-primary'
                                 )}></span>
-                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
-                                    <h4 className="text-sm font-medium text-gray-900 dark:text-white">{item.title}</h4>
-                                    <time className="text-xs text-gray-400 dark:text-gray-500">{item.timestamp}</time>
+                                <div className="flex flex-col gap-1">
+                                    <div className="flex justify-between items-start">
+                                        <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{item.title}</h4>
+                                        <time className="text-[10px] font-bold text-slate-400 dark:text-industrial-muted whitespace-nowrap ml-4">{item.timestamp}</time>
+                                    </div>
+                                    {item.description && (
+                                        <p className="text-xs text-slate-500 dark:text-industrial-muted font-medium leading-relaxed">{item.description}</p>
+                                    )}
                                 </div>
-                                {item.description && (
-                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{item.description}</p>
-                                )}
                             </div>
                         ))
                     )}

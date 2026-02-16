@@ -258,7 +258,7 @@ export class AttendanceLogsService {
       // I'll skip status filtering for now as it needs complex logic or a saved field.
     }
 
-    query.orderBy(`log.${sortBy}`, sortOrder);
+    query.orderBy(`log.${sortBy}`, sortOrder.toUpperCase() as 'ASC' | 'DESC');
 
     const [items, total] = await query
       .skip((page - 1) * limit)

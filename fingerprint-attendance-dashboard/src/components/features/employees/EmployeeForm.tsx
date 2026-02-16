@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Select';
+import { cn } from '@/lib/utils';
 import { Employee, CreateEmployeeDto, UpdateEmployeeDto } from '@/types/employee.types';
 
 interface EmployeeFormProps {
@@ -57,61 +58,92 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input
-                    label="NIK"
-                    value={formData.nik}
-                    onChange={(e) => setFormData({ ...formData, nik: e.target.value })}
-                    placeholder="e.g. 2023001"
-                    disabled={isEdit} // NIK identification usually shouldn't change
-                    helperText={errors.nik}
-                    className={errors.nik ? "border-red-500" : ""}
-                />
-                <Input
-                    label="Nama Lengkap"
-                    value={formData.nama}
-                    onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
-                    placeholder="Full Name"
-                    helperText={errors.nama}
-                    className={errors.nama ? "border-red-500" : ""}
+        <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-white dark:bg-industrial-surface p-6 rounded-xl border border-slate-200 dark:border-industrial-border shadow-sm space-y-6">
+                <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-industrial-border">
+                    <span className="material-icons-outlined text-primary">account_circle</span>
+                    <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">Identity Information</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Input
+                        label="NIK / Employee ID"
+                        value={formData.nik}
+                        onChange={(e) => setFormData({ ...formData, nik: e.target.value })}
+                        placeholder="e.g. 20230001"
+                        disabled={isEdit}
+                        error={errors.nik}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white"
+                        labelClassName="text-[11px] font-extrabold text-slate-500 dark:text-industrial-muted uppercase tracking-wider mb-1.5"
+                    />
+                    <Input
+                        label="Full Name"
+                        value={formData.nama}
+                        onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
+                        placeholder="John Doe"
+                        error={errors.nama}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white"
+                        labelClassName="text-[11px] font-extrabold text-slate-500 dark:text-industrial-muted uppercase tracking-wider mb-1.5"
+                    />
+                </div>
+            </div>
+
+            <div className="bg-white dark:bg-industrial-surface p-6 rounded-xl border border-slate-200 dark:border-industrial-border shadow-sm space-y-6">
+                <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-industrial-border">
+                    <span className="material-icons-outlined text-primary">business</span>
+                    <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">Employment Details</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Input
+                        label="Department"
+                        value={formData.departemen}
+                        onChange={(e) => setFormData({ ...formData, departemen: e.target.value })}
+                        placeholder="e.g. Engineering"
+                        error={errors.departemen}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white"
+                        labelClassName="text-[11px] font-extrabold text-slate-500 dark:text-industrial-muted uppercase tracking-wider mb-1.5"
+                    />
+                    <Input
+                        label="Position"
+                        value={formData.jabatan}
+                        onChange={(e) => setFormData({ ...formData, jabatan: e.target.value })}
+                        placeholder="e.g. Senior Developer"
+                        error={errors.jabatan}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white"
+                        labelClassName="text-[11px] font-extrabold text-slate-500 dark:text-industrial-muted uppercase tracking-wider mb-1.5"
+                    />
+                </div>
+
+                <Select
+                    label="Employment Status"
+                    value={formData.status}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value as 'aktif' | 'nonaktif' })}
+                    className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border text-slate-900 dark:text-white h-10"
+                    labelClassName="text-[11px] font-extrabold text-slate-500 dark:text-industrial-muted uppercase tracking-wider mb-1.5"
+                    options={[
+                        { value: 'aktif', label: 'Active Personnel' },
+                        { value: 'nonaktif', label: 'Inactive / Suspended' }
+                    ]}
                 />
             </div>
 
-            <Input
-                label="Departemen"
-                value={formData.departemen}
-                onChange={(e) => setFormData({ ...formData, departemen: e.target.value })}
-                placeholder="e.g. IT, HR, Operation"
-                helperText={errors.departemen}
-                className={errors.departemen ? "border-red-500" : ""}
-            />
-
-            <Input
-                label="Jabatan"
-                value={formData.jabatan}
-                onChange={(e) => setFormData({ ...formData, jabatan: e.target.value })}
-                placeholder="e.g. Staff, Manager"
-                helperText={errors.jabatan}
-                className={errors.jabatan ? "border-red-500" : ""}
-            />
-
-            <Select
-                label="Status Employee"
-                value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as 'aktif' | 'nonaktif' })}
-                options={[
-                    { value: 'aktif', label: 'Aktif' },
-                    { value: 'nonaktif', label: 'Non-Aktif' }
-                ]}
-            />
-
-            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-100 dark:border-gray-800 mt-4">
-                <Button type="button" variant="ghost" onClick={onCancel} disabled={isLoading}>
+            <div className="flex justify-end gap-3 pt-4">
+                <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={onCancel}
+                    disabled={isLoading}
+                    className="px-6 text-xs font-bold text-slate-500 dark:text-industrial-muted hover:text-slate-900 dark:hover:text-white"
+                >
                     Cancel
                 </Button>
-                <Button type="submit" isLoading={isLoading}>
-                    {isEdit ? 'Update Employee' : 'Add Employee'}
+                <Button
+                    type="submit"
+                    isLoading={isLoading}
+                    className="bg-primary hover:bg-blue-600 text-white text-xs font-extrabold px-8 h-10 rounded-lg shadow-lg shadow-blue-500/20 active:scale-95 transition-all"
+                >
+                    {isEdit ? 'Update Employee' : 'Create Employee'}
                 </Button>
             </div>
         </form>

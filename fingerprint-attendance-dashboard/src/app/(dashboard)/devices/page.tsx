@@ -112,30 +112,41 @@ export default function DevicesPage() {
 
     return (
         <DashboardLayout>
-            <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Device Management</h2>
-                        <p className="text-gray-500 dark:text-gray-400">Manage fingerprint terminals and connection status</p>
+            <div className="space-y-8 py-4">
+                {/* Professional Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-industrial-border pb-6">
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-3">
+                            <div className="w-1 h-6 bg-primary rounded-full" />
+                            <h2 className="text-xs font-bold text-primary uppercase tracking-widest">Hardware Infrastructure</h2>
+                        </div>
+                        <h1 className="text-3xl font-bold text-slate-800 dark:text-white tracking-tight">System Terminals</h1>
+                        <p className="text-sm text-slate-500 dark:text-industrial-muted font-medium">
+                            Status: <span className="text-green-500 font-bold">{filteredDevices.filter(d => d.status === 'online').length} Nodes Online</span>
+                        </p>
                     </div>
-                    <div className="flex space-x-3">
+
+                    <div className="mt-6 md:mt-0 flex items-center gap-2">
                         <Button
-                            variant="secondary"
+                            variant="ghost"
                             onClick={handleSyncAll}
-                            leftIcon={<span className="material-icons-outlined">sync</span>}
+                            className="text-slate-500 dark:text-industrial-muted hover:text-primary dark:hover:text-industrial-text hover:bg-slate-100 dark:hover:bg-industrial-surface text-xs font-bold uppercase tracking-wider"
+                            leftIcon={<span className="material-icons-outlined text-lg">sync</span>}
                         >
                             Sync All
                         </Button>
                         <Button
-                            variant="secondary"
+                            variant="ghost"
                             onClick={() => setIsAutoDetectModalOpen(true)}
-                            leftIcon={<span className="material-icons-outlined">radar</span>}
+                            className="text-slate-500 dark:text-industrial-muted hover:text-primary dark:hover:text-industrial-text hover:bg-slate-100 dark:hover:bg-industrial-surface text-xs font-bold uppercase tracking-wider"
+                            leftIcon={<span className="material-icons-outlined text-lg">radar</span>}
                         >
-                            Auto-Detect
+                            Scan Network
                         </Button>
                         <Button
                             onClick={handleAddClick}
-                            leftIcon={<span className="material-icons-outlined">add</span>}
+                            className="bg-primary hover:bg-blue-600 text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow-lg shadow-blue-500/20 active:scale-95 transition-all"
+                            leftIcon={<span className="material-icons-outlined text-lg">add</span>}
                         >
                             Add Device
                         </Button>
@@ -144,7 +155,12 @@ export default function DevicesPage() {
 
                 <DeviceStatsCards devices={devices} loading={loading} />
 
-                <div className="bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                <div className="bg-white dark:bg-industrial-surface rounded-xl shadow-sm border border-slate-200 dark:border-industrial-border p-6 md:p-8 space-y-6">
+                    <div className="flex items-center gap-3">
+                        <span className="material-icons-outlined text-primary">filter_list</span>
+                        <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">System Filters</h3>
+                    </div>
+
                     <DeviceFilters
                         search={search}
                         onSearchChange={setSearch}
@@ -155,15 +171,17 @@ export default function DevicesPage() {
                         locations={locations}
                     />
 
-                    <DeviceManagementTable
-                        devices={filteredDevices}
-                        isLoading={loading}
-                        onSync={(d) => syncDevice(d.id)}
-                        onRestart={(d) => restartDevice(d.id)}
-                        onTestConnection={(d) => testConnection(d.id)}
-                        onEdit={handleEditClick}
-                        onDelete={handleDeleteClick}
-                    />
+                    <div className="pt-2">
+                        <DeviceManagementTable
+                            devices={filteredDevices}
+                            isLoading={loading}
+                            onSync={(d) => syncDevice(d.id)}
+                            onRestart={(d) => restartDevice(d.id)}
+                            onTestConnection={(d) => testConnection(d.id)}
+                            onEdit={handleEditClick}
+                            onDelete={handleDeleteClick}
+                        />
+                    </div>
                 </div>
 
                 <EditDeviceModal

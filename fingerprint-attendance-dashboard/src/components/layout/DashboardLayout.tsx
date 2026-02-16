@@ -31,7 +31,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     }
 
     return (
-        <div className="flex h-screen bg-background-light dark:bg-background-dark overflow-hidden font-display">
+        <div className="flex h-screen bg-slate-50 dark:bg-industrial-black overflow-hidden font-sans">
             {/* Sidebar */}
             <Sidebar />
 
@@ -40,8 +40,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <Header />
 
                 {/* Scrollable Content Area */}
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-background-light dark:bg-background-dark p-6">
-                    {children}
+                <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 md:p-10">
+                    <div className="max-w-[1600px] mx-auto">
+                        {children}
+                    </div>
                 </main>
             </div>
         </div>
