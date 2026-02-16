@@ -23,17 +23,6 @@ export const Modal: React.FC<ModalProps> = ({
     className,
     size = 'md',
 }) => {
-    // ... useEffect ...
-
-    const sizeClasses = {
-        sm: 'max-w-sm',
-        md: 'max-w-lg',
-        lg: 'max-w-2xl',
-        xl: 'max-w-4xl',
-        '2xl': 'max-w-6xl',
-        full: 'max-w-full mx-4',
-    };
-
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -47,6 +36,17 @@ export const Modal: React.FC<ModalProps> = ({
             document.body.style.overflow = 'unset';
         };
     }, [isOpen, onClose]);
+
+    if (!isOpen) return null;
+
+    const sizeClasses = {
+        sm: 'max-w-sm',
+        md: 'max-w-lg',
+        lg: 'max-w-2xl',
+        xl: 'max-w-4xl',
+        '2xl': 'max-w-6xl',
+        full: 'max-w-full mx-4',
+    };
 
     // Use portal if accessible, otherwise render inline (SSR safe check needed usually, but 'use client' helps)
     // For simplicity using simple render, but ideally use createPortal to document.body
@@ -79,7 +79,7 @@ export const Modal: React.FC<ModalProps> = ({
                     </div>
                     <button
                         onClick={onClose}
-                        className="h-10 w-10 flex items-center justify-center rounded bg-industrial-black/50 border border-industrial-border text-industrial-muted hover:text-accent-red hover:border-accent-red/40 transition-all group"
+                        className="relative z-50 h-10 w-10 flex items-center justify-center rounded bg-industrial-black/50 border border-industrial-border text-industrial-muted hover:text-accent-red hover:border-accent-red/40 transition-all group pointer-events-auto"
                         title="Close Interface"
                     >
                         <span className="material-icons-outlined group-hover:rotate-90 transition-transform">close</span>

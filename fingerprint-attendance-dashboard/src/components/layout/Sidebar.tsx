@@ -64,9 +64,9 @@ const Sidebar = () => {
                     )}
 
                     {(user?.role === 'Super Admin' || user?.role === 'Admin' || (user?.role as { name: string })?.name === 'Super Admin' || (user?.role as { name: string })?.name === 'Admin') && [
-                        { name: 'Kernel.Users()', path: '/admin/users', icon: 'admin_panel_settings' },
-                        { name: 'Clearance.Acl()', path: '/admin/roles', icon: 'security' },
-                        { name: 'Stream.Audit()', path: '/admin/audit-trail', icon: 'receipt_long' }
+                        { name: 'User Management', path: '/admin/users', icon: 'admin_panel_settings' },
+                        { name: 'Access Control', path: '/admin/roles', icon: 'security' },
+                        { name: 'Audit Trail', path: '/admin/audit-trail', icon: 'receipt_long' }
                     ].map((item) => {
                         const isActive = pathname.startsWith(item.path);
                         return (

@@ -105,7 +105,7 @@ export const SystemInfoCard: React.FC = () => {
                     <h4 className="text-[9px] font-bold text-industrial-muted mb-4 uppercase tracking-[0.2em]">Data.Engine Status</h4>
                     <div className="grid grid-cols-3 gap-3">
                         <div className="flex flex-col items-center p-2 bg-industrial-black/20 rounded border border-transparent hover:border-primary/20 hover:bg-industrial-black/40 transition-all">
-                            <span className="text-lg font-mono text-industrial-text mb-1">{info.counts?.devices || 0}</span>
+                            <span className="text-lg font-mono text-industrial-text mb-1">{info.counts?.devices?.total || 0}</span>
                             <span className="text-[8px] text-industrial-muted uppercase tracking-widest">Nodes</span>
                         </div>
                         <div className="flex flex-col items-center p-2 bg-industrial-black/20 rounded border border-transparent hover:border-primary/20 hover:bg-industrial-black/40 transition-all">
@@ -126,6 +126,6 @@ export const SystemInfoCard: React.FC = () => {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 };

@@ -14,9 +14,9 @@ import {
 @ApiTags('System')
 @ApiBearerAuth('JWT-auth')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('api/system-settings')
+@Controller('system-settings')
 export class SystemSettingsController {
-  constructor(private readonly settingsService: SystemSettingsService) {}
+  constructor(private readonly settingsService: SystemSettingsService) { }
 
   @Get()
   @Roles('Super Admin', 'Admin')

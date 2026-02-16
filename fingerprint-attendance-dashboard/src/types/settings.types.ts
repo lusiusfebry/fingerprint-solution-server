@@ -27,7 +27,7 @@ export interface SystemInfo {
     server_status: 'online' | 'offline';
     version: string;
     database_status: 'connected' | 'disconnected';
-    cpu_usage: number;
+    cpu_usage_avg: number;
     memory_usage: {
         total: number;
         used: number;
@@ -35,9 +35,17 @@ export interface SystemInfo {
         percent: number;
     };
     uptime: number;
+    os_info?: {
+        platform: string;
+        release: string;
+        type: string;
+    };
     last_backup: string | null;
     counts: {
-        devices: number;
+        devices: {
+            total: number;
+            online: number;
+        };
         employees: number;
         logs: number;
     };

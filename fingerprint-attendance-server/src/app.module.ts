@@ -40,7 +40,7 @@ import { AuditInterceptor } from './common/interceptors/audit.interceptor';
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false, // gunakan migration untuk production
+        synchronize: true, // Auto-create tables in dev
         logging: process.env.NODE_ENV === 'development',
       }),
     }),

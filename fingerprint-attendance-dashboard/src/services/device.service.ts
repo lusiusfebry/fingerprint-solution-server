@@ -41,8 +41,17 @@ export const deviceService = {
         return response.data;
     },
 
-    scanNetwork: async () => {
-        const response = await api.post<Device[]>('/api/devices/scan');
+    testConnectionByParams: async (ip: string, port: number) => {
+        const response = await api.post<{ success: boolean; message: string }>('/api/devices/test-connection', {
+            ip_address: ip,
+            port
+        });
+        return response.data;
+    },
+    scanNetwork: async (subnet?: string) => {
+        const response = await api.post<Device[]>('/api/devices/scan', null, {
+            params: { subnet }
+        });
         return response.data;
     }
 };
