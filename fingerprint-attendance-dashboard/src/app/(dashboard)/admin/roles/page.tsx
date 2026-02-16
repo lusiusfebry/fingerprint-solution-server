@@ -31,16 +31,29 @@ export default function RolesPage() {
         try {
             const data = await adminService.getRoles();
             setRoles(data);
-            if (data.length > 0 && !selectedRole) {
-                handleRoleSelect(data[0]);
-            } else if (selectedRole) {
-                const updated = data.find(r => r.id === selectedRole.id);
-                if (updated) handleRoleSelect(updated);
-            }
+
+            // If we have a selected role, refresh it. If not, select the first one.
+            setSelectedRole(prev => {
+                if (!data.length) return null;
+                if (!prev) return data[0];
+                const updated = data.find(r => r.id === prev.id);
+                return updated || data[0];
+            });
         } catch {
             showToast.error('Failed to load roles');
         } finally {
             setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (selectedRole) {
+            const permMap: Record<string, string[]> = {};
+            selectedRole.permissions.forEach(p => {
+                if (!permMap[p.module]) permMap[p.module] = [];
+                permMap[p.module].push(p.action);
+            });
+            setPermissions(permMap);
         }
     }, [selectedRole]);
 
@@ -228,7 +241,7 @@ export default function RolesPage() {
                                                             <div className="flex items-center justify-center">
                                                                 <input
                                                                     type="checkbox"
-                                                                    checked={isSuperAdmin || isChecked}
+                                                                    checked={!!(isSuperAdmin || isChecked)}
                                                                     onChange={() => togglePermission(module, action)}
                                                                     disabled={isSuperAdmin}
                                                                     className="w-5 h-5 text-primary bg-slate-100 border-slate-300 dark:border-industrial-border rounded focus:ring-primary/20 transition-all cursor-pointer disabled:opacity-50"

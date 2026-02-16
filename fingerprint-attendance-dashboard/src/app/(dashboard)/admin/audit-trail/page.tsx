@@ -52,7 +52,6 @@ export default function AuditTrailPage() {
     }, [filters]);
 
     useEffect(() => {
-        // Debounce search
         const timer = setTimeout(() => {
             fetchLogs();
         }, 500);

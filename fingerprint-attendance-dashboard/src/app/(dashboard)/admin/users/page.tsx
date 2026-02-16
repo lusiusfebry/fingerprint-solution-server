@@ -76,12 +76,17 @@ export default function UserManagementPage() {
 
     useEffect(() => {
         fetchRoles();
+    }, [fetchRoles]);
+
+    useEffect(() => {
         fetchUsers();
-    }, [fetchRoles, fetchUsers]);
+    }, [fetchUsers]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            fetchUsers(1, search);
+            if (search) {
+                fetchUsers(1, search);
+            }
         }, 500);
         return () => clearTimeout(timer);
     }, [search, fetchUsers]);
@@ -266,7 +271,7 @@ export default function UserManagementPage() {
                             <label className="text-xs font-bold text-slate-400 dark:text-industrial-muted uppercase tracking-widest ml-1">Role</label>
                             <Select
                                 options={roles.map(r => ({ value: r.id, label: r.name }))}
-                                value={selectedUser.role?.id}
+                                value={selectedUser.role?.id || ''}
                                 onChange={(e) => {
                                     const val = e.target.value;
                                     setSelectedUser({ ...selectedUser, role: roles.find(r => r.id === val) })
