@@ -89,7 +89,7 @@ export const DeviceManagementTable: React.FC<DeviceManagementTableProps> = ({
                 <div className="flex flex-col">
                     {device.last_sync_time ? (
                         <>
-                            <span className="text-slate-800 dark:text-white font-bold text-xs">{format(new Date(device.last_sync_time).toLocaleDateString())}</span>
+                            <span className="text-slate-800 dark:text-white font-bold text-xs">{format(new Date(device.last_sync_time), 'MMM d, yyyy')}</span>
                             <span className="text-slate-400 dark:text-industrial-muted text-[10px] font-bold uppercase">{format(new Date(device.last_sync_time), 'HH:mm:ss')}</span>
                         </>
                     ) : (

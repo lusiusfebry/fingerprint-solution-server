@@ -20,15 +20,9 @@ interface TimelineProps {
 export const Timeline: React.FC<TimelineProps> = ({
     items,
     title = "Recent Activity",
-    viewAllLink,
-    className
+    viewAllLink
 }) => {
-    const typeStyles = {
-        success: "bg-green-500",
-        info: "bg-blue-500",
-        error: "bg-red-500",
-        neutral: "bg-gray-400",
-    };
+
 
     return (
         <div className="bg-white dark:bg-industrial-surface rounded-xl shadow-sm border border-slate-200 dark:border-industrial-border p-6 h-full flex flex-col">

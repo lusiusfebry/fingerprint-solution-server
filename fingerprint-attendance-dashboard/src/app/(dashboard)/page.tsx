@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { KPICard } from '@/components/ui/KPICard';
 import { SystemInfoCard } from '@/components/features/SystemInfoCard';
@@ -52,57 +51,57 @@ export default function DashboardPage() {
                 {/* Welcome Section */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                            Operational Dashboard
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                            System Overview
                         </h1>
-                        <p className="text-sm text-slate-500 dark:text-industrial-muted font-medium mt-1">
-                            Greetings, <span className="text-primary font-bold">{user?.username}</span>. Here's what's happening today.
+                        <p className="text-sm text-slate-500 dark:text-industrial-muted mt-1">
+                            Welcome back, <span className="text-primary font-bold">{user?.username}</span>. Here is the daily summary.
                         </p>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <div className="px-4 py-2 bg-white dark:bg-industrial-surface border border-slate-200 dark:border-industrial-border rounded-lg shadow-sm">
+                        <div className="px-4 py-2 bg-white dark:bg-industrial-surface border border-slate-200 dark:border-industrial-border rounded-xl shadow-sm">
                             <div className="flex items-center gap-3">
-                                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                <span className="text-xs font-bold text-slate-700 dark:text-white uppercase tracking-wider">System: Balanced</span>
+                                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span className="text-[10px] font-bold text-slate-600 dark:text-white uppercase tracking-widest">Network Status: Stable</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* KPI Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {devicesLoading ? <Skeleton variant="rectangular" className="h-40 glass-surface" /> : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {devicesLoading ? <Skeleton variant="rectangular" className="h-32 rounded-2xl" /> : (
                         <KPICard
-                            title="Terminal Nodes"
+                            title="Hardware Terminals"
                             value={totalDevices}
-                            icon="router"
+                            icon="hub"
                             color="primary"
                             badges={[
-                                { label: `${onlineDevices} Active`, variant: 'success' },
-                                { label: `${offlineDevices} Terminated`, variant: 'error' }
+                                { label: `${onlineDevices} Online`, variant: 'success' },
+                                { label: `${offlineDevices} Offline`, variant: 'error' }
                             ]}
                         />
                     )}
 
-                    {employeesLoading ? <Skeleton variant="rectangular" className="h-40 glass-surface" /> : (
+                    {employeesLoading ? <Skeleton variant="rectangular" className="h-32 rounded-2xl" /> : (
                         <KPICard
-                            title="Personnel Database"
+                            title="Total Personnel"
                             value={totalEmployees}
-                            icon="fingerprint"
+                            icon="people"
                             color="info"
-                            trend={{ value: "+2 New Ident", isPositive: true }}
-                            subtitle="Total registered biometric profiles"
+                            trend={{ value: "+2 New", isPositive: true }}
+                            subtitle="Registered biometric profiles"
                         />
                     )}
 
-                    {attendanceLoading ? <Skeleton variant="rectangular" className="h-40 glass-surface" /> : (
+                    {attendanceLoading ? <Skeleton variant="rectangular" className="h-32 rounded-2xl" /> : (
                         <KPICard
-                            title="Today's Transmission"
+                            title="Attendance Rate"
                             value={`${attendanceRate}%`}
-                            icon="sensors"
+                            icon="analytics"
                             color="warning"
-                            progress={{ value: presentCount, max: totalExpected, label: 'Sync Efficiency' }}
+                            progress={{ value: presentCount, max: totalExpected, label: 'Optimization' }}
                             subtitle={`${presentCount} / ${totalExpected} Validated check-ins`}
                         />
                     )}
@@ -121,13 +120,13 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Right Panel: Logs & Health */}
-                    <div className="lg:col-span-1 space-y-10">
+                    <div className="lg:col-span-1 space-y-8">
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between border-b border-industrial-border/30 pb-3">
-                                <h3 className="text-[10px] font-bold text-industrial-muted uppercase tracking-[0.2em]">Recent Transmissions</h3>
-                                <Link href="/attendance" className="text-[8px] text-primary font-bold hover:underline tracking-widest uppercase">Inspect All</Link>
+                            <div className="flex items-center justify-between border-b border-slate-100 dark:border-industrial-border pb-3">
+                                <h3 className="text-[10px] font-bold text-slate-400 dark:text-industrial-muted uppercase tracking-widest">Recent Activity</h3>
+                                <Link href="/attendance" className="text-[10px] text-primary font-bold hover:underline tracking-widest uppercase">View All</Link>
                             </div>
-                            {historyLoading ? <Skeleton variant="rectangular" rows={5} className="glass-surface" /> : (
+                            {historyLoading ? <Skeleton variant="rectangular" rows={5} className="h-64 rounded-xl" /> : (
                                 <Timeline
                                     items={timelineItems}
                                 />
@@ -135,8 +134,8 @@ export default function DashboardPage() {
                         </div>
 
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between border-b border-industrial-border/30 pb-3">
-                                <h3 className="text-[10px] font-bold text-industrial-muted uppercase tracking-[0.2em]">Hardware Health</h3>
+                            <div className="flex items-center justify-between border-b border-slate-100 dark:border-industrial-border pb-3">
+                                <h3 className="text-[10px] font-bold text-slate-400 dark:text-industrial-muted uppercase tracking-widest">System Health</h3>
                             </div>
                             <SystemInfoCard />
                         </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { DataTable, Column } from '@/components/ui/DataTable';
 import { Employee } from '@/types/employee.types';
-import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
 interface EmployeeManagementTableProps {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
 import { Device, CreateDeviceDto, UpdateDeviceDto } from '@/types/device.types';
 
 interface EditDeviceModalProps {
