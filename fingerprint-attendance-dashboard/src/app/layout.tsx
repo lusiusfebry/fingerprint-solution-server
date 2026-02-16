@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
       </head>
-      <body className="font-sans antialiased selection:bg-primary/30">
+      <body className="font-sans antialiased selection:bg-primary/30" suppressHydrationWarning>
         <div className="industrial-grid fixed inset-0 z-[-1] pointer-events-none opacity-50" />
         <div className="scan-line" />
         <Providers>

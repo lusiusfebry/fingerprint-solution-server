@@ -26,7 +26,7 @@ import type { Response } from 'express';
 @ApiTags('Backup & Restore')
 @ApiBearerAuth('JWT-auth')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('api/backup')
+@Controller('backup')
 export class BackupController {
   constructor(private readonly backupService: BackupService) {}
 

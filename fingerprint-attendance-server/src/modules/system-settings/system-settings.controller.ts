@@ -16,7 +16,7 @@ import {
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('system-settings')
 export class SystemSettingsController {
-  constructor(private readonly settingsService: SystemSettingsService) { }
+  constructor(private readonly settingsService: SystemSettingsService) {}
 
   @Get()
   @Roles('Super Admin', 'Admin')

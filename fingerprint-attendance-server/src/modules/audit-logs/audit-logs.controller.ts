@@ -13,9 +13,9 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { AuditLogQueryDto } from './dto/audit-log-query.dto';
 
 @ApiTags('Audit Logs')
-@Controller('api/audit-logs')
+@Controller('audit-logs')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@ApiBearerAuth()
+@ApiBearerAuth('JWT-auth')
 export class AuditLogsController {
   constructor(private readonly auditLogsService: AuditLogsService) {}
 

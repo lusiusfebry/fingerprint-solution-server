@@ -11,6 +11,8 @@ import { Select } from '@/components/ui/Select';
 import { Badge } from '@/components/ui/Badge';
 import { format } from 'date-fns';
 
+import DashboardLayout from '@/components/layout/DashboardLayout';
+
 const MODULES = ['auth', 'users', 'roles', 'employees', 'devices', 'attendance', 'settings', 'system'];
 const SEVERITIES = ['info', 'warning', 'critical'];
 
@@ -90,7 +92,7 @@ export default function AuditTrailPage() {
             header: 'Time',
             accessorKey: 'timestamp',
             cell: (log) => (
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-slate-500">
                     {format(new Date(log.timestamp), 'dd MMM yyyy HH:mm:ss')}
                 </div>
             )
@@ -100,8 +102,8 @@ export default function AuditTrailPage() {
             accessorKey: 'severity',
             cell: (log) => (
                 <Badge
-                    label={log.severity.toUpperCase()}
-                    variant={log.severity === 'critical' ? 'error' : log.severity === 'warning' ? 'warning' : 'info'}
+                    label={(log.severity || 'info').toUpperCase()}
+                    variant={log.severity === 'critical' ? 'error' : log.severity === 'warning' ? 'warning' : 'neutral'}
                 />
             )
         },
@@ -109,7 +111,7 @@ export default function AuditTrailPage() {
             header: 'User',
             accessorKey: 'user_name',
             cell: (log) => (
-                <div className="font-medium text-gray-900 dark:text-white">
+                <div className="font-medium text-slate-900 dark:text-white">
                     {log.user?.name || log.user_name || 'System'}
                 </div>
             )
@@ -120,77 +122,84 @@ export default function AuditTrailPage() {
             cell: (log) => (
                 <div>
                     <span className="font-medium text-primary">{log.action}</span>
-                    <span className="text-xs text-gray-400 mx-1">•</span>
-                    <span className="text-xs text-gray-500 capitalize">{log.module}</span>
+                    <span className="text-xs text-slate-400 mx-1">•</span>
+                    <span className="text-xs text-slate-500 capitalize">{log.module}</span>
                 </div>
             )
         },
         {
             header: 'Description',
             accessorKey: 'description',
-            className: 'max-w-xs truncate'
+            className: 'max-w-xs truncate text-slate-600 dark:text-industrial-text'
         },
         {
             header: 'IP Address',
             accessorKey: 'ip_address',
-            className: 'text-xs font-mono text-gray-500'
+            className: 'text-xs font-mono text-slate-500'
         }
     ];
 
     return (
-        <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Audit Trail</h1>
-                    <p className="text-gray-500 dark:text-gray-400">Track system activities and security events.</p>
+        <DashboardLayout>
+            <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Audit Trail</h1>
+                        <p className="text-sm text-slate-500 dark:text-industrial-muted mt-1">Real-time surveillance of system activities and security events.</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button variant="outline" onClick={() => handleExport('csv')} isLoading={isExporting}>
+                            Export CSV
+                        </Button>
+                        <Button variant="outline" onClick={() => handleExport('pdf')} isLoading={isExporting}>
+                            Export PDF
+                        </Button>
+                    </div>
                 </div>
-                <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => handleExport('csv')} isLoading={isExporting}>
-                        Export CSV
-                    </Button>
-                    <Button variant="outline" onClick={() => handleExport('pdf')} isLoading={isExporting}>
-                        Export PDF
-                    </Button>
+
+                {/* Filters */}
+                <div className="bg-white dark:bg-industrial-surface p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-industrial-border grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <Input
+                        placeholder="Search logs..."
+                        value={filters.search || ''}
+                        onChange={(e) => handleFilterChange('search', e.target.value)}
+                        leftIcon={<span className="material-icons-outlined">search</span>}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border"
+                    />
+                    <Select
+                        options={[{ value: '', label: 'All Modules' }, ...MODULES.map(m => ({ value: m, label: m.charAt(0).toUpperCase() + m.slice(1) }))]}
+                        value={filters.module}
+                        onChange={(e) => handleFilterChange('module', e.target.value)}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border"
+                    />
+                    <Select
+                        options={[{ value: '', label: 'All Severities' }, ...SEVERITIES.map(s => ({ value: s, label: s.toUpperCase() }))]}
+                        value={filters.severity}
+                        onChange={(e) => handleFilterChange('severity', e.target.value)}
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border"
+                    />
+                    <Input
+                        type="date"
+                        value={filters.startDate || ''}
+                        onChange={(e) => handleFilterChange('startDate', e.target.value)}
+                        placeholder="Start Date"
+                        className="bg-slate-50 dark:bg-industrial-black border-slate-200 dark:border-industrial-border"
+                    />
                 </div>
-            </div>
 
-            {/* Filters */}
-            <div className="bg-white dark:bg-surface-dark p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Input
-                    placeholder="Search logs..."
-                    value={filters.search || ''}
-                    onChange={(e) => handleFilterChange('search', e.target.value)}
-                    leftIcon={<span className="material-icons-outlined">search</span>}
-                />
-                <Select
-                    options={[{ value: '', label: 'All Modules' }, ...MODULES.map(m => ({ value: m, label: m.charAt(0).toUpperCase() + m.slice(1) }))]}
-                    value={filters.module}
-                    onChange={(e) => handleFilterChange('module', e.target.value)}
-                />
-                <Select
-                    options={[{ value: '', label: 'All Severities' }, ...SEVERITIES.map(s => ({ value: s, label: s.toUpperCase() }))]}
-                    value={filters.severity}
-                    onChange={(e) => handleFilterChange('severity', e.target.value)}
-                />
-                <Input
-                    type="date"
-                    value={filters.startDate || ''}
-                    onChange={(e) => handleFilterChange('startDate', e.target.value)}
-                    placeholder="Start Date"
+                <DataTable
+                    columns={columns}
+                    data={logs}
+                    isLoading={loading}
+                    pagination={{
+                        currentPage: pagination.currentPage,
+                        totalPages: pagination.totalPages,
+                        totalItems: pagination.totalItems,
+                        onPageChange: handlePageChange
+                    }}
                 />
             </div>
-
-            <DataTable
-                columns={columns}
-                data={logs}
-                isLoading={loading}
-                pagination={{
-                    currentPage: pagination.currentPage,
-                    totalPages: pagination.totalPages,
-                    totalItems: pagination.totalItems,
-                    onPageChange: handlePageChange
-                }}
-            />
-        </div>
+        </DashboardLayout>
     );
 }
+

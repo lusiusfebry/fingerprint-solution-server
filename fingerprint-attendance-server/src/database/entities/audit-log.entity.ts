@@ -29,6 +29,9 @@ export class AuditLog {
   @Column({ name: 'resource_id', nullable: true })
   resource_id: string;
 
+  @Column({ type: 'text', nullable: true })
+  description: string;
+
   @Column({ type: 'jsonb', nullable: true })
   details: any;
 
@@ -37,6 +40,12 @@ export class AuditLog {
 
   @Column({ name: 'user_agent', nullable: true })
   user_agent: string;
+
+  @Column({ nullable: true })
+  severity: string;
+
+  @Column({ name: 'user_name', nullable: true })
+  user_name: string;
 
   @CreateDateColumn()
   timestamp: Date;
